@@ -22,12 +22,12 @@ const routes = [
     component: SignupView
   },
   {
-    path: 'publications',
+    path: '/publications',
     name: 'allPostsAndUsers',
     component: AllPostsUsersView
   },
   {
-    path: 'publier',
+    path: '/publier',
     name: 'createPost',
     component: CreatePostView
   },
