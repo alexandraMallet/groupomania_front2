@@ -45,6 +45,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
+@import '@/assets/index.scss';
+
 .header-app {
     display: flex;
     justify-content: space-between;
@@ -55,10 +58,10 @@ nav {
 
     a {
         font-weight: bold;
-        color: #4E5166;
+        color: $color-tertiary;
 
         &.router-link-exact-active {
-            color: #FD2D01;
+            color: $color-primary;
         }
     }
 }
@@ -66,14 +69,14 @@ nav {
 .form-contener {
     height: fit-content;
     width: 95%;
-    border: 1px solid #4E5166;
+    border: 1px solid $color-tertiary;
 }
 
 .post-image {
     height: 30px;
     width: 100px;
-    background-color: #FD2D01;
-    color: #4E5166;
+    background-color: $color-primary;
+    color: $color-tertiary;
     border-radius: 50px;
     border: none;
     margin: 20px;

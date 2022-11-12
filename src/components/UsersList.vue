@@ -22,10 +22,12 @@
 </script>
 
 <style scoped lang="scss">
+
+@import '@/assets/index.scss';
 .users {
     width: 95%;
     height: fit-content;
     margin: 10px;
-    border: 1px solid #FD2D01;
+    border: 1px solid $color-primary;
 }
 </style>

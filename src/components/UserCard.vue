@@ -12,10 +12,12 @@
 </script>
 
 <style scoped lang="scss">
+
+@import '@/assets/index.scss';
     .user-card {
         height: fit-content;
         width: 95%;
         margin: 20px;
-        border: 1px solid #FFD7D7;
+        border: 1px solid $color-secondary;
     }
 </style>

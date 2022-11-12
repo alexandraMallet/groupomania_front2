@@ -41,13 +41,15 @@
   </script>
     
   <style scoped lang="scss">
+  @import '@/assets/index.scss';
+
   nav {
     padding: 30px;
     a {
       font-weight: bold;
-      color: #4E5166;
+      color: $color-tertiary;
       &.router-link-exact-active {
-        color: #FD2D01;
+        color: $color-primary;
       }
     }
   }
@@ -57,7 +59,7 @@
     align-items: center;
     height: 400px;
     width: 800px;
-    border: 1px solid #FD2D01;
+    border: 1px solid $color-primary;
   }
   .signup-form :nth-child(2n) {
     margin-bottom: 10px;

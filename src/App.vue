@@ -14,38 +14,45 @@
 
 
 <style lang="scss">
+
+@import '@/assets/index.scss';
+
 #app {
   font-family: Lato, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  // text-align: center;
-  color: #4E5166;
 }
+
 h1 {
-  color: #FD2D01;
+  color: $color-primary;
 }
+
 h2 {
-  color: #FFD7D7;
+  color: $color-secondary;
 }
+
 h3 {
-  color: #4E5166;
+  color: $color-tertiary;
 }
+
 .header-app {
   display: flex;
   justify-content: space-between;
 }
+
 nav {
   padding: 30px;
+
   a {
     font-weight: bold;
-    color: #4E5166;
+    color: $color-tertiary;
+
     &.router-link-exact-active {
-      color: #FD2D01;
+      color: $color-primary;
     }
   }
 }
+
 img {
-    width: max-content;
-    height: 200px;
-  }
+  width: max-content;
+  height: 200px;
+}
 </style>

@@ -19,6 +19,9 @@
 </script>
 
 <style lang="scss">
+
+@import '@/assets/index.scss';
+
 .header-app {
     display: flex;
     justify-content: space-between;
@@ -27,9 +30,9 @@ nav {
     padding: 30px;
     a {
         font-weight: bold;
-        color: #4E5166;
+        color: $color-tertiary;
         &.router-link-exact-active {
-            color: #FD2D01;
+            color: $color-primary;
         }
     }
 }

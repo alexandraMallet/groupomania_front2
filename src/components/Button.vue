@@ -1,8 +1,10 @@
+
 <template>
   <button>{{ buttonText }}</button>
 </template>
 
 <script>
+
 export default {
   name: 'Button',
   props: {
@@ -14,12 +16,15 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+
+@import '@/assets/index.scss';
+
 button {
   height: 30px;
   width: 100px;
-  background-color: #FD2D01;
-  color: #4E5166;
+  background-color: $color-primary;
+  color: $color-tertiary;
   border-radius: 50px;
   border: none;
   }
