@@ -1,7 +1,7 @@
 <template>
     <div class="header-app">
         <nav>
-            <router-link to="/posts">Toutes les publications</router-link> | 
+            <router-link to="/publications">Toutes les publications</router-link> | 
             <router-link to="/publier">Publier</router-link> | 
             <router-link to="/">Se déconnecter</router-link>
         </nav>
@@ -13,7 +13,7 @@
             <UsersList />
         </div>
         <div class="posts-contener">
-            <PostList />
+            <PostsList />
         </div>
     </div>
 
@@ -21,11 +21,11 @@
 
 <script>
 import UsersList from '@/components/UsersList.vue';
-import PostList from '@/components/PostsList.vue';
+import PostsList from '@/components/PostsList.vue';
 export default {
     name: 'AllPostsUsersView',
     components: {
-        PostList,
+        PostsList,
         UsersList,
     }
 }

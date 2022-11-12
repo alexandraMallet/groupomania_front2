@@ -1,7 +1,7 @@
 <template>
     <div class="header-app">
         <nav>
-            <router-link to="/posts">Toutes les publications</router-link> |
+            <router-link to="/publications">Toutes les publications</router-link> |
             <router-link to="/publier">Publier</router-link> |
             <router-link to="/">Se déconnecter</router-link>
         </nav>
