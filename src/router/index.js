@@ -2,7 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import LoginView from '@/views/LoginView.vue'
 import SignupView from '@/views/SignupView.vue'
-import AllPostsUsersView from '@/views/AllPostsUsersView'
+import AllPostsUsersView from '@/views/AllPostsUsersView.vue'
+import CreatePostView from '@/views/CreatePostView.vue'
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: 'publications',
     name: 'allPostsAndUsers',
     component: AllPostsUsersView
+  },
+  {
+    path: 'publier',
+    name: 'createPost',
+    component: CreatePostView
   },
 ]
 
