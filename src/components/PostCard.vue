@@ -1,6 +1,8 @@
 <template>
     <div class="post-card">
-        <p>Ici s'affichera une publication.</p>
+        <p>{{ post.text }}</p>
+        <img :src="post.imageUrl"/>
+        <p>{{ post.createdAt.split("T")[0] }}</p>
     </div>
 
 </template>
@@ -8,6 +10,12 @@
 <script>
     export default {
         name: 'PostCard',
+        props: {
+            post: {
+                type: Object,
+                required: true
+            }
+        },
     }
 </script>
 
@@ -15,9 +23,14 @@
 
 @import '@/assets/index.scss';
     .post-card {
-        height: fit-content;
+        height: 200px;
         width: 95%;
         margin: 20px;
-        border: 1px solid $color-secondary;
+        border: 1px solid $color-primary;
+
+        img {
+            height: 100px;
+            width: 100px;
+        }
     }
 </style>

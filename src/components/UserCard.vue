@@ -1,6 +1,6 @@
 <template>
     <div class="user-card">
-        <p>Ici s'affichera l'avatar et le nom d'un.e utilisateurice.</p>
+        <!-- <p>{{ user.pseudo }}</p> -->
     </div>
 
 </template>
@@ -8,6 +8,12 @@
 <script>
     export default {
         name:'UserCard',
+        // props: {
+        //     user: {
+        //         type: Object,
+        //         required: true
+        //     }
+        // }
     }
 </script>
 

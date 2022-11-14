@@ -1,33 +1,48 @@
 <template>
     <div class="posts">
-      <p>Ici s'afficheront toutes les publications</p>
-      <PostCard></PostCard>
-      <PostCard></PostCard>
-      <PostCard></PostCard>
-      <PostCard></PostCard>
-      <PostCard></PostCard>
-      <!-- <PostCard v-for="post in posts" :key="post.id" :event="post" /> -->
+        <PostCard v-for="post in posts" :key="post.id" :post="post" />
     </div>
-  
-  </template>
-  
-  <script>
-      import PostCard from '@/components/PostCard.vue';
-      export default {
-          name: 'PostList',
-          components: {
-              PostCard,
-          }
-      }
-  </script>
-  
-  <style scoped lang="scss">
 
-  @import '@/assets/index.scss';
-  .posts {
-      width: 95%;
-      height: fit-content;
-      margin: 10px;
-      border: 1px solid $color-primary;
-  }
-  </style>
+</template>
+  
+<script>
+
+import axios from 'axios';
+import PostCard from '@/components/PostCard.vue';
+
+export default {
+    name: 'PostList',
+    components: {
+        PostCard,
+    },
+    data() {
+        return {
+            posts: null
+        }
+    },
+    created() {
+        axios
+            .get("http://localhost:3000/api/post", {
+
+            })
+            .then(response => {
+                console.log(response.data);
+                this.posts = response.data.posts;
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+}
+</script>
+  
+<style scoped lang="scss">
+@import '@/assets/index.scss';
+
+.posts {
+    width: 95%;
+    height: fit-content;
+    margin: 10px;
+    border: 1px solid $color-tertiary;
+}
+</style>

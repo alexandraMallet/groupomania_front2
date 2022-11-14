@@ -6,24 +6,42 @@
         <UserCard></UserCard>
         <UserCard></UserCard>
         <UserCard></UserCard>
-        <!-- <UserCard v-for="user in users" :key="user.id" :event="user" /> -->
+        <!-- <UserCard v-for="user in users" :key="user.id" :user="user" /> -->
     </div>
 
 </template>
 
 <script>
-    import UserCard from '@/components/UserCard.vue';
-    export default {
-        name: 'UsersList',
-        components: {
-            UserCard,
-        }
-    }
+
+import UserCard from '@/components/UserCard.vue';
+// import UsersService from '@/services/UsersService.js';
+
+export default {
+    name: 'UsersList',
+    components: {
+        UserCard,
+    },
+    // data() {
+    //     return {
+    //         users: null
+    //     }
+    // },
+    // created() {
+    //     UsersService.getUsers()
+    //     .get()
+    //     .then(response => {
+    //         this.users = response.data
+    //     })
+    //     // .catch(error => {
+    //     //     console.log(error)
+    //     // })
+    // }
+}
 </script>
 
 <style scoped lang="scss">
-
 @import '@/assets/index.scss';
+
 .users {
     width: 95%;
     height: fit-content;
