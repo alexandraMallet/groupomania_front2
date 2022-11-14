@@ -4,9 +4,11 @@
     </nav>
     <img alt="Vue logo" src="../assets/logo.png">
     <form class="signup-form">
-      <InputEmail/>
-  
-      <InputPassword/>
+      <label for="email">email :</label>
+      <input class="input-email" v-model="email" />
+
+      <label for="password">mot de passe :</label>
+      <input class="input-password" v-model="password" placeholder="(au moins 8 caractères)" />
 
       <InputFile :inputFileText="inputFileText"/>
   
@@ -18,16 +20,13 @@
   </template>
     
   <script>
-  import InputEmail from '@/components/InputEmail.vue';
-  import InputPassword from '@/components/InputPassword.vue';
+  
   import InputFile from '@/components/InputFile.vue';
   import Button from '@/components/Button.vue';
 
   export default {
     name: 'SignupView',
     components: {
-      InputEmail,
-      InputPassword,
       InputFile,
       Button,
     },
