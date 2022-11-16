@@ -10,14 +10,17 @@
     <div class="form-contener">
         <form class="create-post-form" @submit.prevent="submitPost">
 
-            <label for="pseudo">Pseudo :</label>
-            <input id="pseudo" v-model="pseudo" placeholder="votre pseudo" />
-
             <label for="post">Que souhaitez-vous partager aujourd'hui ?</label>
             <textarea id="post" v-model="post" placeholder="votre texte ici"></textarea>
 
-            <InputFile :inputFileText="inputFileText"/>
+            <label class="image" for="image">Choisissez une image :</label>
+            <div class="style-input">
+                <input type="file" id="image" class="image-input" name="image" accept="image/png, image/jpeg"
+                    @change="handleFileUpload($event)" />
+                <Button class="style-button" :buttonText="buttonInputFile" />
+            </div>
 
+            <Button :buttonText="buttonText" />
 
         </form>
 
@@ -29,23 +32,52 @@
 
 <script>
 
-import InputFile from '@/components/InputFile.vue';
+import axios from 'axios';
+import Button from '@/components/Button.vue';
 
 export default {
     name: 'CreatePostView',
     components: {
-        InputFile,
+        Button
     },
     data() {
         return {
-            inputFileText: "Choisissez une image :"
+            buttonText: 'publier',
+            buttonInputFile: 'parcourir',
+            text: '',
+            file: ''
         }
+    },
+    methods: {
+        submitPost() {
+
+            let formData = new FormData();
+            formData.append('text', this.text);
+            formData.append('file', this.file);
+
+            axios.post('http://localhost:3000/api/post',
+                formData,
+                {
+                    headers: {
+                        //authentification : Bearer [store.token]
+                    }
+                }
+            ).then(function () {
+                console.log('publication publiée !');
+            })
+                .catch(function () {
+                    console.log('erreur');
+                });
+        },
+
+        handleFileUpload(event) {
+            this.file = event.target.files[0];
+        },
     }
 }
 </script>
 
 <style scoped lang="scss">
-
 @import '@/assets/index.scss';
 
 .header-app {
@@ -72,13 +104,22 @@ nav {
     border: 1px solid $color-tertiary;
 }
 
-.post-image {
-    height: 30px;
-    width: 100px;
-    background-color: $color-primary;
-    color: $color-tertiary;
-    border-radius: 50px;
-    border: none;
-    margin: 20px;
+.style-input {
+    position: relative;
+    height: 50px;
+    width: 700px;
+
+    input {
+        position: relative;
+        z-index: 2;
+        opacity: 0;
+    }
+
+    .style-button {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        z-index: 1;
+    }
 }
 </style>

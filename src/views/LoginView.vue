@@ -37,6 +37,8 @@ export default {
         'password': this.password
       })
         .then(function (response) {
+          //stocker infos dans localStorage (isAdmin, pseudo, token) ou store
+          //redirection
           console.log(response);
         })
         .catch(function (error) {
