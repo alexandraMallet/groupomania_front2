@@ -21,27 +21,23 @@ export default {
             token: null
         }
     },
-    methods: {
-        getToken() {
-            const user = localStorage.getItem(user.token, JSON.parse(user));
-            this.token = user.token;
-        }
-    },
+    
     created() {
+        const user = JSON.parse(localStorage.user);
+        
         axios
             .get("http://localhost:3000/api/post", {
                 headers: {
-                    auth: this.token
-    }
-
-})
+                    'Authorization': `Bearer ${user.token}`
+                }
+            })
             .then(response => {
-    console.log(response.data);
-    this.posts = response.data.posts;
-})
-    .catch(error => {
-        console.log(error);
-    });
+                console.log(response.data);
+                this.posts = response.data.posts;
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }
 }
 </script>
