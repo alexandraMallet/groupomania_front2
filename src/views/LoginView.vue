@@ -20,6 +20,7 @@
 import axios from 'axios';
 
 import Button from '@/components/Button.vue';
+// import { VueElement } from 'vue';
 export default {
   name: 'LoginView',
   components: {
@@ -37,10 +38,10 @@ export default {
         'password': this.password
       })
         .then(function (response) {
-          //stocker infos dans localStorage (isAdmin, pseudo, token) ou store
-          //redirection
-          console.log(response);
+          const user = response.data;
+          localStorage.setItem('user', JSON.stringify(user));
         })
+        .then(() => { this.$router.push('/publications') })
         .catch(function (error) {
           console.log(error);
         });
