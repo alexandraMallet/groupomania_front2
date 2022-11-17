@@ -15,6 +15,11 @@
 <script>
   export default {
       name: 'HomeView',
+      created(){
+        if(localStorage){
+          localStorage.clear();
+        }
+      }
   };
 </script>
 
