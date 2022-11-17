@@ -20,7 +20,7 @@
 import axios from 'axios';
 
 import Button from '@/components/Button.vue';
-// import { VueElement } from 'vue';
+
 export default {
   name: 'LoginView',
   components: {

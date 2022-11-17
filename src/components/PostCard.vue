@@ -1,36 +1,69 @@
 <template>
     <div class="post-card">
         <p>{{ post.text }}</p>
-        <img :src="post.imageUrl"/>
+        <img :src="post.imageUrl" />
         <p>{{ post.createdAt.split("T")[0] }} by {{ post.userPseudo }}</p>
+    </div>
+    <div class="like-dislike">
+        <button @submit="likeDislike"><img src="@/assets/like-button-black-icon.png" /></button>
+        <p class="likes">{{ post.likes }}</p>
+        <button @submit="likeDislike"><img src="@/assets/dislike-button-black-icon.png" /></button>
+        <p class="likes">{{ post.dislikes }}</p>
     </div>
 
 </template>
 
 <script>
-    export default {
-        name: 'PostCard',
-        props: {
-            post: {
-                type: Object,
-                required: true
-            }
-        },
+export default {
+    name: 'PostCard',
+    props: {
+        post: {
+            type: Object,
+            required: true
+        }
+    },
+    methods: {
+        likeDislike() {
+
+        }
     }
+}
 </script>
 
 <style scoped lang="scss">
-
 @import '@/assets/index.scss';
-    .post-card {
-        height: 200px;
-        width: 95%;
-        margin: 20px;
-        border: 1px solid $color-primary;
+
+.post-card {
+    height: 200px;
+    width: 95%;
+    margin: 20px;
+    border: 1px solid $color-primary;
+
+    img {
+        height: 100px;
+        width: 100px;
+    }
+}
+
+.like-dislike {
+    display: flex;
+
+    button {
+        position: relative;
+        height: 25px;
+        width: 25px;
+        border-radius: 50px;
+        box-shadow: none;
 
         img {
-            height: 100px;
-            width: 100px;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            height: 25px;
+            width: 25px;
         }
     }
+
+
+}
 </style>
