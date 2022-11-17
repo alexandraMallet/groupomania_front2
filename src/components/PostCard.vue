@@ -2,7 +2,7 @@
     <div class="post-card">
         <p>{{ post.text }}</p>
         <img :src="post.imageUrl"/>
-        <p>{{ post.createdAt.split("T")[0] }}</p>
+        <p>{{ post.createdAt.split("T")[0] }} by {{ post.userPseudo }}</p>
     </div>
 
 </template>
