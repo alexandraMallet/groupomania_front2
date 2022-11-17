@@ -10,18 +10,14 @@
     <div class="form-contener">
         <form class="create-post-form" @submit.prevent="submitPost">
 
-            <label for="post">Que souhaitez-vous partager aujourd'hui ?</label>
-            <textarea id="post" v-model="post" placeholder="votre texte ici"></textarea>
+            <label for="text">Que souhaitez-vous partager aujourd'hui ?</label>
+            <textarea id="text" v-model="text" placeholder="votre texte ici"></textarea>
 
-            <label class="image" for="image">Choisissez une image :</label>
-            <div class="style-input">
-                <input type="file" id="image" class="image-input" name="image" accept="image/png, image/jpeg"
-                    @change="handleFileUpload($event)" />
-                <Button class="style-button" :buttonText="buttonInputFile" />
-            </div>
+            <label class="image style-button" for="image">Choisir une image</label>
+            <input type="file" id="image" class="image-input" name="image" accept="image/png, image/jpeg"
+                @change="handleFileUpload($event)" />
 
             <Button :buttonText="buttonText" />
-
         </form>
 
     </div>
@@ -43,23 +39,28 @@ export default {
     data() {
         return {
             buttonText: 'publier',
-            buttonInputFile: 'parcourir',
             text: '',
+            userPseudo: '',
             file: ''
         }
     },
     methods: {
         submitPost() {
 
+            const user = JSON.parse(localStorage.user);
+
             let formData = new FormData();
+            formData.append('userPseudo', user.pseudo);
             formData.append('text', this.text);
-            formData.append('file', this.file);
+            formData.append('image', this.file);
+
+            console.log(formData);
 
             axios.post('http://localhost:3000/api/post',
                 formData,
                 {
                     headers: {
-                        //authentification : Bearer [store.token]
+                        'Authorization': `Bearer ${user.token}`
                     }
                 }
             ).then(function () {
@@ -72,6 +73,7 @@ export default {
 
         handleFileUpload(event) {
             this.file = event.target.files[0];
+            console.log(this.file);
         },
     }
 }
@@ -104,22 +106,19 @@ nav {
     border: 1px solid $color-tertiary;
 }
 
-.style-input {
-    position: relative;
-    height: 50px;
-    width: 700px;
+.image-input {
+    display: none;
+}
 
-    input {
-        position: relative;
-        z-index: 2;
-        opacity: 0;
-    }
-
-    .style-button {
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        z-index: 1;
-    }
+.style-button {
+    display: block;
+    height: fit-content;
+    width: fit-content;
+    padding: 10px 20px 10px 20px;
+    font-size: 12px;
+    background-color: $color-primary;
+    color: $color-tertiary;
+    border-radius: 50px;
+    border: none;
 }
 </style>

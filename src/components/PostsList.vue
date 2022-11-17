@@ -18,7 +18,6 @@ export default {
     data() {
         return {
             posts: null,
-            token: null
         }
     },
     
