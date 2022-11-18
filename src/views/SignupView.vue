@@ -5,13 +5,13 @@
   <img alt="Vue logo" src="../assets/logo.png">
   <form class="signup-form" @submit.prevent="signup">
     <label for="email">email :</label>
-    <input class="input-email" v-model="email" />
+    <input class="input-email" id="email" v-model="email" />
 
     <label for="password">Choisissez un mot de passe (au moins 8 caractères, sans espace) :</label>
-    <input class="input-password" v-model="password" />
+    <input class="input-password" id= "password" v-model="password" />
 
     <label for="pseudo">Choisissez un pseudo :</label>
-    <input class="pseudo" v-model="pseudo" />
+    <input class="pseudo" id="pseudo" v-model="pseudo" />
 
     <label class="image style-button" for="image">Choisir une photo de profil</label>
     <input type="file" id="image" class="image-input" name="image" accept="image/png, image/jpeg"
