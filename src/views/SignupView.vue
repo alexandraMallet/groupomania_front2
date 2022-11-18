@@ -8,17 +8,15 @@
     <input class="input-email" v-model="email" />
 
     <label for="password">Choisissez un mot de passe (au moins 8 caractères, sans espace) :</label>
-    <input class="input-password" v-model="password"/>
+    <input class="input-password" v-model="password" />
 
     <label for="pseudo">Choisissez un pseudo :</label>
-    <input class="pseudo" v-model="pseudo"/>
+    <input class="pseudo" v-model="pseudo" />
 
-    <label class="image" for="image">Choisissez une photo de profil :</label>
-    <div class="style-input">
-      <input type="file" class="image-input" name="image" accept="image/png, image/jpeg">
-      <Button class="style-button" :buttonText="buttonInputFile" />
-    </div>
-
+    <label class="image style-button" for="image">Choisir une photo de profil</label>
+    <input type="file" id="image" class="image-input" name="image" accept="image/png, image/jpeg"
+      @change="handleFileUpload($event)" />
+      
     <Button :buttonText="buttonText" />
   </form>
 </template>
@@ -26,7 +24,6 @@
 <script>
 
 import axios from 'axios'
-
 import Button from '@/components/Button.vue';
 
 export default {
@@ -37,24 +34,40 @@ export default {
   data() {
     return {
       buttonText: "S'inscrire",
-      buttonInputFile: "Parcourir"
-    };
+      email: '',
+      pseudo: '',
+      password: '',
+      file: ''
+    }
   },
   methods: {
     signup() {
-      axios.post('http://localhost:3000/api/auth/signup', {
-        'email': this.email,
-        'password': this.password,
-        'pseudo': this.pseudo,
-        'file': this.file
-      })
+
+      let formData = new FormData();
+      formData.append('email', this.email);
+      formData.append('pseudo', this.pseudo);
+      formData.append('password', this.password);
+      formData.append('image', this.file);
+      console.log(formData);
+
+
+      axios.post('http://localhost:3000/api/auth/signup', 
+        formData
+      )
         .then(function (response) {
-          console.log(response);
+          console.log(formData);
+          const user = response.data;
+          localStorage.setItem('user', JSON.stringify(user));
         })
+        .then(() => { this.$router.push('/publications') })
         .catch(function (error) {
           console.log(error);
         });
-    }
+    },
+    handleFileUpload(event) {
+      this.file = event.target.files[0];
+      console.log(this.file);
+    },
   }
 };
 </script>
@@ -88,22 +101,19 @@ nav {
   margin-bottom: 10px;
 }
 
-.style-input {
-    position: relative;
-    height: 50px;
-    width: 700px;
+.image-input {
+  display: none;
+}
 
-    input {
-        position: relative;
-        z-index: 2;
-        opacity: 0;
-    }
-
-    .style-button {
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        z-index: 1;
-    }
+.style-button {
+  display: block;
+  height: fit-content;
+  width: fit-content;
+  padding: 10px 20px 10px 20px;
+  font-size: 12px;
+  background-color: $color-primary;
+  color: $color-tertiary;
+  border-radius: 50px;
+  border: none;
 }
 </style>
