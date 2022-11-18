@@ -5,15 +5,18 @@
         <p>{{ post.createdAt.split("T")[0] }} by {{ post.userPseudo }}</p>
     </div>
     <div class="like-dislike">
-        <button @submit="likeDislike"><img src="@/assets/like-button-black-icon.png" /></button>
+        <button @submit="addOrRemoveLike"><img src="@/assets/like-button-black-icon.png" /></button>
         <p class="likes">{{ post.likes }}</p>
-        <button @submit="likeDislike"><img src="@/assets/dislike-button-black-icon.png" /></button>
+        <button @submit="addOrRemoveDislike"><img src="@/assets/dislike-button-black-icon.png" /></button>
         <p class="likes">{{ post.dislikes }}</p>
     </div>
 
 </template>
 
 <script>
+
+import axios from 'axios'
+
 export default {
     name: 'PostCard',
     props: {
@@ -23,8 +26,17 @@ export default {
         }
     },
     methods: {
-        likeDislike() {
+        addOrRemoveLike() {
+            const user = JSON.parse(localStorage.user);
 
+            axios.post('http://localhost:3000/api/post/:id/like', {
+                'like': 1,
+                headers: {
+                        'Authorization': `Bearer ${user.token}`
+                    }
+            })
+            .then(() => console.log("publication likée"))
+            .catch((error) => console.log(error));
         }
     }
 }
