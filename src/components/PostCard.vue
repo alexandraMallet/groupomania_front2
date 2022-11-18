@@ -1,15 +1,18 @@
 <template>
-    <div class="post-card">
-        <p>{{ post.text }}</p>
-        <img :src="post.imageUrl" />
-        <p>{{ post.createdAt.split("T")[0] }} by {{ post.userPseudo }}</p>
-    </div>
-    <div class="like-dislike">
-        <button @submit="addOrRemoveLike"><img src="@/assets/like-button-black-icon.png" /></button>
-        <p class="likes">{{ post.likes }}</p>
-        <button @submit="addOrRemoveDislike"><img src="@/assets/dislike-button-black-icon.png" /></button>
-        <p class="likes">{{ post.dislikes }}</p>
-    </div>
+
+    <router-link class="post-link" :to="{ name: 'OnePostView', params: { id: post._id } }">
+        <div class="post-card">
+            <p>{{ post.text }}</p>
+            <img :src="post.imageUrl" />
+            <p>{{ post.createdAt.split("T")[0] }} by {{ post.userPseudo }}</p>
+        </div>
+        <div class="like-dislike">
+            <button @submit="addOrRemoveLike"><img src="@/assets/like-button-black-icon.png" /></button>
+            <p class="likes">{{ post.likes }}</p>
+            <button @submit="addOrRemoveDislike"><img src="@/assets/dislike-button-black-icon.png" /></button>
+            <p class="likes">{{ post.dislikes }}</p>
+        </div>
+    </router-link>
 
 </template>
 
@@ -32,11 +35,11 @@ export default {
             axios.post('http://localhost:3000/api/post/:id/like', {
                 'like': 1,
                 headers: {
-                        'Authorization': `Bearer ${user.token}`
-                    }
+                    'Authorization': `Bearer ${user.token}`
+                }
             })
-            .then(() => console.log("publication likée"))
-            .catch((error) => console.log(error));
+                .then(() => console.log("publication likée"))
+                .catch((error) => console.log(error));
         }
     }
 }

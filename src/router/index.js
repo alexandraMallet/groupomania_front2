@@ -4,6 +4,7 @@ import LoginView from '@/views/LoginView.vue'
 import SignupView from '@/views/SignupView.vue'
 import AllPostsUsersView from '@/views/AllPostsUsersView.vue'
 import CreatePostView from '@/views/CreatePostView.vue'
+import OnePostView from '@/views/OnePostView.vue'
 
 const routes = [
   {
@@ -23,7 +24,7 @@ const routes = [
   },
   {
     path: '/publications',
-    name: 'allPostsAndUsers',
+    name: 'AllPostsAndUsers',
     component: AllPostsUsersView
   },
   {
@@ -31,6 +32,11 @@ const routes = [
     name: 'createPost',
     component: CreatePostView
   },
+  {
+    path: '/publications/:id',
+    name: 'OnePostView',
+    component: OnePostView
+  }
 ]
 
 const router = createRouter({
