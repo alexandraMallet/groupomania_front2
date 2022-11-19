@@ -1,9 +1,21 @@
 <template>
 
+    <div class="header-app">
+        <nav>
+            <router-link to="/publications">Toutes les publications</router-link> |
+            <router-link to="/publier">Publier</router-link> |
+            <router-link to="/">Se déconnecter</router-link>
+        </nav>
+        <img alt="Vue logo" src="../assets/logo.png">
+    </div>
+
     <div v-if="$data.post" class="post-card">
         <p>{{ post.text }}</p>
         <img :src="post.imageUrl" />
-        <p>{{ post.createdAt.split("T")[0] }} by {{ post.userPseudo }}</p>
+        <div class="post-infos">
+            <p>{{ post.createdAt.split("T")[0] }}</p>
+            <p>{{ post.userPseudo }}</p>
+        </div>
     </div>
     <!-- <div class="like-dislike">
             <button @submit="addOrRemoveLike"><img src="@/assets/like-button-black-icon.png" /></button>
@@ -12,17 +24,30 @@
             <p class="likes">{{ post.dislikes }}</p>
         </div> -->
 
+    <div class="modify">
+        <Button type="submit" :buttonText="buttonTextModifier" />
+        <Button type="submit" :buttonText="buttonTextSupprimer" />
+    </div>
+    <!-- v-if="(post.userId === req.auth.userId)" -->
+
+
 </template>
 
 <script>
 
 import axios from 'axios'
+import Button from '@/components/Button.vue';
 
 export default {
     name: 'OnePostView',
+    components: {
+        Button,
+    },
     data() {
         return {
             post: null,
+            buttonTextModifier: 'modifier',
+            buttonTextSupprimer: 'supprimer'
         }
     },
     created() {
@@ -71,6 +96,12 @@ export default {
     img {
         height: 100px;
         width: 100px;
+    }
+
+    .post-infos {
+        display: flex;
+        justify-content: space-between;
+        margin: 10px;
     }
 }
 

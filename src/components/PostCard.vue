@@ -4,7 +4,10 @@
         <div class="post-card">
             <p>{{ post.text }}</p>
             <img :src="post.imageUrl" />
-            <p>{{ post.createdAt.split("T")[0] }} by {{ post.userPseudo }}</p>
+            <div class="post-infos">
+                <p>{{ post.createdAt.split("T")[0] }}</p>
+                <p>{{ post.userPseudo }}</p>
+            </div>
         </div>
         <div class="like-dislike">
             <button @submit="addOrRemoveLike"><img src="@/assets/like-button-black-icon.png" /></button>
@@ -53,11 +56,24 @@ export default {
     width: 95%;
     margin: 20px;
     border: 1px solid $color-primary;
+    color: $color-tertiary;
+    text-decoration: none;
 
     img {
         height: 100px;
         width: 100px;
     }
+
+    .post-infos {
+        display: flex;
+        justify-content: space-between;
+        margin: 10px;
+    }
+}
+
+.post-card:hover {
+    transform: scale(1.01);
+    box-shadow: 0 3px 12px 0 $color-secondary;
 }
 
 .like-dislike {
