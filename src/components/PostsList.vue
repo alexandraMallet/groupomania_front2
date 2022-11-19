@@ -18,16 +18,17 @@ export default {
     data() {
         return {
             posts: null,
+            user: null
         }
     },
     
     created() {
-        const user = JSON.parse(localStorage.user);
+        this.user = JSON.parse(localStorage.user);
         
         axios
             .get("http://localhost:3000/api/post", {
                 headers: {
-                    'Authorization': `Bearer ${user.token}`
+                    'Authorization': `Bearer ${this.user.token}`
                 }
             })
             .then(response => {

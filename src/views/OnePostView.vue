@@ -24,12 +24,12 @@
             <p class="likes">{{ post.dislikes }}</p>
         </div> -->
 
-    <div class="modify">
+    <div  class="modify">
         <Button type="submit" :buttonText="buttonTextModifier" />
         <Button type="submit" :buttonText="buttonTextSupprimer" />
     </div>
-    <!-- v-if="(post.userId === req.auth.userId)" -->
 
+    <!-- v-if="post.userId === req.auth.userId" -->
 
 </template>
 
@@ -47,11 +47,12 @@ export default {
         return {
             post: null,
             buttonTextModifier: 'modifier',
-            buttonTextSupprimer: 'supprimer'
+            buttonTextSupprimer: 'supprimer',
+            user:null
         }
     },
     created() {
-        const user = JSON.parse(localStorage.user);
+        this.user = JSON.parse(localStorage.user);
         const postId = this.$route.params.id;
 
         axios.get('http://localhost:3000/api/post/' + postId, {
