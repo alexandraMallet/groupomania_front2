@@ -21,12 +21,13 @@ export default {
 @import '@/assets/index.scss';
 
 button {
-  height: 30px;
-  width: 100px;
+  height: fit-content;
+  width: fit-content;
   background-color: $color-secondary;
   color: $color-tertiary;
   border-radius: 50px;
   border: 1px solid $color-primary;
+  padding: 10px;
   margin: 10px;
   font-family: 'Lato';
   font-weight: 700;

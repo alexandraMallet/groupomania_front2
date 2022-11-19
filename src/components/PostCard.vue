@@ -7,14 +7,16 @@
             <div class="post-infos">
                 <p>{{ post.createdAt.split("T")[0] }}</p>
                 <p>{{ post.userPseudo }}</p>
+                <p v-if="post.modifiedBy"> modifiée par {{ post.modifiedBy }}</p>
+                <p v-if="post.modifiedAt">le {{ post.modifiedAt.split("T")[0] }}</p>
             </div>
         </div>
-        <div class="like-dislike">
+        <!-- <div class="like-dislike">
             <button @submit="addOrRemoveLike"><img src="@/assets/like-button-black-icon.png" /></button>
             <p class="likes">{{ post.likes }}</p>
             <button @submit="addOrRemoveDislike"><img src="@/assets/dislike-button-black-icon.png" /></button>
             <p class="likes">{{ post.dislikes }}</p>
-        </div>
+        </div> -->
     </router-link>
 
 </template>
@@ -31,20 +33,20 @@ export default {
             required: true
         }
     },
-    methods: {
-        addOrRemoveLike() {
-            const user = JSON.parse(localStorage.user);
+    // methods: {
+    //     addOrRemoveLike() {
+    //         const user = JSON.parse(localStorage.user);
 
-            axios.post('http://localhost:3000/api/post/:id/like', {
-                'like': 1,
-                headers: {
-                    'Authorization': `Bearer ${user.token}`
-                }
-            })
-                .then(() => console.log("publication likée"))
-                .catch((error) => console.log(error));
-        }
-    }
+    //         axios.post('http://localhost:3000/api/post/:id/like', {
+    //             'like': 1,
+    //             headers: {
+    //                 'Authorization': `Bearer ${user.token}`
+    //             }
+    //         })
+    //             .then(() => console.log("publication likée"))
+    //             .catch((error) => console.log(error));
+    //     }
+    // }
 }
 </script>
 
@@ -69,6 +71,7 @@ export default {
         justify-content: space-between;
         margin: 10px;
     }
+
 }
 
 .post-card:hover {

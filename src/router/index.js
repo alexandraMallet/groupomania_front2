@@ -5,6 +5,7 @@ import SignupView from '@/views/SignupView.vue'
 import AllPostsUsersView from '@/views/AllPostsUsersView.vue'
 import CreatePostView from '@/views/CreatePostView.vue'
 import OnePostView from '@/views/OnePostView.vue'
+import ModifyPostView from '@/views/ModifyPostView.vue'
 
 const routes = [
   {
@@ -36,6 +37,11 @@ const routes = [
     path: '/publications/:id',
     name: 'OnePostView',
     component: OnePostView
+  },
+  {
+    path: '/modifier/:id',
+    name: 'ModifyPostView',
+    component: ModifyPostView
   }
 ]
 

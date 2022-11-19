@@ -15,6 +15,9 @@
         <div class="post-infos">
             <p>{{ post.createdAt.split("T")[0] }}</p>
             <p>{{ post.userPseudo }}</p>
+            <p v-if="post.modifiedBy"> modifiée par {{ post.modifiedBy }}</p>
+            <p v-if="post.modifiedAt">le {{ post.modifiedAt.split("T")[0] }}</p>
+
         </div>
     </div>
     <!-- <div class="like-dislike">
@@ -24,8 +27,8 @@
             <p class="likes">{{ post.dislikes }}</p>
         </div> -->
 
-    <div  class="modify">
-        <Button type="submit" :buttonText="buttonTextModifier" />
+    <div v-if="rightToChange" class="modify">
+        <Button type="submit" :buttonText="buttonTextModifier" @click="linkToModify"/>
         <Button type="submit" :buttonText="buttonTextSupprimer" />
     </div>
 
@@ -48,26 +51,36 @@ export default {
             post: null,
             buttonTextModifier: 'modifier',
             buttonTextSupprimer: 'supprimer',
-            user:null
+            user:null,
+            rightToChange:false,
+            postId: null,
         }
     },
     created() {
         this.user = JSON.parse(localStorage.user);
-        const postId = this.$route.params.id;
+        this.postId = this.$route.params.id;
 
-        axios.get('http://localhost:3000/api/post/' + postId, {
+        axios.get('http://localhost:3000/api/post/' + this.postId, {
             headers: {
-                'Authorization': `Bearer ${user.token}`
+                'Authorization': `Bearer ${this.user.token}`
             }
         })
             .then(response => {
                 console.log(response.data);
                 this.post = response.data;
             })
+            .then(() => {
+                if((this.post.userId === this.user.userId) || this.user.isAdmin) {
+                    this.rightToChange = true;
+                }
+            })
             .catch(error => console.log(error));
 
     },
     methods: {
+        linkToModify() {
+            this.$router.push('/modifier/' + this.postId);
+        }
 
         // addOrRemoveLike() {
         //     const user = JSON.parse(localStorage.user);
