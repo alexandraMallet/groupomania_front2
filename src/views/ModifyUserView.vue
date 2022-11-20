@@ -8,21 +8,27 @@
         <img alt="Vue logo" src="../assets/logo.png">
     </div>
     <div class="form-contener">
-        <form v-if="$data.post" class="create-post-form" @submit.prevent="modifyPost">
+        <form v-if="$data.user" class="create-post-form" @submit.prevent="modifyUser">
 
-            <label for="text">Votre texte : </label>
-            <textarea id="text" v-model="text"></textarea>
+            <label for="email">email :</label>
+            <input class="input-email" id="email" v-model="email" />
 
-            <img :src="imageUrl" />
+            <label for="password">Mot de passe (au moins 8 caractères, sans espace) :</label>
+            <input class="input-password" id="password" v-model="password" />
 
-            <label class="image style-button" for="image">Modifier l'image</label>
+            <label for="pseudo">Pseudo :</label>
+            <input class="pseudo" id="pseudo" v-model="pseudo" />
+
+            <img :src="avatarUrl" />
+
+            <label class="image style-button" for="image">Modifier votre photo de profil</label>
             <input type="file" id="image" class="image-input" name="image" accept="image/png, image/jpeg"
                 @change="handleFileUpload($event)" />
 
-            <Button v-if="rightToChange" :buttonText="buttonText" />
+            <Button v-if="rightToModify" :buttonText="buttonTextSave" />
         </form>
 
-        <Button v-if="!rightToChange" :buttonText="buttonTextUnauthorized" @click="redirection" />
+        <Button v-if="!rightToModify" :buttonText="buttonTextUnauthorized" @click="redirection" />
     </div>
 
 
@@ -35,44 +41,48 @@ import axios from 'axios';
 import Button from '@/components/Button.vue';
 
 export default {
-    name: 'ModifyPostView',
+    name: 'ModifyUserView',
     components: {
         Button
     },
     data() {
         return {
-            buttonText: 'enregistrer les modifications',
+            buttonTextSave: 'enregistrer les modifications',
             buttonTextUnauthorized: 'vous ne pouvez pas modifier ce compte',
-            posts: null,
-            text: '',
-            userPseudo: '',
+            pseudo: '',
+            email:'',
             file: '',
+            password:'',
             user: '',
-            postId: '',
-            imageUrl: '',
-            rightToChange: false
+            userConnected: '',
+            userId: '',
+            avatarUrl: '',
+            rightToModify: false
         }
     },
     created() {
-        this.user = JSON.parse(localStorage.user);
+        this.userConnected = JSON.parse(localStorage.user);
+        this.userId = this.$route.params.id;
 
-        axios.get('http://localhost:3000/api/post/' + this.postId, {
+
+        axios.get('http://localhost:3000/api/auth/' + this.userId, {
             headers: {
-                'Authorization': `Bearer ${this.user.token}`
+                'Authorization': `Bearer ${this.userConnected.token}`
             }
         })
             .then(response => {
                 console.log(response.data);
-                this.post = response.data;
+                this.user = response.data;
             })
             .then(() => {
-                if ((this.post.userId === this.user.userId) || this.user.isAdmin) {
-                    this.rightToChange = true;
+                if ((this.userId === this.userConnected.userId)) {
+                    this.rightToModify = true;
                 }
             })
             .then(() => {
-                this.text = this.post.text;
-                this.imageUrl = this.post.imageUrl;
+                this.pseudo = this.user.pseudo;
+                this.avatarUrl = this.user.avatarUrl;
+                this.email = this.user.email;
             })
             .catch(error => console.log(error));
     },
@@ -81,25 +91,26 @@ export default {
             this.$router.push('/publications');
 
         },
-        modifyPost() {
+        modifyUser() {
 
             let formData = new FormData();
 
-            formData.append('text', this.text);
-            formData.append('modifiedBy', this.user.pseudo);
-            if (this.file) { formData.append('image', this.file) }
+            formData.append('pseudo', this.pseudo);
+            formData.append('email', this.user.pseudo);
+            formData.append('image', this.file);
+            if(this.password) {formData.append('password', this.password)};
 
             console.log(formData);
 
-            axios.put('http://localhost:3000/api/post/' + this.postId,
+            axios.put('http://localhost:3000/api/auth/' + this.userId,
                 formData,
                 {
                     headers: {
-                        'Authorization': `Bearer ${this.user.token}`
+                        'Authorization': `Bearer ${this.userConnected.token}`
                     }
                 }
             )
-                .then(() => { this.$router.push('/publications/' + this.postId) })
+                .then(() => { this.$router.push('/utilisateurice/' + this.userId) })
                 .catch(function () {
                     console.log('erreur');
                 });
