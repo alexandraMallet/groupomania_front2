@@ -29,7 +29,7 @@
 
     <div v-if="rightToChange" class="modify">
         <Button type="submit" :buttonText="buttonTextModifier" @click="linkToModify"/>
-        <Button type="submit" :buttonText="buttonTextSupprimer" />
+        <Button type="submit" :buttonText="buttonTextSupprimer" @click="deletePost"/>
     </div>
 
     <!-- v-if="post.userId === req.auth.userId" -->
@@ -80,7 +80,21 @@ export default {
     methods: {
         linkToModify() {
             this.$router.push('/modifier/' + this.postId);
+        },
+        deletePost() {
+            axios.delete('http://localhost:3000/api/post/' + this.postId, {
+            headers: {
+                'Authorization': `Bearer ${this.user.token}`
+            }
+        })
+            .then(() => { 
+                this.$router.push('/publications/');
+                console.log(`publication de ${this.post.userPseudo} du ${this.post.createdAt.split("T")[0]} supprimée par ${this.user.pseudo}`)
+                     })
+            .catch(error => console.log(error));
+
         }
+        
 
         // addOrRemoveLike() {
         //     const user = JSON.parse(localStorage.user);
