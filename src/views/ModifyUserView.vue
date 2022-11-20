@@ -42,8 +42,8 @@ export default {
     data() {
         return {
             buttonText: 'enregistrer les modifications',
-            buttonTextUnauthorized: 'vous ne pouvez pas modifier cette publication',
-            post: '',
+            buttonTextUnauthorized: 'vous ne pouvez pas modifier ce compte',
+            posts: null,
             text: '',
             userPseudo: '',
             file: '',
@@ -55,7 +55,6 @@ export default {
     },
     created() {
         this.user = JSON.parse(localStorage.user);
-        this.postId = this.$route.params.id;
 
         axios.get('http://localhost:3000/api/post/' + this.postId, {
             headers: {

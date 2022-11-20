@@ -7,6 +7,12 @@
             <p>{{ user.pseudo }}</p>
             <img :src="user.avatarUrl" />
             <p>{{ user.email }}</p>
+            <div v-if="posts.length" class="user-posts">
+                <PostCard v-for="post in posts" :key="post.id" :post="post" />
+            </div>
+            <div v-else>
+                <p>Aucune publication disponible</p>
+            </div>
         </div>
         <Button v-else :buttonText="buttonTextUnauthorized" @click="redirection" />
 
@@ -22,11 +28,13 @@
 import axios from 'axios'
 import Button from '@/components/Button.vue';
 import HeaderNav from '@/components/HeaderNav.vue';
+import PostCard from '@/components/PostCard.vue';
 
 export default {
     name: 'OneUserView',
     components: {
         Button,
+        PostCard,
         HeaderNav,
     },
     data() {
@@ -39,7 +47,8 @@ export default {
             userConnected: null,
             rightToModify: false,
             rightToDelete: false,
-            userId: null
+            userId: null,
+            posts: []
         }
     },
     created() {
@@ -55,6 +64,7 @@ export default {
             .then(response => {
                 console.log(response.data);
                 this.user = response.data;
+                this.posts = this.user.posts;
             })
             .then(() => {
                 if (this.userId === this.userConnected.userId) {
