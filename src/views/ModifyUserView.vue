@@ -7,7 +7,7 @@
         </nav>
         <img alt="Vue logo" src="../assets/logo.png">
     </div>
-    <div class="form-contener">
+    <div v-if="rightToModify" class="form-contener">
         <form v-if="$data.user" class="create-post-form" @submit.prevent="modifyUser">
 
             <label for="email">email :</label>
@@ -27,9 +27,18 @@
 
             <Button v-if="rightToModify" :buttonText="buttonTextSave" />
         </form>
-
-        <Button v-if="!rightToModify" :buttonText="buttonTextUnauthorized" @click="redirection" />
     </div>
+
+    <div v-else>
+
+        <UserCard v-if="$data.user" :key="user.id" :user="user"/>
+        <p>Vous ne pouvez pas modifier ce compte</p>
+        <Button :buttonText="buttonTextUnauthorized" @click="redirection" />
+
+
+    </div>
+
+
 
 
 
@@ -39,16 +48,18 @@
 
 import axios from 'axios';
 import Button from '@/components/Button.vue';
+import UserCard from '@/components/UserCard.vue';
 
 export default {
     name: 'ModifyUserView',
     components: {
-        Button
+        Button,
+        UserCard
     },
     data() {
         return {
             buttonTextSave: 'enregistrer les modifications',
-            buttonTextUnauthorized: 'vous ne pouvez pas modifier ce compte',
+            buttonTextUnauthorized: 'revenir aux publications',
             pseudo: '',
             email:'',
             file: '',

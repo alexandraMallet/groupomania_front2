@@ -14,7 +14,11 @@
                 <p>Aucune publication disponible</p>
             </div>
         </div>
-        <Button v-else :buttonText="buttonTextUnauthorized" @click="redirection" />
+        <div v-else>
+            <p>Ce compte n'est pas le vôtre : informations non-accessibles</p>
+            <Button :buttonText="buttonTextUnauthorized" @click="redirection" />
+
+        </div>
 
     </div>
 
@@ -41,7 +45,7 @@ export default {
         return {
             buttonTextModifier: 'modifier',
             buttonTextSupprimer: 'supprimer',
-            buttonTextUnauthorized: 'contenu non-autorisé, me rediriger vers les publications',
+            buttonTextUnauthorized: 'revenir aux publications',
             authorized: false,
             user: null,
             userConnected: null,

@@ -3,6 +3,7 @@
     <HeaderNav/>
 
     <div v-if="authorizedUser" class="my-account">
+        <p>mon compte : </p>
         <UserCard v-if="$data.user" :key="user.id" :user="user"/>
     </div>
 
@@ -86,16 +87,14 @@ export default {
     justify-content: space-between;
 }
 
-nav {
-    padding: 30px;
+.my-account {
+   display: flex;
+   justify-content: right;
 
-    a {
-        font-weight: bold;
-        color: #4E5166;
-
-        &.router-link-exact-active {
-            color: #FD2D01;
-        }
-    }
+   :nth-child(2) {
+     margin-right: 20px;
+     margin-left: 10px;
+   }
 }
+
 </style>
