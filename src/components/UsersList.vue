@@ -1,41 +1,45 @@
 <template>
     <div class="users">
-        <p>Ici s'affichera la liste des utilisateurices</p>
-        <UserCard></UserCard>
-        <UserCard></UserCard>
-        <UserCard></UserCard>
-        <UserCard></UserCard>
-        <UserCard></UserCard>
-        <!-- <UserCard v-for="user in users" :key="user.id" :user="user" /> -->
+      
+        <UserCard v-for="user in users" :key="user.id" :user="user" />
     </div>
 
 </template>
 
 <script>
 
+import axios from 'axios'
 import UserCard from '@/components/UserCard.vue';
-// import UsersService from '@/services/UsersService.js';
 
 export default {
     name: 'UsersList',
     components: {
         UserCard,
     },
-    // data() {
-    //     return {
-    //         users: null
-    //     }
-    // },
-    // created() {
-    //     UsersService.getUsers()
-    //     .get()
-    //     .then(response => {
-    //         this.users = response.data
-    //     })
-    //     // .catch(error => {
-    //     //     console.log(error)
-    //     // })
-    // }
+    data() {
+        return {
+            users: null,
+            userConnected: null
+        }
+    },
+    created() {
+        this.userConnected = JSON.parse(localStorage.user);
+        
+        axios
+            .get("http://localhost:3000/api/auth", {
+                headers: {
+                    'Authorization': `Bearer ${this.userConnected.token}`
+                }
+            })
+            .then(response => {
+                console.log(response.data);
+                this.users = response.data;
+                console.log(this.users);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
 }
 </script>
 

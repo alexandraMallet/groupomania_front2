@@ -48,7 +48,7 @@ export default {
 .posts {
     width: 95%;
     height: fit-content;
-    margin: 10px;
+    margin: 5px;
     border: 1px solid $color-tertiary;
 }
 </style>

@@ -80,6 +80,7 @@ export default {
     methods: {
         redirection() {
             this.$router.push('/publications');
+
         },
         modifyPost() {
 

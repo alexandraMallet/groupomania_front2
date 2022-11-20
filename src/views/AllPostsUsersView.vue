@@ -1,15 +1,13 @@
 <template>
-    <div class="header-app">
-        <nav>
-            <router-link to="/publications">Toutes les publications</router-link> |
-            <router-link to="/publier">Publier</router-link> |
-            <router-link to="/">Se déconnecter</router-link>
-        </nav>
-        <img alt="Vue logo" src="../assets/logo.png">
+
+    <HeaderNav/>
+
+    <div v-if="authorizedUser" class="my-account">
+        <UserCard v-if="$data.user" :key="user.id" :user="user"/>
     </div>
 
     <div class="global-view">
-        <div class="users-contener">
+        <div v-if="userConnected.isAdmin" class="users-contener">
             <UsersList />
         </div>
         <div class="posts-contener">
@@ -21,15 +19,48 @@
 
 <script>
 
+import axios from 'axios';
 import UsersList from '@/components/UsersList.vue';
 import PostsList from '@/components/PostsList.vue';
+import UserCard from '@/components/UserCard.vue';
+import HeaderNav from '@/components/HeaderNav.vue';
 
 export default {
     name: 'AllPostsUsersView',
     components: {
         PostsList,
         UsersList,
+        UserCard,
+        HeaderNav,
     },
+    data() {
+        return {
+            authorizedUser:false,
+            user: null,
+            userConnected: null,
+            userId: null,
+        }
+    },
+    created() {
+        this.userConnected = JSON.parse(localStorage.user);
+
+        axios.get('http://localhost:3000/api/auth/' + this.userConnected.userId, {
+            headers: {
+                'Authorization': `Bearer ${this.userConnected.token}`
+            }
+        })
+            .then(response => {
+                console.log(response.data);
+                this.user = response.data;   
+                this.userId = response.data._id;            
+            })
+            .then(() => {
+                if(this.userId === this.userConnected.userId) {
+                    this.authorizedUser = true;
+                } 
+                console.log(this.authorizedUser)})
+            .catch(error => console.log(error));
+    }
 }
 
 </script>

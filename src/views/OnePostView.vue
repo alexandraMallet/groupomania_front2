@@ -32,8 +32,6 @@
         <Button type="submit" :buttonText="buttonTextSupprimer" @click="deletePost"/>
     </div>
 
-    <!-- v-if="post.userId === req.auth.userId" -->
-
 </template>
 
 <script>
@@ -79,7 +77,7 @@ export default {
     },
     methods: {
         linkToModify() {
-            this.$router.push('/modifier/' + this.postId);
+            this.$router.push('/modifier-publication/' + this.postId);
         },
         deletePost() {
             axios.delete('http://localhost:3000/api/post/' + this.postId, {

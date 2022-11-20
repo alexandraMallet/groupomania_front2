@@ -6,6 +6,8 @@ import AllPostsUsersView from '@/views/AllPostsUsersView.vue'
 import CreatePostView from '@/views/CreatePostView.vue'
 import OnePostView from '@/views/OnePostView.vue'
 import ModifyPostView from '@/views/ModifyPostView.vue'
+import OneUserView from '@/views/OneUserView.vue'
+import ModifyUserView from '@/views/ModifyUserView.vue'
 
 const routes = [
   {
@@ -39,10 +41,20 @@ const routes = [
     component: OnePostView
   },
   {
-    path: '/modifier/:id',
+    path: '/modifier-publication/:id',
     name: 'ModifyPostView',
     component: ModifyPostView
-  }
+  },
+  {
+    path: '/utilisateurice/:id',
+    name: 'OneUserView',
+    component: OneUserView
+  },
+  {
+    path: '/modifier-compte/:id',
+    name: 'ModifyUserView',
+    component: ModifyUserView
+  },
 ]
 
 const router = createRouter({
