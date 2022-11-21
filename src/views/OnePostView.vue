@@ -12,12 +12,12 @@
 
         </div>
     </div>
-    <!-- <div class="like-dislike">
-            <button @submit="addOrRemoveLike"><img src="@/assets/like-button-black-icon.png" /></button>
-            <p class="likes">{{ post.likes }}</p>
-            <button @submit="addOrRemoveDislike"><img src="@/assets/dislike-button-black-icon.png" /></button>
-            <p class="likes">{{ post.dislikes }}</p>
-        </div> -->
+    <div v-if="$data.post" class="like-dislike">
+        <button @click.prevent="addOrRemoveLike"><img src="@/assets/like-button-black-icon.png" /></button>
+        <p class="likes">{{ post.likes }}</p>
+        <button @click="addOrRemoveDislike"><img src="@/assets/dislike-button-black-icon.png" /></button>
+        <p class="likes">{{ post.dislikes }}</p>
+    </div>
 
     <div v-if="rightToChange" class="modify">
         <Button type="submit" :buttonText="buttonTextModifier" @click="linkToModify"/>
@@ -49,12 +49,12 @@ export default {
         }
     },
     created() {
-        this.user = JSON.parse(localStorage.user);
+        this.userConnected = JSON.parse(localStorage.user);
         this.postId = this.$route.params.id;
 
         axios.get('http://localhost:3000/api/post/' + this.postId, {
             headers: {
-                'Authorization': `Bearer ${this.user.token}`
+                'Authorization': `Bearer ${this.userConnected.token}`
             }
         })
             .then(response => {
@@ -62,7 +62,7 @@ export default {
                 this.post = response.data;
             })
             .then(() => {
-                if((this.post.userId === this.user.userId) || this.user.isAdmin) {
+                if((this.post.userId === this.userConnected.userId) || this.userConnected.isAdmin) {
                     this.rightToChange = true;
                 }
             })
@@ -76,7 +76,7 @@ export default {
         deletePost() {
             axios.delete('http://localhost:3000/api/post/' + this.postId, {
             headers: {
-                'Authorization': `Bearer ${this.user.token}`
+                'Authorization': `Bearer ${this.userConnected.token}`
             }
         })
             .then(() => { 
@@ -85,21 +85,19 @@ export default {
                      })
             .catch(error => console.log(error));
 
+        },
+        addOrRemoveLike() {
+            const userConnected = JSON.parse(localStorage.user);
+
+            axios.post('http://localhost:3000/api/post/' + this.postId + '/like', {
+                "like": 1,
+                headers: {
+                    'Authorization': `Bearer ${userConnected.token}`
+                }
+            })
+                .then(() => console.log("publication likée"))
+                .catch(() => console.log("erreur front"));
         }
-        
-
-        // addOrRemoveLike() {
-        //     const user = JSON.parse(localStorage.user);
-
-        //     axios.post('http://localhost:3000/api/post/:id/like', {
-        //         'like': 1,
-        //         headers: {
-        //             'Authorization': `Bearer ${user.token}`
-        //         }
-        //     })
-        //         .then(() => console.log("publication likée"))
-        //         .catch((error) => console.log(error));
-        // }
     }
 }
 </script>
@@ -127,23 +125,38 @@ export default {
 
 .like-dislike {
     display: flex;
+    margin-left: 20px;
+
+    p {
+        margin-left: 5px;
+        margin-right: 10px;
+    }
 
     button {
         position: relative;
         height: 25px;
         width: 25px;
         border-radius: 50px;
-        box-shadow: none;
+        margin-left: 10px;
+        z-index: 2;
+    
 
         img {
             position: absolute;
-            left: 0px;
-            top: 0px;
+            left: -2px;
+            top: -2px;
             height: 25px;
             width: 25px;
+            border-radius: 50px;
+            z-index: 1;
         }
+
+        img:hover {
+            transform: scale(1.01);
+            box-shadow: 0 0 0 5px $color-secondary;
+            cursor: pointer;
+        }
+
     }
-
-
 }
 </style>

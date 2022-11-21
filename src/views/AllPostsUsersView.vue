@@ -51,15 +51,13 @@ export default {
             }
         })
             .then(response => {
-                console.log(response.data);
                 this.user = response.data;   
                 this.userId = response.data._id;            
             })
             .then(() => {
                 if(this.userId === this.userConnected.userId) {
                     this.authorizedUser = true;
-                } 
-                console.log(this.authorizedUser)})
+                } })
             .catch(error => console.log(error));
     }
 }
