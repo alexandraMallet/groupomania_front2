@@ -5,7 +5,7 @@
             <router-link to="/publier">Publier</router-link> |
             <router-link to="/">Se déconnecter</router-link>
         </nav>
-        <img alt="Vue logo" src="../assets/logo.png">
+        <img alt="Vue logo" src="../assets/logo-rogne.png">
     </div>
 </template>
 
@@ -16,6 +16,10 @@
     display: flex;
     justify-content: space-between;
     height: 150px;
+
+    img {
+        height: 100px;
+    }
 }
 
 </style>

@@ -1,12 +1,5 @@
 <template>
-    <div class="header-app">
-        <nav>
-            <router-link to="/publications">Toutes les publications</router-link> |
-            <router-link to="/publier">Publier</router-link> |
-            <router-link to="/">Se déconnecter</router-link>
-        </nav>
-        <img alt="Vue logo" src="../assets/logo.png">
-    </div>
+    <HeaderNav/>
     <div v-if="rightToModify" class="form-contener">
         <form v-if="$data.user" class="create-post-form" @submit.prevent="modifyUser">
 
@@ -48,12 +41,14 @@
 
 import axios from 'axios';
 import Button from '@/components/Button.vue';
+import HeaderNav from '@/components/HeaderNav.vue';
 import UserCard from '@/components/UserCard.vue';
 
 export default {
     name: 'ModifyUserView',
     components: {
         Button,
+        HeaderNav,
         UserCard
     },
     data() {

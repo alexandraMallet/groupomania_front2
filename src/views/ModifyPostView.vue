@@ -1,12 +1,5 @@
 <template>
-    <div class="header-app">
-        <nav>
-            <router-link to="/publications">Toutes les publications</router-link> |
-            <router-link to="/publier">Publier</router-link> |
-            <router-link to="/">Se déconnecter</router-link>
-        </nav>
-        <img alt="Vue logo" src="../assets/logo.png">
-    </div>
+    <HeaderNav/>
     <div class="form-contener">
         <form v-if="$data.post" class="create-post-form" @submit.prevent="modifyPost">
 
@@ -32,12 +25,14 @@
 <script>
 
 import axios from 'axios';
+import HeaderNav from '@/components/HeaderNav.vue';
 import Button from '@/components/Button.vue';
 
 export default {
     name: 'ModifyPostView',
     components: {
-        Button
+        Button,
+        HeaderNav
     },
     data() {
         return {

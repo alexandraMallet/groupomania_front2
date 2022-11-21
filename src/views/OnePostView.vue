@@ -1,13 +1,5 @@
 <template>
-
-    <div class="header-app">
-        <nav>
-            <router-link to="/publications">Toutes les publications</router-link> |
-            <router-link to="/publier">Publier</router-link> |
-            <router-link to="/">Se déconnecter</router-link>
-        </nav>
-        <img alt="Vue logo" src="../assets/logo.png">
-    </div>
+    <HeaderNav/>
 
     <div v-if="$data.post" class="post-card">
         <p>{{ post.text }}</p>
@@ -37,12 +29,14 @@
 <script>
 
 import axios from 'axios'
+import HeaderNav from '@/components/HeaderNav.vue';
 import Button from '@/components/Button.vue';
 
 export default {
     name: 'OnePostView',
     components: {
         Button,
+        HeaderNav
     },
     data() {
         return {
