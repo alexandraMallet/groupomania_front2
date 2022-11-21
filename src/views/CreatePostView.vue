@@ -40,7 +40,6 @@ export default {
         return {
             buttonText: 'publier',
             text: '',
-            userPseudo: '',
             file: ''
         }
     },

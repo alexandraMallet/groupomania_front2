@@ -2,11 +2,12 @@
 
     <router-link class="post-link" :to="{ name: 'OnePostView', params: { id: post._id } }">
         <div class="post-card">
+
             <p>{{ post.text }}</p>
             <img :src="post.imageUrl" />
             <div class="post-infos">
                 <p>{{ post.createdAt.split("T")[0] }}</p>
-                <p>{{ post.userPseudo }}</p>
+                <p>{{ post.user[0].pseudo}}</p>
                 <p v-if="post.modifiedBy"> modifiée par {{ post.modifiedBy }}</p>
                 <p v-if="post.modifiedAt">le {{ post.modifiedAt.split("T")[0] }}</p>
             </div>
@@ -33,6 +34,20 @@ export default {
             required: true
         }
     },
+    data() {
+        return {
+            user: {},
+            userPseudo: null
+        }
+    },
+    created() {
+        this.user = this.post.user[0];
+        console.log(this.user);
+        
+        //         this.userPseudo = this.post.user[0].pseudo;
+        // console.log(this.userPseudo);
+     
+    }
     // methods: {
     //     addOrRemoveLike() {
     //         const user = JSON.parse(localStorage.user);
@@ -54,7 +69,7 @@ export default {
 @import '@/assets/index.scss';
 
 .post-card {
-    height: 200px;
+    height: 250px;
     width: 95%;
     margin: 20px;
     border: 1px solid $color-primary;

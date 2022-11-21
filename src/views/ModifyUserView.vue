@@ -13,7 +13,7 @@
             <label for="email">email :</label>
             <input class="input-email" id="email" v-model="email" />
 
-            <label for="password">Mot de passe (au moins 8 caractères, sans espace) :</label>
+            <label for="password">nouveau mot de passe, le cas échéant :</label>
             <input class="input-password" id="password" v-model="password" />
 
             <label for="pseudo">Pseudo :</label>
@@ -107,7 +107,7 @@ export default {
             let formData = new FormData();
 
             formData.append('pseudo', this.pseudo);
-            formData.append('email', this.user.pseudo);
+            formData.append('email', this.user.email);
             formData.append('image', this.file);
             if(this.password) {formData.append('password', this.password)};
 

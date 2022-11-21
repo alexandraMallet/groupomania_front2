@@ -14,7 +14,7 @@
         <img :src="post.imageUrl" />
         <div class="post-infos">
             <p>{{ post.createdAt.split("T")[0] }}</p>
-            <p>{{ post.userPseudo }}</p>
+            <p>{{ post.user[0].pseudo }}</p>
             <p v-if="post.modifiedBy"> modifiée par {{ post.modifiedBy }}</p>
             <p v-if="post.modifiedAt">le {{ post.modifiedAt.split("T")[0] }}</p>
 
