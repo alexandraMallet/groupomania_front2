@@ -1,23 +1,24 @@
 <template>
 
-  <HeaderLoginSignup/>
+  <HeaderLoginSignup />
+  <div class="signup-container">
+    <form class="signup-form" @submit.prevent="signup">
+      <label for="email">email :</label>
+      <input class="input-email" id="email" v-model="email" />
 
-  <form class="signup-form" @submit.prevent="signup">
-    <label for="email">email :</label>
-    <input class="input-email" id="email" v-model="email" />
+      <label for="password">Choisissez un mot de passe (au moins 8 caractères, sans espace) :</label>
+      <input class="input-password" id="password" v-model="password" />
 
-    <label for="password">Choisissez un mot de passe (au moins 8 caractères, sans espace) :</label>
-    <input class="input-password" id= "password" v-model="password" />
+      <label for="pseudo">Choisissez un pseudo :</label>
+      <input class="pseudo" id="pseudo" v-model="pseudo" />
 
-    <label for="pseudo">Choisissez un pseudo :</label>
-    <input class="pseudo" id="pseudo" v-model="pseudo" />
+      <label class="image style-button" for="image">Choisir une photo de profil</label>
+      <input type="file" id="image" class="image-input" name="image" accept="image/png, image/jpeg"
+        @change="handleFileUpload($event)" />
 
-    <label class="image style-button" for="image">Choisir une photo de profil</label>
-    <input type="file" id="image" class="image-input" name="image" accept="image/png, image/jpeg"
-      @change="handleFileUpload($event)" />
-      
-    <Button :buttonText="buttonText" />
-  </form>
+      <Button :buttonText="buttonText" />
+    </form>
+  </div>
 </template>
     
 <script>
@@ -52,7 +53,7 @@ export default {
       console.log(formData);
 
 
-      axios.post('http://localhost:3000/api/auth/signup', 
+      axios.post('http://localhost:3000/api/auth/signup',
         formData
       )
         .then(function (response) {
@@ -76,45 +77,45 @@ export default {
 <style scoped lang="scss">
 @import '@/assets/index.scss';
 
-nav {
-  padding: 30px;
+.signup-container {
 
-  a {
-    font-weight: bold;
-    color: $color-tertiary;
+  height: 300px;
+  width: 100%;
 
-    &.router-link-exact-active {
-      color: $color-primary;
+  form {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+
+    input {
+      margin-top: 10px;
+      height: 30px;
+      width: 300px;
+      margin-bottom: 20px;
+
     }
   }
-}
 
-.signup-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 400px;
-  width: 800px;
-  border: 1px solid $color-primary;
-}
+  .image-input {
+    display: none;
+  }
 
-.signup-form :nth-child(2n) {
-  margin-bottom: 10px;
-}
+  .style-button {
+    display: block;
+    height: fit-content;
+    width: fit-content;
+    padding: 10px 20px 10px 20px;
+    font-size: 12px;
+    background-color: $color-primary;
+    color: $color-tertiary;
+    border-radius: 50px;
+    border: none;
+  }
 
-.image-input {
-  display: none;
-}
-
-.style-button {
-  display: block;
-  height: fit-content;
-  width: fit-content;
-  padding: 10px 20px 10px 20px;
-  font-size: 12px;
-  background-color: $color-primary;
-  color: $color-tertiary;
-  border-radius: 50px;
-  border: none;
+  button {
+    margin-top: 30px;
+  }
 }
 </style>
