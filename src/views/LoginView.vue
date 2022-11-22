@@ -1,8 +1,7 @@
 <template>
-  <nav>
-    <router-link to="/">retour</router-link>
-  </nav>
-  <img alt="Vue logo" src="../assets/logo.png">
+
+  <HeaderLoginSignup/>
+  
   <div class="login-contener">
     <form class="login" @submit.prevent="login">
       <label for="email">email :</label>
@@ -18,13 +17,14 @@
   
 <script>
 import axios from 'axios';
-
+import HeaderLoginSignup from '@/components/HeaderLoginSignup.vue';
 import Button from '@/components/Button.vue';
 
 export default {
   name: 'LoginView',
   components: {
     Button,
+    HeaderLoginSignup
   },
   data() {
     return {
@@ -51,18 +51,8 @@ export default {
 </script>
   
 <style scoped lang="scss">
-nav {
-  padding: 30px;
+@import '@/assets/index.scss';
 
-  a {
-    font-weight: bold;
-    color: #4E5166;
-
-    &.router-link-exact-active {
-      color: #FD2D01;
-    }
-  }
-}
 
 .login-contener {
   display: flex;

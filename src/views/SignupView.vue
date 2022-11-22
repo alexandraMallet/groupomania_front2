@@ -1,8 +1,7 @@
 <template>
-  <nav>
-    <router-link to="/">retour</router-link>
-  </nav>
-  <img alt="Vue logo" src="../assets/logo.png">
+
+  <HeaderLoginSignup/>
+
   <form class="signup-form" @submit.prevent="signup">
     <label for="email">email :</label>
     <input class="input-email" id="email" v-model="email" />
@@ -24,12 +23,14 @@
 <script>
 
 import axios from 'axios'
+import HeaderLoginSignup from '@/components/HeaderLoginSignup.vue';
 import Button from '@/components/Button.vue';
 
 export default {
   name: 'SignupView',
   components: {
     Button,
+    HeaderLoginSignup
   },
   data() {
     return {
