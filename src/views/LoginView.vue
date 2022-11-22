@@ -1,14 +1,17 @@
 <template>
 
-  <HeaderLoginSignup/>
-  
+  <HeaderLoginSignup />
+
   <div class="login-contener">
     <form class="login" @submit.prevent="login">
-      <label for="email">email :</label>
+      <label for="email">votre email :</label>
       <input class="input-email" v-model="email" />
 
-      <label for="password">mot de passe :</label>
+      <label for="password">votre mot de passe :</label>
       <input class="input-password" v-model="password" placeholder="(au moins 8 caractères)" />
+
+      <p>Identifiants oubliés ?
+      <br/>Merci de prendre contact avec le service informatique.</p>
 
       <Button type="submit" :buttonText="buttonText" />
     </form>
@@ -55,12 +58,31 @@ export default {
 
 
 .login-contener {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  align-items: center;
+
   height: 300px;
-  width: 800px;
-  border: 1px solid #FD2D01;
+  width: 100%;
+
+  form {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+
+    input {
+      margin-top: 10px;
+      height: 30px;
+      width: 300px;
+    }
+
+    .input-email {
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 12px;
+      margin-bottom: 30px;
+    }
+  }
 }
 </style>
