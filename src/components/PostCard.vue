@@ -17,8 +17,6 @@
     <div class="like-dislike">
         <button @click="addOrRemoveLike"><img src="@/assets/like-button-black-icon.png" /></button>
         <p class="likes">{{ post.likes }}</p>
-        <button @click="addOrRemoveDislike"><img src="@/assets/dislike-button-black-icon.png" /></button>
-        <p class="likes">{{ post.dislikes }}</p>
     </div>
 
 </template>

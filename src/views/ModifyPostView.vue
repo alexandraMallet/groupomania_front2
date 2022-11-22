@@ -42,19 +42,19 @@ export default {
             text: '',
             userPseudo: '',
             file: '',
-            user: '',
+            userConnected: '',
             postId: '',
             imageUrl: '',
             rightToChange: false
         }
     },
     created() {
-        this.user = JSON.parse(localStorage.user);
+        this.userConnected = JSON.parse(localStorage.user);
         this.postId = this.$route.params.id;
 
         axios.get('http://localhost:3000/api/post/' + this.postId, {
             headers: {
-                'Authorization': `Bearer ${this.user.token}`
+                'Authorization': `Bearer ${this.userConnected.token}`
             }
         })
             .then(response => {
@@ -62,7 +62,7 @@ export default {
                 this.post = response.data;
             })
             .then(() => {
-                if ((this.post.userId === this.user.userId) || this.user.isAdmin) {
+                if ((this.post.userId === this.userConnected.userId) || this.userConnected.isAdmin) {
                     this.rightToChange = true;
                 }
             })
@@ -81,7 +81,7 @@ export default {
             let formData = new FormData();
 
             formData.append('text', this.text);
-            formData.append('modifiedBy', this.user.pseudo);
+            formData.append('modifiedBy', this.userConnected.pseudo);
             if (this.file) { formData.append('image', this.file) }
 
             console.log(formData);
@@ -90,7 +90,7 @@ export default {
                 formData,
                 {
                     headers: {
-                        'Authorization': `Bearer ${this.user.token}`
+                        'Authorization': `Bearer ${this.userConnected.token}`
                     }
                 }
             )

@@ -1,5 +1,5 @@
 <template>
-    <HeaderNav/>
+    <HeaderNav />
 
     <div v-if="$data.post" class="post-card">
         <p>{{ post.text }}</p>
@@ -15,13 +15,16 @@
     <div v-if="$data.post" class="like-dislike">
         <button @click.prevent="addOrRemoveLike"><img src="@/assets/like-button-black-icon.png" /></button>
         <p class="likes">{{ post.likes }}</p>
-        <button @click="addOrRemoveDislike"><img src="@/assets/dislike-button-black-icon.png" /></button>
-        <p class="likes">{{ post.dislikes }}</p>
+       
+
+        <!-- <button @click="likePost" type="submit" title="Aimer ce post !" class="button" :class="{ liked: myLikeStatus }">
+            <font-awesome-icon :icon="`fa-solid fa-thumbs-${myLikeStatus ? 'up' : 'down'}`" /> Like !
+        </button> -->
     </div>
 
     <div v-if="rightToChange" class="modify">
-        <Button type="submit" :buttonText="buttonTextModifier" @click="linkToModify"/>
-        <Button type="submit" :buttonText="buttonTextSupprimer" @click="deletePost"/>
+        <Button type="submit" :buttonText="buttonTextModifier" @click="linkToModify" />
+        <Button type="submit" :buttonText="buttonTextSupprimer" @click="deletePost" />
     </div>
 
 </template>
@@ -43,8 +46,8 @@ export default {
             post: null,
             buttonTextModifier: 'modifier',
             buttonTextSupprimer: 'supprimer',
-            user:null,
-            rightToChange:false,
+            userConnected: null,
+            rightToChange: false,
             postId: null,
         }
     },
@@ -62,37 +65,40 @@ export default {
                 this.post = response.data;
             })
             .then(() => {
-                if((this.post.userId === this.userConnected.userId) || this.userConnected.isAdmin) {
+                if ((this.post.userId === this.userConnected.userId) || this.userConnected.isAdmin) {
                     this.rightToChange = true;
                 }
             })
             .catch(error => console.log(error));
 
     },
+    // computed: {
+    //     myLikeStatus() {
+    //         if (!this.user) return false
+    //         if (!Array.isArray(this.posts.usersLiked)) return false
+    //         return !!this.posts.usersLiked.find(item => item === this.user._id)
+    //     }
+    // },
     methods: {
         linkToModify() {
             this.$router.push('/modifier-publication/' + this.postId);
         },
         deletePost() {
             axios.delete('http://localhost:3000/api/post/' + this.postId, {
-            headers: {
-                'Authorization': `Bearer ${this.userConnected.token}`
-            }
-        })
-            .then(() => { 
-                this.$router.push('/publications/');
-                console.log(`publication de ${this.post.userPseudo} du ${this.post.createdAt.split("T")[0]} supprimée par ${this.user.pseudo}`)
-                     })
-            .catch(error => console.log(error));
+                headers: {
+                    'Authorization': `Bearer ${this.userConnected.token}`
+                }
+            })
+                .then(() => {
+                    this.$router.push('/publications/');
+                })
+                .catch(error => console.log(error));
 
         },
         addOrRemoveLike() {
-            const userConnected = JSON.parse(localStorage.user);
-
             axios.post('http://localhost:3000/api/post/' + this.postId + '/like', {
-                "like": 1,
                 headers: {
-                    'Authorization': `Bearer ${userConnected.token}`
+                    'Authorization': `Bearer ${this.userConnected.token}`
                 }
             })
                 .then(() => console.log("publication likée"))
@@ -139,7 +145,7 @@ export default {
         border-radius: 50px;
         margin-left: 10px;
         z-index: 2;
-    
+
 
         img {
             position: absolute;

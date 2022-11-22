@@ -1,5 +1,5 @@
 <template>
-   <HeaderNav/>
+    <HeaderNav />
     <div class="form-contener">
         <form class="create-post-form" @submit.prevent="submitPost">
 
@@ -60,6 +60,7 @@ export default {
             ).then(function () {
                 console.log('publication publiée !');
             })
+                .then(() => { this.$router.push('/publications') })
                 .catch(function () {
                     console.log('erreur');
                 });
