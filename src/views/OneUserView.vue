@@ -124,7 +124,7 @@ export default {
 <style scoped lang="scss">
 @import '@/assets/index.scss';
 
-.post-card {
+.user-card {
     height: 200px;
     width: 95%;
     margin: 20px;

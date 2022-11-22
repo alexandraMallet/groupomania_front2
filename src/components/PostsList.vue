@@ -1,6 +1,6 @@
 <template>
     <div class="posts">
-        <PostCard v-for="post in posts" :key="post.id" :post="post" />
+        <PostCard v-for="post in antechrono" :key="post.id" :post="post" />
     </div>
 
 </template>
@@ -17,11 +17,15 @@ export default {
     },
     data() {
         return {
-            posts: null,
+            posts: [],
             userConnected: null
         }
     },
-    
+    computed: {
+        antechrono(){
+            return [...this.posts].reverse();
+        }
+    },
     created() {
         this.userConnected = JSON.parse(localStorage.user);
         

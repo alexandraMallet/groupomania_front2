@@ -96,12 +96,13 @@ export default {
 
         },
         addOrRemoveLike() {
-            axios.post('http://localhost:3000/api/post/' + this.postId + '/like', {
+            axios.post('http://localhost:3000/api/post/' + this.postId + '/like', {}, {
+                
                 headers: {
                     'Authorization': `Bearer ${this.userConnected.token}`
                 }
             })
-                .then(() => console.log("publication likée"))
+                // .then(() => rappeler les données)
                 .catch(() => console.log("erreur front"));
         }
     }
