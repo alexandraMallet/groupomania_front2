@@ -1,6 +1,6 @@
 <template>
 
-    <HeaderNav />
+    <Header/>
 
     <div v-if="$data.user" class="user-card">
         <div v-if="authorized" class="one-profile">
@@ -31,7 +31,7 @@
 
 import axios from 'axios'
 import Button from '@/components/Button.vue';
-import HeaderNav from '@/components/HeaderNav.vue';
+import Header from '@/components/Header.vue';
 import PostCard from '@/components/PostCard.vue';
 
 export default {
@@ -39,7 +39,7 @@ export default {
     components: {
         Button,
         PostCard,
-        HeaderNav,
+        Header,
     },
     data() {
         return {

@@ -1,5 +1,5 @@
 <template>
-    <HeaderNav />
+    <Header />
 
     <div v-if="$data.post" class="post-card">
         <p>{{ post.text }}</p>
@@ -32,14 +32,14 @@
 <script>
 
 import axios from 'axios'
-import HeaderNav from '@/components/HeaderNav.vue';
+import Header from '@/components/Header.vue';
 import Button from '@/components/Button.vue';
 
 export default {
     name: 'OnePostView',
     components: {
         Button,
-        HeaderNav
+        Header
     },
     data() {
         return {

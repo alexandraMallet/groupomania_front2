@@ -1,5 +1,5 @@
 <template>
-    <HeaderNav />
+    <Header />
     <div class="form-contener">
         <form class="create-post-form" @submit.prevent="submitPost">
 
@@ -22,14 +22,14 @@
 <script>
 
 import axios from 'axios';
-import HeaderNav from '@/components/HeaderNav.vue';
+import Header from '@/components/Header.vue';
 import Button from '@/components/Button.vue';
 
 export default {
     name: 'CreatePostView',
     components: {
         Button,
-        HeaderNav
+        Header
     },
     data() {
         return {

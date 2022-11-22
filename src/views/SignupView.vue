@@ -1,6 +1,6 @@
 <template>
 
-  <HeaderLoginSignup />
+  <Header/>
   <div class="signup-container">
     <form class="signup-form" @submit.prevent="signup">
       <label for="email">email :</label>
@@ -24,14 +24,14 @@
 <script>
 
 import axios from 'axios'
-import HeaderLoginSignup from '@/components/HeaderLoginSignup.vue';
+import Header from '@/components/Header.vue';
 import Button from '@/components/Button.vue';
 
 export default {
   name: 'SignupView',
   components: {
     Button,
-    HeaderLoginSignup
+    Header
   },
   data() {
     return {

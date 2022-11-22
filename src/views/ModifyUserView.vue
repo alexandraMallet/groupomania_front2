@@ -1,5 +1,5 @@
 <template>
-    <HeaderNav/>
+    <Header/>
     <div v-if="rightToModify" class="form-contener">
         <form v-if="$data.user" class="create-post-form" @submit.prevent="modifyUser">
 
@@ -30,25 +30,20 @@
 
 
     </div>
-
-
-
-
-
 </template>
 
 <script>
 
 import axios from 'axios';
 import Button from '@/components/Button.vue';
-import HeaderNav from '@/components/HeaderNav.vue';
+import Header from '@/components/Header.vue';
 import UserCard from '@/components/UserCard.vue';
 
 export default {
     name: 'ModifyUserView',
     components: {
         Button,
-        HeaderNav,
+        Header,
         UserCard
     },
     data() {

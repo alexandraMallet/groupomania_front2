@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import LoginView from '@/views/LoginView.vue'
 import SignupView from '@/views/SignupView.vue'
-import AllPostsUsersView from '@/views/AllPostsUsersView.vue'
 import CreatePostView from '@/views/CreatePostView.vue'
 import OnePostView from '@/views/OnePostView.vue'
 import ModifyPostView from '@/views/ModifyPostView.vue'
@@ -16,19 +15,14 @@ const routes = [
     component: HomeView
   },
   {
-    path: '/login',
+    path: '/connexion',
     name: 'LoginView',
     component: LoginView
   },
   {
-    path: '/signup',
+    path: '/inscription',
     name: 'SignupView',
     component: SignupView
-  },
-  {
-    path: '/publications',
-    name: 'AllPostsAndUsers',
-    component: AllPostsUsersView
   },
   {
     path: '/publier',
@@ -61,5 +55,28 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
+
+// router.beforeEach((to, from, next) => {
+
+//   const publicPages = ['/connexion', '/inscription'];
+//   const authRequired = !publicPages.includes(to.path);
+//   const loggedIn = localStorage.getItem('user');
+
+//   if (authRequired && !loggedIn) {
+//     return next('/connexion');
+//   }
+
+//   next();
+// })
+
+router.beforeEach(async (to, from) => {
+
+  const loggedIn = localStorage.getItem('user');
+  if (!loggedIn && to.name !== ('LoginView' || 'SignupView'))  {
+    return { name: 'LoginView' }
+  }
+})
+
+
 
 export default router

@@ -1,6 +1,6 @@
 <template>
 
-  <HeaderLoginSignup />
+  <Header/>
 
   <div class="login-contener">
     <form class="login" @submit.prevent="login">
@@ -8,7 +8,7 @@
       <input class="input-email" v-model="email" />
 
       <label for="password">votre mot de passe :</label>
-      <input class="input-password" v-model="password" placeholder="(au moins 8 caractères)" />
+      <input class="input-password" v-model="password"/>
 
       <p>Identifiants oubliés ?
       <br/>Merci de prendre contact avec le service informatique.</p>
@@ -16,23 +16,34 @@
       <Button type="submit" :buttonText="buttonText" />
     </form>
   </div>
+<div class="redirect-signup">
+  <p>Pas encore de compte ?</p>
+  <Button @click="redirectSignup" :buttonText="buttonTextRedirect" />
+</div>
+
 </template>
   
 <script>
 import axios from 'axios';
-import HeaderLoginSignup from '@/components/HeaderLoginSignup.vue';
+import Header from '@/components/Header.vue';
 import Button from '@/components/Button.vue';
 
 export default {
   name: 'LoginView',
   components: {
     Button,
-    HeaderLoginSignup
+    Header
   },
   data() {
     return {
       buttonText: "Se connecter",
+      buttonTextRedirect: "S'inscrire"
     };
+  },
+  created() {
+    if (localStorage) {
+      localStorage.clear();
+    }
   },
   methods: {
     login() {
@@ -44,10 +55,13 @@ export default {
           const user = response.data;
           localStorage.setItem('user', JSON.stringify(user));
         })
-        .then(() => { this.$router.push('/publications') })
+        .then(() => { this.$router.push('/') })
         .catch(function (error) {
           console.log(error);
         });
+    },
+    redirectSignup() {
+      this.$router.push('/inscription/');
     }
   }
 };
