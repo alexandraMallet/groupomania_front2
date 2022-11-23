@@ -74,7 +74,7 @@ export default {
     },
     methods: {
         redirection() {
-            this.$router.push('/publications');
+            this.$router.push('/');
         },
         modifyPost() {
 

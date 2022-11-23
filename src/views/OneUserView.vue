@@ -88,7 +88,7 @@ export default {
             this.$router.push('/modifier-compte/' + this.userId);
         },
         redirection() {
-            this.$router.push('/publications');
+            this.$router.push('/');
         },
         deleteUser() {
             axios.delete('http://localhost:3000/api/auth/' + this.userId, {
@@ -97,7 +97,7 @@ export default {
                 }
             })
                 .then(() => {
-                    this.$router.push('/publications/');
+                    this.$router.push('/');
                     console.log('utilisateurice supprimée')
                 })
                 .catch(error => console.log(error));

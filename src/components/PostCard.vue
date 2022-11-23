@@ -33,21 +33,40 @@ export default {
             required: true
         }
     },
+    data() {
+        return {
+            userConnected: null
+        }
+    },
+    created() {
+        this.userConnected = JSON.parse(localStorage.user);
+    },
+    methods: {
+        addOrRemoveLike() {
+            axios.post('http://localhost:3000/api/post/' + this.post._id + '/like', {}, {
 
-    // methods: {
-    //     addOrRemoveLike() {
-    //         const userConnected = JSON.parse(localStorage.user);
-
-    //         axios.post('http://localhost:3000/api/post/' +:id + '/like', {
-    //             'like': 1,
-    //             headers: {
-    //                 'Authorization': `Bearer ${userConnected.token}`
-    //             }
-    //         })
-    //             .then(() => console.log("publication likée"))
-    //             // .catch((error) => console.log(error));
-    //     }
-    // }
+                headers: {
+                    'Authorization': `Bearer ${this.userConnected.token}`
+                }
+            })
+                .then(() => {
+                    axios
+                        .get("http://localhost:3000/api/post", {
+                            headers: {
+                                'Authorization': `Bearer ${this.userConnected.token}`
+                            }
+                        })
+                        .then(response => {
+                            console.log(response.data);
+                            this.posts = response.data.posts;
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        });
+                })
+                .catch(() => console.log("erreur front"));
+        }
+    }
 }
 </script>
 
@@ -96,7 +115,7 @@ export default {
         border-radius: 50px;
         margin-left: 10px;
         z-index: 2;
-    
+
 
         img {
             position: absolute;
@@ -116,7 +135,7 @@ export default {
 
     }
 
-    
+
 
 
 }

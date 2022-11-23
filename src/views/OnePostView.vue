@@ -90,7 +90,7 @@ export default {
                 }
             })
                 .then(() => {
-                    this.$router.push('/publications/');
+                    this.$router.push('/');
                 })
                 .catch(error => console.log(error));
 

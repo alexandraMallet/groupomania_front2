@@ -60,7 +60,7 @@ export default {
             ).then(function () {
                 console.log('publication publiée !');
             })
-                .then(() => { this.$router.push('/publications') })
+                .then(() => { this.$router.push('/') })
                 .catch(function () {
                     console.log('erreur');
                 });
