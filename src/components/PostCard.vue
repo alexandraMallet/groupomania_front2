@@ -2,7 +2,6 @@
 
     <router-link class="post-link" :to="{ name: 'OnePostView', params: { id: post._id } }">
         <div class="post-card">
-
             <p>{{ post.text }}</p>
             <img :src="post.imageUrl" />
             <div class="post-infos">
@@ -12,7 +11,31 @@
                 <p v-if="post.modifiedAt">le {{ post.modifiedAt.split("T")[0] }}</p>
             </div>
         </div>
+        <div class="test">
+            
+        </div>
     </router-link>
+
+    <div v-if="$data.post" class="post-card">
+        <p>{{ post.text }}</p>
+        <img :src="post.imageUrl" />
+        <div class="post-infos">
+            <p>{{ post.createdAt.split("T")[0] }}</p>
+            <p>{{ post.user[0].pseudo }}</p>
+            <p v-if="post.modifiedBy"> modifiée par {{ post.modifiedBy }}</p>
+            <p v-if="post.modifiedAt">le {{ post.modifiedAt.split("T")[0] }}</p>
+
+        </div>
+    </div>
+    <div v-if="$data.post" class="like-dislike">
+        <button @click.prevent="addOrRemoveLike"><img src="@/assets/like-button-black-icon.png" /></button>
+        <p class="likes">{{ post.likes }}</p>
+       
+
+        <!-- <button @click="likePost" type="submit" title="Aimer ce post !" class="button" :class="{ liked: myLikeStatus }">
+            <font-awesome-icon :icon="`fa-solid fa-thumbs-${myLikeStatus ? 'up' : 'down'}`" /> Like !
+        </button> -->
+    </div>
 
     <div class="like-dislike">
         <button @click="addOrRemoveLike"><img src="@/assets/like-button-black-icon.png" /></button>
