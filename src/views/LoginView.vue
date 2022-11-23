@@ -40,7 +40,10 @@
 
       <Button :buttonText="buttonTextSignup" />
     </form>
+    <Button @click="redirectLogin" :buttonText="buttonBackLogin" />
+
   </div>
+
 
 </template>
   
@@ -60,6 +63,7 @@ export default {
       buttonTextLogin: "Se connecter",
       buttonTextRedirect: "S'inscrire",
       buttonTextSignup: "Envoyer",
+      buttonBackLogin: "Retour",
       showSignup: false
     };
   },
@@ -85,6 +89,9 @@ export default {
     },
     redirectSignup() {
       this.showSignup = true
+    },
+    redirectLogin() {
+      this.showSignup = false
     },
     signup() {
 

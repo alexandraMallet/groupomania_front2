@@ -14,15 +14,15 @@
 <script>
 
 export default {
-  name: 'Header',
-  data() {
-    return {
-      auth: null
+    name: 'Header',
+    data() {
+        return {
+            auth: null
+        }
+    },
+    created() {
+        this.auth = localStorage.length;
     }
-  }, 
-created() {
-    this.auth = localStorage.length;
-}
 }
 
 </script>
@@ -31,7 +31,7 @@ created() {
 @import '@/assets/index.scss';
 
 
-.header-app{
+.header-app {
     display: flex;
     justify-content: space-between;
     background-color: $color-secondary;
@@ -54,6 +54,4 @@ created() {
         margin: 50px;
     }
 }
-
-
 </style>
