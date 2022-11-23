@@ -1,26 +1,7 @@
 <template>
     <Header />
 
-    <div v-if="$data.post" class="post-card">
-        <p>{{ post.text }}</p>
-        <img :src="post.imageUrl" />
-        <div class="post-infos">
-            <p>{{ post.createdAt.split("T")[0] }}</p>
-            <p>{{ post.user[0].pseudo }}</p>
-            <p v-if="post.modifiedBy"> modifiée par {{ post.modifiedBy }}</p>
-            <p v-if="post.modifiedAt">le {{ post.modifiedAt.split("T")[0] }}</p>
-
-        </div>
-    </div>
-    <div v-if="$data.post" class="like-dislike">
-        <button @click.prevent="addOrRemoveLike"><img src="@/assets/like-button-black-icon.png" /></button>
-        <p class="likes">{{ post.likes }}</p>
-       
-
-        <!-- <button @click="likePost" type="submit" title="Aimer ce post !" class="button" :class="{ liked: myLikeStatus }">
-            <font-awesome-icon :icon="`fa-solid fa-thumbs-${myLikeStatus ? 'up' : 'down'}`" /> Like !
-        </button> -->
-    </div>
+   <PostCard v-if="$data.post" class="one-post" :key="post.id" :post="post"/>
 
     <div v-if="rightToChange" class="modify">
         <Button type="submit" :buttonText="buttonTextModifier" @click="linkToModify" />
@@ -32,12 +13,14 @@
 <script>
 
 import axios from 'axios'
+import PostCard from '@/components/PostCard.vue';
 import Header from '@/components/Header.vue';
 import Button from '@/components/Button.vue';
 
 export default {
     name: 'OnePostView',
     components: {
+        PostCard,
         Button,
         Header
     },
@@ -112,58 +95,12 @@ export default {
 <style scoped lang="scss">
 @import '@/assets/index.scss';
 
-.post-card {
-    height: 200px;
-    width: 95%;
-    margin: 20px;
-    border: 1px solid $color-primary;
+.one-post :hover {
+    
+    transform: none;
+    box-shadow: none;
+    cursor: default;
 
-    img {
-        height: 100px;
-        width: 100px;
-    }
-
-    .post-infos {
-        display: flex;
-        justify-content: space-between;
-        margin: 10px;
-    }
 }
 
-.like-dislike {
-    display: flex;
-    margin-left: 20px;
-
-    p {
-        margin-left: 5px;
-        margin-right: 10px;
-    }
-
-    button {
-        position: relative;
-        height: 25px;
-        width: 25px;
-        border-radius: 50px;
-        margin-left: 10px;
-        z-index: 2;
-
-
-        img {
-            position: absolute;
-            left: -2px;
-            top: -2px;
-            height: 25px;
-            width: 25px;
-            border-radius: 50px;
-            z-index: 1;
-        }
-
-        img:hover {
-            transform: scale(1.01);
-            box-shadow: 0 0 0 5px $color-secondary;
-            cursor: pointer;
-        }
-
-    }
-}
 </style>

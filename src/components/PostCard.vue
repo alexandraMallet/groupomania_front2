@@ -2,21 +2,6 @@
 
     <router-link class="post-link" :to="{ name: 'OnePostView', params: { id: post._id } }">
         <div class="post-card">
-            <p>{{ post.text }}</p>
-            <img :src="post.imageUrl" />
-            <div class="post-infos">
-                <p>{{ post.createdAt.split("T")[0] }}</p>
-                <p>{{ post.user[0].pseudo }}</p>
-                <p v-if="post.modifiedBy"> modifiée par {{ post.modifiedBy }}</p>
-                <p v-if="post.modifiedAt">le {{ post.modifiedAt.split("T")[0] }}</p>
-            </div>
-        </div>
-        <div class="test">
-            
-        </div>
-    </router-link>
-
-    <div v-if="$data.post" class="post-card">
         <p>{{ post.text }}</p>
         <img :src="post.imageUrl" />
         <div class="post-infos">
@@ -27,7 +12,7 @@
 
         </div>
     </div>
-    <div v-if="$data.post" class="like-dislike">
+    <div class="like-dislike">
         <button @click.prevent="addOrRemoveLike"><img src="@/assets/like-button-black-icon.png" /></button>
         <p class="likes">{{ post.likes }}</p>
        
@@ -36,11 +21,7 @@
             <font-awesome-icon :icon="`fa-solid fa-thumbs-${myLikeStatus ? 'up' : 'down'}`" /> Like !
         </button> -->
     </div>
-
-    <div class="like-dislike">
-        <button @click="addOrRemoveLike"><img src="@/assets/like-button-black-icon.png" /></button>
-        <p class="likes">{{ post.likes }}</p>
-    </div>
+    </router-link>
 
 </template>
 
@@ -72,21 +53,7 @@ export default {
                     'Authorization': `Bearer ${this.userConnected.token}`
                 }
             })
-                .then(() => {
-                    axios
-                        .get("http://localhost:3000/api/post", {
-                            headers: {
-                                'Authorization': `Bearer ${this.userConnected.token}`
-                            }
-                        })
-                        .then(response => {
-                            console.log(response.data);
-                            this.posts = response.data.posts;
-                        })
-                        .catch(error => {
-                            console.log(error);
-                        });
-                })
+                .then(() => this.$router.push('/'))
                 .catch(() => console.log("erreur front"));
         }
     }
