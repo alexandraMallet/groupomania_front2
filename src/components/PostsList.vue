@@ -18,7 +18,7 @@ export default {
     data() {
         return {
             posts: [],
-            userConnected: null
+            userConnected: {}
         }
     },
     computed: {
