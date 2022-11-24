@@ -1,6 +1,6 @@
 <template>
     <div class="posts">
-        <PostCard v-for="post in antechrono" :key="post.id" :post="post" />
+        <PostCard v-for="post in antechrono" :key="post.id" :post="post" @update-like="updateLike" />
     </div>
 
 </template>
@@ -22,13 +22,13 @@ export default {
         }
     },
     computed: {
-        antechrono(){
+        antechrono() {
             return [...this.posts].reverse();
         }
     },
     created() {
         this.userLogged = JSON.parse(localStorage.userLogged);
-        
+
         axios
             .get("http://localhost:3000/api/post", {
                 headers: {
@@ -42,6 +42,23 @@ export default {
             .catch(error => {
                 console.log(error);
             });
+    },
+    methods: {
+        updateLike() {
+
+            axios
+                .get("http://localhost:3000/api/post", {
+                    headers: {
+                        'Authorization': `Bearer ${this.userLogged.token}`
+                    }
+                })
+                .then(response => {
+                    console.log(response.data);
+                    this.posts = response.data.posts;
+                })
+                .catch(error => { console.log(error) });
+        }
+
     }
 }
 </script>

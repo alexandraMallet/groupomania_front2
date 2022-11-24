@@ -1,11 +1,14 @@
 <template>
     <Header />
 
-   <PostCard v-if="$data.post" class="one-post" :key="post.id" :post="post"/>
+    <div v-if="$data.post" class="one-post-container">
 
-    <div v-if="rightToChange" class="modify">
-        <Button type="submit" :buttonText="buttonTextModifier" @click="linkToModify" />
-        <Button type="submit" :buttonText="buttonTextSupprimer" @click="deletePost" />
+        <PostCard class="one-post" :key="post.id" :post="post" @update-like="updateLike" />
+
+        <div v-if="rightToChange" class="modify">
+            <Button type="submit" :buttonText="buttonTextModifier" @click="linkToModify" />
+            <Button type="submit" :buttonText="buttonTextSupprimer" @click="deletePost" />
+        </div>
     </div>
 
 </template>
@@ -26,7 +29,7 @@ export default {
     },
     data() {
         return {
-            post: null,
+            post: {},
             buttonTextModifier: 'modifier',
             buttonTextSupprimer: 'supprimer',
             userLogged: {},
@@ -78,16 +81,24 @@ export default {
                 .catch(error => console.log(error));
 
         },
-        // addOrRemoveLike() {
-        //     axios.post('http://localhost:3000/api/post/' + this.postId + '/like', {}, {
-                
-        //         headers: {
-        //             'Authorization': `Bearer ${this.userLogged.token}`
-        //         }
-        //     })
-        //         // .then(() => rappeler les données)
-        //         .catch(() => console.log("erreur front"));
-        // }
+        updateLike() {
+
+            axios.get('http://localhost:3000/api/post/' + this.postId, {
+                headers: {
+                    'Authorization': `Bearer ${this.userLogged.token}`
+                }
+            })
+                .then(response => {
+                    console.log(response.data);
+                    this.post = response.data;
+                })
+                .then(() => {
+                    if ((this.post.userId === this.userLogged.userId) || this.userLogged.isAdmin) {
+                        this.rightToChange = true;
+                    }
+                })
+                .catch(error => console.log(error));
+        }
     }
 }
 </script>
@@ -96,11 +107,10 @@ export default {
 @import '@/assets/index.scss';
 
 .one-post :hover {
-    
+
     transform: none;
     box-shadow: none;
     cursor: default;
 
 }
-
 </style>

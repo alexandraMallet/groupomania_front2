@@ -6,18 +6,29 @@
             <label for="text">Que souhaitez-vous partager aujourd'hui ?</label>
             <textarea id="text" v-model="text" placeholder="votre texte ici"></textarea>
 
+
             <label class="image style-button" for="image">Choisir une image</label>
             <input type="file" id="image" class="image-input" name="image" accept="image/png, image/jpeg"
                 @change="handleFileUpload($event)" />
+
+            <div class="base-image-input">
+                <img :src="selectedImageUrl">
+            </div>
 
             <Button :buttonText="buttonText" />
         </form>
 
     </div>
-
-
-
 </template>
+
+<!-- <template>
+    <div class="base-image-input" :style="{ 'background-image': `url(${imageData})` }" @click="chooseImage">
+        <span v-if="!imageData" class="placeholder">
+            Choose an Image
+        </span>
+        <input class="file-input" ref="fileInput" type="file" @input="onSelectFile">
+    </div>
+</template> -->
 
 <script>
 
@@ -35,7 +46,8 @@ export default {
         return {
             buttonText: 'publier',
             text: '',
-            file: ''
+            file: '',
+            selectedImageUrl: ''
         }
     },
     methods: {
@@ -66,11 +78,41 @@ export default {
                     console.log('erreur');
                 });
         },
-
         handleFileUpload(event) {
             this.file = event.target.files[0];
             console.log(this.file);
-        },
+
+            let reader = new FileReader();
+            reader.onload = function (event) {
+                this.selectedImageUrl = event.target.result;
+            }
+            console.log(this.selectedImageUrl);
+            reader.readAsDataURL(event.target.files[0]);
+
+
+
+            // this.$emit('input', files[0])
+        }
+        // changeImage(e) {
+        //     this.loadedImage = e.target.files[0]
+        //     let reader = new FileReader()
+        //     reader.onload = function (e) {
+        //         this.selectedImageUrl = e.target.result;
+        //     }
+        //     reader.readAsDataURL(e.target.files[0]);
+        // }
+        // onSelectFile() {
+        //     const input = this.$refs.fileInput
+        //     const files = input.files
+        //     if (files && files[0]) {
+        //         const reader = new FileReader
+        //         reader.onload = e => {
+        //             this.imageData = e.target.result
+        //         }
+        //         reader.readAsDataURL(files[0])
+        //         this.$emit('input', files[0])
+        //     }
+        // }
     }
 }
 </script>
@@ -94,6 +136,15 @@ nav {
             color: $color-primary;
         }
     }
+}
+
+.base-image-input {
+    display: block;
+    width: 200px;
+    height: 200px;
+    cursor: pointer;
+    background-size: cover;
+    background-position: center center;
 }
 
 .form-contener {
