@@ -51,7 +51,7 @@ export default {
             userLogged: {},
             rightToModify: false,
             rightToDelete: false,
-            userId: null,
+            userId: '',
             posts: []
         }
     },
@@ -125,7 +125,7 @@ export default {
 @import '@/assets/index.scss';
 
 .user-card {
-    height: 200px;
+    height: fit-content;
     width: 95%;
     margin: 20px;
     border: 1px solid $color-primary;

@@ -23,7 +23,7 @@ export default {
         }
     },
     created() {
-        this.userLogged = JSON.parse(localStorage.user);
+        this.userLogged = JSON.parse(localStorage.userLogged);
         
         axios
             .get("http://localhost:3000/api/auth", {

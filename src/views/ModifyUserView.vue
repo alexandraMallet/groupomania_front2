@@ -9,8 +9,8 @@
             <label for="password">nouveau mot de passe, le cas échéant :</label>
             <input class="input-password" id="password" v-model="password" />
 
-            <label for="pseudo">Pseudo :</label>
-            <input class="pseudo" id="pseudo" v-model="userPseudo" />
+            <label for="userPseudo">Pseudo :</label>
+            <input class="user-pseudo" id="userPseudo" v-model="userPseudo" />
 
             <img :src="avatarUrl" />
 
@@ -23,11 +23,10 @@
     </div>
 
     <div v-else>
-
-        <UserCard v-if="$data.user" :key="user.id" :user="user" />
-        <p>Vous ne pouvez pas modifier ce compte</p>
+        <p>Ce compte n'est pas le vôtre
+            <br/>Vous ne pouvez pas le modifier
+        </p>
         <Button :buttonText="buttonTextUnauthorized" @click="redirection" />
-
 
     </div>
 </template>
@@ -64,8 +63,9 @@ export default {
     },
     created() {
         this.userLogged = JSON.parse(localStorage.userLogged);
-        this.userLoggedPseudo = JSON.parse(localStorage.userLoggedPseudo);
+        this.userLoggedPseudo = localStorage.userLoggedPseudo;
         this.userId = this.$route.params.id;
+        console.log(this.userId)
 
 
         axios.get('http://localhost:3000/api/auth/' + this.userId, {
@@ -83,7 +83,7 @@ export default {
                 }
             })
             .then(() => {
-                this.userPseudo = this.user.pseudo;
+                this.userPseudo = this.userLoggedPseudo;
                 this.avatarUrl = this.user.avatarUrl;
                 this.email = this.user.email;
             })
@@ -94,26 +94,20 @@ export default {
             this.$router.push('/');
 
         },
-        getLocalStorage() {
-            return JSON.parse(localStorage.getItem('user'))
-        },
         setUserPseudoInLocalStorage() {
-           
-            const userLoggedPseudo = JSON.stringify(this.pseudo)
+            const userLoggedPseudo = this.userPseudo;
             console.log(userLoggedPseudo)
             localStorage.setItem('userLoggedPseudo', userLoggedPseudo)
-
-            // localStorage.setItem('user.pseudo', JSON.stringify(this.pseudo))
-            // const userPseudo = JSON.parse(localStorage.user).pseudo
-            // console.log(userPseudo)
-            //         const parsed = JSON.stringify(this.cats);
-            //   localStorage.setItem('cats', parsed);
         },
         modifyUser() {
 
+            this.userPseudo = this.userPseudo;
+            console.log(this.userPseudo)
+            
+
             let formData = new FormData();
 
-            formData.append('userPseudo', this.userPseudo);
+            formData.append('pseudo', this.userPseudo);
             formData.append('email', this.user.email);
             formData.append('image', this.file);
             if (this.password) { formData.append('password', this.password) };

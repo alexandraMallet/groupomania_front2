@@ -42,7 +42,7 @@ export default {
         submitPost() {
 
             const userLogged = JSON.parse(localStorage.userLogged);
-            const userPseudo = JSON.parse(localStorage.userPseudo);
+            const userPseudo = localStorage.userPseudo;
 
             let formData = new FormData();
             formData.append('userPseudo', userPseudo);
