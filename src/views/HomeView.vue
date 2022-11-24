@@ -8,7 +8,7 @@
   </div>
 
   <div class="global-view">
-      <div v-if="userConnected.isAdmin" class="users-contener">
+      <div v-if="userLogged.isAdmin" class="users-contener">
           <UsersList />
       </div>
       <div class="posts-contener">
@@ -37,22 +37,18 @@ export default {
   data() {
       return {
           authorizedUser:false,
-          user: null,
-          userConnected: null,
-          userId: null,
+          user: {},
+          userLogged:{},
+          userId: '',
       }
   },
   created() {
 
-    if(!localStorage) {
-      this.$router.push('/connexion/');
-    } else {
+      this.userLogged = JSON.parse(localStorage.userLogged);
 
-      this.userConnected = JSON.parse(localStorage.user);
-
-      axios.get('http://localhost:3000/api/auth/' + this.userConnected.userId, {
+      axios.get('http://localhost:3000/api/auth/' + this.userLogged.userId, {
           headers: {
-              'Authorization': `Bearer ${this.userConnected.token}`
+              'Authorization': `Bearer ${this.userLogged.token}`
           }
       })
           .then(response => {
@@ -60,13 +56,13 @@ export default {
               this.userId = response.data._id;            
           })
           .then(() => {
-              if(this.userId === this.userConnected.userId) {
+              if(this.userId === this.userLogged.userId) {
                   this.authorizedUser = true;
               } })
           .catch(error => console.log(error));
   }
 }
-}
+
 
 </script>
 

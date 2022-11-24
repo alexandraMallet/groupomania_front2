@@ -47,8 +47,8 @@ export default {
             buttonTextSupprimer: 'supprimer',
             buttonTextUnauthorized: 'revenir aux publications',
             authorized: false,
-            user: null,
-            userConnected: null,
+            user: {},
+            userLogged: {},
             rightToModify: false,
             rightToDelete: false,
             userId: null,
@@ -56,13 +56,13 @@ export default {
         }
     },
     created() {
-        this.userConnected = JSON.parse(localStorage.user);
+        this.userLogged = JSON.parse(localStorage.userLogged);
         this.userId = this.$route.params.id;
 
 
         axios.get('http://localhost:3000/api/auth/' + this.userId, {
             headers: {
-                'Authorization': `Bearer ${this.userConnected.token}`
+                'Authorization': `Bearer ${this.userLogged.token}`
             }
         })
             .then(response => {
@@ -71,10 +71,10 @@ export default {
                 this.posts = this.user.posts;
             })
             .then(() => {
-                if (this.userId === this.userConnected.userId) {
+                if (this.userId === this.userLogged.userId) {
                     this.rightToModify = true;
                 }
-                if ((this.userId === this.userConnected.userId) || this.userConnected.isAdmin) {
+                if ((this.userId === this.userLogged.userId) || this.userLogged.isAdmin) {
                     this.authorized = true;
                     this.rightToDelete = true;
                 }
@@ -93,7 +93,7 @@ export default {
         deleteUser() {
             axios.delete('http://localhost:3000/api/auth/' + this.userId, {
                 headers: {
-                    'Authorization': `Bearer ${this.userConnected.token}`
+                    'Authorization': `Bearer ${this.userLogged.token}`
                 }
             })
                 .then(() => {

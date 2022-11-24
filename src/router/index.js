@@ -53,7 +53,7 @@ const router = createRouter({
 
 router.beforeEach(async (to, from) => {
 
-  const loggedIn = localStorage.getItem('user');
+  const loggedIn = localStorage.getItem('userLogged');
   if (!loggedIn && to.name !== 'LoginView')  {
     return { name: 'LoginView' }
   }

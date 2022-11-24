@@ -18,7 +18,7 @@ export default {
     data() {
         return {
             posts: [],
-            userConnected: {}
+            userLogged: {}
         }
     },
     computed: {
@@ -27,12 +27,12 @@ export default {
         }
     },
     created() {
-        this.userConnected = JSON.parse(localStorage.user);
+        this.userLogged = JSON.parse(localStorage.userLogged);
         
         axios
             .get("http://localhost:3000/api/post", {
                 headers: {
-                    'Authorization': `Bearer ${this.userConnected.token}`
+                    'Authorization': `Bearer ${this.userLogged.token}`
                 }
             })
             .then(response => {

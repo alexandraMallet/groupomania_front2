@@ -29,18 +29,18 @@ export default {
             post: null,
             buttonTextModifier: 'modifier',
             buttonTextSupprimer: 'supprimer',
-            userConnected: null,
+            userLogged: {},
             rightToChange: false,
             postId: null,
         }
     },
     created() {
-        this.userConnected = JSON.parse(localStorage.user);
+        this.userLogged = JSON.parse(localStorage.userLogged);
         this.postId = this.$route.params.id;
 
         axios.get('http://localhost:3000/api/post/' + this.postId, {
             headers: {
-                'Authorization': `Bearer ${this.userConnected.token}`
+                'Authorization': `Bearer ${this.userLogged.token}`
             }
         })
             .then(response => {
@@ -48,7 +48,7 @@ export default {
                 this.post = response.data;
             })
             .then(() => {
-                if ((this.post.userId === this.userConnected.userId) || this.userConnected.isAdmin) {
+                if ((this.post.userId === this.userLogged.userId) || this.userLogged.isAdmin) {
                     this.rightToChange = true;
                 }
             })
@@ -69,7 +69,7 @@ export default {
         deletePost() {
             axios.delete('http://localhost:3000/api/post/' + this.postId, {
                 headers: {
-                    'Authorization': `Bearer ${this.userConnected.token}`
+                    'Authorization': `Bearer ${this.userLogged.token}`
                 }
             })
                 .then(() => {
@@ -78,16 +78,16 @@ export default {
                 .catch(error => console.log(error));
 
         },
-        addOrRemoveLike() {
-            axios.post('http://localhost:3000/api/post/' + this.postId + '/like', {}, {
+        // addOrRemoveLike() {
+        //     axios.post('http://localhost:3000/api/post/' + this.postId + '/like', {}, {
                 
-                headers: {
-                    'Authorization': `Bearer ${this.userConnected.token}`
-                }
-            })
-                // .then(() => rappeler les données)
-                .catch(() => console.log("erreur front"));
-        }
+        //         headers: {
+        //             'Authorization': `Bearer ${this.userLogged.token}`
+        //         }
+        //     })
+        //         // .then(() => rappeler les données)
+        //         .catch(() => console.log("erreur front"));
+        // }
     }
 }
 </script>

@@ -41,10 +41,11 @@ export default {
     methods: {
         submitPost() {
 
-            const user = JSON.parse(localStorage.user);
+            const userLogged = JSON.parse(localStorage.userLogged);
+            const userPseudo = JSON.parse(localStorage.userPseudo);
 
             let formData = new FormData();
-            formData.append('userPseudo', user.pseudo);
+            formData.append('userPseudo', userPseudo);
             formData.append('text', this.text);
             formData.append('image', this.file);
 
@@ -54,7 +55,7 @@ export default {
                 formData,
                 {
                     headers: {
-                        'Authorization': `Bearer ${user.token}`
+                        'Authorization': `Bearer ${userLogged.token}`
                     }
                 }
             ).then(function () {

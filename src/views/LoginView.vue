@@ -78,9 +78,18 @@ export default {
         'email': this.email,
         'password': this.password
       })
-        .then(function (response) {
+      .then(function (response) {
           const user = response.data;
-          localStorage.setItem('user', JSON.stringify(user));
+          const userLogged = {
+            userId : user.userId,
+            isAdmin : user.isAdmin,
+            token : user.token
+          }
+          console.log(userLogged);
+          const userLoggedPseudo = user.pseudo;
+          console.log(userLoggedPseudo);
+          localStorage.setItem('userLogged', JSON.stringify(userLogged));
+          localStorage.setItem('userLoggedPseudo', userLoggedPseudo);
         })
         .then(() => { this.$router.push('/') })
         .catch(function (error) {
@@ -109,7 +118,18 @@ export default {
         .then(function (response) {
           console.log(formData);
           const user = response.data;
-          localStorage.setItem('user', JSON.stringify(user));
+          const userJsonStringify = JSON.stringify(user);
+          console.log(userJsonStringify);
+          const userLogged = {
+            userId : userJsonStringify.userId,
+            isAdmin : userJsonStringify.isAdmin,
+            token : userJsonStringify.token
+          }
+          console.log(userLogged);
+          const userLoggedPseudo = userJsonStringify.pseudo;
+          console.log(userLoggedPseudo);
+          localStorage.setItem('userLogged', userLogged);
+          localStorage.setItem('userLoggedPseudo', userLoggedPseudo);
         })
         .then(() => { this.$router.push('/') })
         .catch(function (error) {

@@ -39,21 +39,21 @@ export default {
     },
     data() {
         return {
-            userConnected: null
+            userLogged: {}
         }
     },
     created() {
-        this.userConnected = JSON.parse(localStorage.user);
+        this.userLogged = JSON.parse(localStorage.userLogged);
     },
     methods: {
         addOrRemoveLike() {
             axios.post('http://localhost:3000/api/post/' + this.post._id + '/like', {}, {
 
                 headers: {
-                    'Authorization': `Bearer ${this.userConnected.token}`
+                    'Authorization': `Bearer ${this.userLogged.token}`
                 }
             })
-                .then(() => this.$router.push('/'))
+                .then(() => {this.$router.push('/')})
                 .catch(() => console.log("erreur front"));
         }
     }

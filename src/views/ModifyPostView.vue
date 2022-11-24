@@ -40,21 +40,21 @@ export default {
             buttonTextUnauthorized: 'vous ne pouvez pas modifier cette publication',
             post: '',
             text: '',
-            userPseudo: '',
+            userLoggedPseudo: '',
             file: '',
-            userConnected: '',
+            userLogged: {},
             postId: '',
             imageUrl: '',
             rightToChange: false
         }
     },
     created() {
-        this.userConnected = JSON.parse(localStorage.user);
+        this.userLogged = JSON.parse(localStorage.userLogged);
         this.postId = this.$route.params.id;
 
         axios.get('http://localhost:3000/api/post/' + this.postId, {
             headers: {
-                'Authorization': `Bearer ${this.userConnected.token}`
+                'Authorization': `Bearer ${this.userLogged.token}`
             }
         })
             .then(response => {
@@ -62,7 +62,7 @@ export default {
                 this.post = response.data;
             })
             .then(() => {
-                if ((this.post.userId === this.userConnected.userId) || this.userConnected.isAdmin) {
+                if ((this.post.userId === this.userLogged.userId) || this.userLogged.isAdmin) {
                     this.rightToChange = true;
                 }
             })
@@ -79,9 +79,10 @@ export default {
         modifyPost() {
 
             let formData = new FormData();
+            this.userLoggedPseudo = JSON.stringify(localStorage.userLoggedPseudo);
 
             formData.append('text', this.text);
-            formData.append('modifiedBy', this.userConnected.pseudo);
+            formData.append('modifiedBy', this.userLoggedPseudo);
             if (this.file) { formData.append('image', this.file) }
 
             console.log(formData);
@@ -90,7 +91,7 @@ export default {
                 formData,
                 {
                     headers: {
-                        'Authorization': `Bearer ${this.userConnected.token}`
+                        'Authorization': `Bearer ${this.userLogged.token}`
                     }
                 }
             )

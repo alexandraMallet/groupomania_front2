@@ -1,5 +1,5 @@
 <template>
-    <Header/>
+    <Header />
     <div v-if="rightToModify" class="form-contener">
         <form v-if="$data.user" class="create-post-form" @submit.prevent="modifyUser">
 
@@ -10,7 +10,7 @@
             <input class="input-password" id="password" v-model="password" />
 
             <label for="pseudo">Pseudo :</label>
-            <input class="pseudo" id="pseudo" v-model="pseudo" />
+            <input class="pseudo" id="pseudo" v-model="userPseudo" />
 
             <img :src="avatarUrl" />
 
@@ -24,7 +24,7 @@
 
     <div v-else>
 
-        <UserCard v-if="$data.user" :key="user.id" :user="user"/>
+        <UserCard v-if="$data.user" :key="user.id" :user="user" />
         <p>Vous ne pouvez pas modifier ce compte</p>
         <Button :buttonText="buttonTextUnauthorized" @click="redirection" />
 
@@ -50,25 +50,27 @@ export default {
         return {
             buttonTextSave: 'enregistrer les modifications',
             buttonTextUnauthorized: 'revenir aux publications',
-            pseudo: '',
-            email:'',
+            userLoggedPseudo: '',
+            userPseudo: '',
+            email: '',
             file: '',
-            password:'',
-            user: '',
-            userConnected: '',
+            password: '',
+            user: {},
+            userLogged: {},
             userId: '',
             avatarUrl: '',
             rightToModify: false
         }
     },
     created() {
-        this.userConnected = JSON.parse(localStorage.user);
+        this.userLogged = JSON.parse(localStorage.userLogged);
+        this.userLoggedPseudo = JSON.parse(localStorage.userLoggedPseudo);
         this.userId = this.$route.params.id;
 
 
         axios.get('http://localhost:3000/api/auth/' + this.userId, {
             headers: {
-                'Authorization': `Bearer ${this.userConnected.token}`
+                'Authorization': `Bearer ${this.userLogged.token}`
             }
         })
             .then(response => {
@@ -76,12 +78,12 @@ export default {
                 this.user = response.data;
             })
             .then(() => {
-                if ((this.userId === this.userConnected.userId)) {
+                if ((this.userId === this.userLogged.userId)) {
                     this.rightToModify = true;
                 }
             })
             .then(() => {
-                this.pseudo = this.user.pseudo;
+                this.userPseudo = this.user.pseudo;
                 this.avatarUrl = this.user.avatarUrl;
                 this.email = this.user.email;
             })
@@ -92,14 +94,29 @@ export default {
             this.$router.push('/');
 
         },
+        getLocalStorage() {
+            return JSON.parse(localStorage.getItem('user'))
+        },
+        setUserPseudoInLocalStorage() {
+           
+            const userLoggedPseudo = JSON.stringify(this.pseudo)
+            console.log(userLoggedPseudo)
+            localStorage.setItem('userLoggedPseudo', userLoggedPseudo)
+
+            // localStorage.setItem('user.pseudo', JSON.stringify(this.pseudo))
+            // const userPseudo = JSON.parse(localStorage.user).pseudo
+            // console.log(userPseudo)
+            //         const parsed = JSON.stringify(this.cats);
+            //   localStorage.setItem('cats', parsed);
+        },
         modifyUser() {
 
             let formData = new FormData();
 
-            formData.append('pseudo', this.pseudo);
+            formData.append('userPseudo', this.userPseudo);
             formData.append('email', this.user.email);
             formData.append('image', this.file);
-            if(this.password) {formData.append('password', this.password)};
+            if (this.password) { formData.append('password', this.password) };
 
             console.log(formData);
 
@@ -107,14 +124,13 @@ export default {
                 formData,
                 {
                     headers: {
-                        'Authorization': `Bearer ${this.userConnected.token}`
+                        'Authorization': `Bearer ${this.userLogged.token}`
                     }
                 }
             )
+                .then(() => this.setUserPseudoInLocalStorage())
                 .then(() => { this.$router.push('/utilisateurice/' + this.userId) })
-                .catch(function () {
-                    console.log('erreur');
-                });
+            // .catch(() => {console.log('erreur')});
         },
 
         handleFileUpload(event) {
@@ -173,5 +189,9 @@ nav {
     transform: scale(1.01);
     box-shadow: 0 3px 5px 0 $color-primary;
     cursor: pointer;
+}
+
+img {
+    height: 100px;
 }
 </style>
