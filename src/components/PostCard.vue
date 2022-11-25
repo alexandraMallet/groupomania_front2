@@ -12,16 +12,23 @@
 
             </div>
         </div>
-        <div class="like-dislike">
-            <button @click.prevent="addOrRemoveLike"><img src="@/assets/like-button-black-icon.png" /></button>
-            <p class="likes">{{ post.likes }}</p>
-
-
-            <!-- <button @click="likePost" type="submit" title="Aimer ce post !" class="button" :class="{ liked: myLikeStatus }">
-            <font-awesome-icon :icon="`fa-solid fa-thumbs-${myLikeStatus ? 'up' : 'down'}`" /> Like !
-        </button> -->
-        </div>
     </router-link>
+
+    <div class="like-dislike">
+
+
+        <font-awesome-icon v-if="!likeStatus" icon="fa-solid fa-heart" class="no-like" @click.prevent="addOrRemoveLike"></font-awesome-icon>
+        <font-awesome-icon v-else icon="fa-solid fa-heart" class="like" @click.prevent="addOrRemoveLike"></font-awesome-icon>
+
+
+
+        <p class="likes">{{ post.likes }}</p>
+
+
+        <!-- <button @click="likePost" type="submit" title="Aimer ce post !" class="button" :class="{ liked: myLikeStatus }">
+<font-awesome-icon :icon="`fa-solid fa-thumbs-${myLikeStatus ? 'up' : 'down'}`" /> Like !
+</button> -->
+    </div>
 
 </template>
 
@@ -39,11 +46,14 @@ export default {
     },
     data() {
         return {
-            userLogged: {}
+            userLogged: {},
+            likeStatus: false
         }
     },
     created() {
         this.userLogged = JSON.parse(localStorage.userLogged);
+
+        
     },
     methods: {
         addOrRemoveLike() {
@@ -53,7 +63,7 @@ export default {
                     'Authorization': `Bearer ${this.userLogged.token}`
                 }
             })
-                .then(() => {this.$emit('update-like')})
+                .then(() => { this.$emit('update-like') })
                 .catch(() => console.log("erreur front"));
         }
     }
@@ -98,32 +108,19 @@ export default {
         margin-right: 10px;
     }
 
-    button {
-        position: relative;
-        height: 25px;
-        width: 25px;
-        border-radius: 50px;
-        margin-left: 10px;
-        z-index: 2;
 
 
-        img {
-            position: absolute;
-            left: -2px;
-            top: -2px;
-            height: 25px;
-            width: 25px;
-            border-radius: 50px;
-            z-index: 1;
-        }
-
-        img:hover {
-            transform: scale(1.01);
-            box-shadow: 0 0 0 5px $color-secondary;
-            cursor: pointer;
-        }
-
+    .no-like {
+        height: 20px;
+        color: $color-secondary;
     }
+
+    .no-like:hover {
+        transform: scale(1.09);
+        cursor: pointer;
+    }
+
+
 
 
 
