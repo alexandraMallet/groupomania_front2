@@ -1,16 +1,20 @@
 <template>
-    <Header/>
+    <Header />
     <div class="form-contener">
         <form v-if="$data.post" class="create-post-form" @submit.prevent="modifyPost">
 
             <label for="text">Votre texte : </label>
             <textarea id="text" v-model="text"></textarea>
 
-            <img :src="imageUrl" />
+            <!-- <img :src="imageUrl" /> -->
 
             <label class="image style-button" for="image">Modifier l'image</label>
             <input type="file" id="image" class="image-input" name="image" accept="image/png, image/jpeg"
                 @change="handleFileUpload($event)" />
+
+            <div class="base-image-input">
+                <img :src="imageUrl">
+            </div>
 
             <Button v-if="rightToChange" :buttonText="buttonText" />
         </form>
@@ -45,6 +49,7 @@ export default {
             userLogged: {},
             postId: '',
             imageUrl: '',
+            selectedImageUrl: '',
             rightToChange: false
         }
     },
@@ -103,9 +108,16 @@ export default {
 
         handleFileUpload(event) {
             this.file = event.target.files[0];
-            // this.imageUrl = ;
-            console.log(this.file);
+            console.log(this.file)
+            this.imagePreview(this.file)
         },
+        imagePreview(file) {
+            let reader = new FileReader();
+            reader.onload = event => {
+                this.imageUrl = event.target.result
+            }
+            reader.readAsDataURL(file)
+        }
     }
 }
 </script>
@@ -157,5 +169,15 @@ nav {
     transform: scale(1.01);
     box-shadow: 0 3px 5px 0 $color-primary;
     cursor: pointer;
+}
+
+.base-image-input {
+  height: 100px;
+  background-size: cover;
+  background-position: center center;
+
+  img {
+    height: 100px;
+  }
 }
 </style>
