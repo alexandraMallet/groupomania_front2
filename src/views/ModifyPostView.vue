@@ -6,8 +6,6 @@
             <label for="text">Votre texte : </label>
             <textarea id="text" v-model="text"></textarea>
 
-            <!-- <img :src="imageUrl" /> -->
-
             <label class="image style-button" for="image">Modifier l'image</label>
             <input type="file" id="image" class="image-input" name="image" accept="image/png, image/jpeg"
                 @change="handleFileUpload($event)" />

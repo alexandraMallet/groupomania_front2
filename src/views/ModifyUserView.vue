@@ -12,11 +12,14 @@
             <label for="userPseudo">Pseudo :</label>
             <input class="user-pseudo" id="userPseudo" v-model="userPseudo" />
 
-            <img :src="avatarUrl" />
 
             <label class="image style-button" for="image">Modifier votre photo de profil</label>
             <input type="file" id="image" class="image-input" name="image" accept="image/png, image/jpeg"
                 @change="handleFileUpload($event)" />
+
+            <div class="base-image-input">
+                <img :src="avatarUrl">
+            </div>
 
             <Button v-if="rightToModify" :buttonText="buttonTextSave" />
         </form>
@@ -24,7 +27,7 @@
 
     <div v-else>
         <p>Ce compte n'est pas le vôtre
-            <br/>Vous ne pouvez pas le modifier
+            <br />Vous ne pouvez pas le modifier
         </p>
         <Button :buttonText="buttonTextUnauthorized" @click="redirection" />
 
@@ -103,7 +106,7 @@ export default {
 
             this.userPseudo = this.userPseudo;
             console.log(this.userPseudo)
-            
+
 
             let formData = new FormData();
 
@@ -129,9 +132,16 @@ export default {
 
         handleFileUpload(event) {
             this.file = event.target.files[0];
-            // this.imageUrl = ;
-            console.log(this.file);
+            console.log(this.file)
+            this.imagePreview(this.file)
         },
+        imagePreview(file) {
+            let reader = new FileReader();
+            reader.onload = event => {
+                this.avatarUrl = event.target.result
+            }
+            reader.readAsDataURL(file)
+        }
     }
 }
 </script>
@@ -187,5 +197,15 @@ nav {
 
 img {
     height: 100px;
+}
+
+.base-image-input {
+  height: 100px;
+  background-size: cover;
+  background-position: center center;
+
+  img {
+    height: 100px;
+  }
 }
 </style>
