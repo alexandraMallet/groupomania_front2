@@ -80,39 +80,16 @@ export default {
         },
         handleFileUpload(event) {
             this.file = event.target.files[0];
-            console.log(this.file);
-
+            console.log(this.file)
+            this.imagePreview(this.file)
+        },
+        imagePreview(file) {
             let reader = new FileReader();
-            reader.onload = function (event) {
-                this.selectedImageUrl = event.target.result;
+            reader.onload = event => {
+                this.selectedImageUrl = event.target.result
             }
-            console.log(this.selectedImageUrl);
-            reader.readAsDataURL(event.target.files[0]);
-
-
-
-            // this.$emit('input', files[0])
+            reader.readAsDataURL(file)
         }
-        // changeImage(e) {
-        //     this.loadedImage = e.target.files[0]
-        //     let reader = new FileReader()
-        //     reader.onload = function (e) {
-        //         this.selectedImageUrl = e.target.result;
-        //     }
-        //     reader.readAsDataURL(e.target.files[0]);
-        // }
-        // onSelectFile() {
-        //     const input = this.$refs.fileInput
-        //     const files = input.files
-        //     if (files && files[0]) {
-        //         const reader = new FileReader
-        //         reader.onload = e => {
-        //             this.imageData = e.target.result
-        //         }
-        //         reader.readAsDataURL(files[0])
-        //         this.$emit('input', files[0])
-        //     }
-        // }
     }
 }
 </script>
@@ -120,31 +97,15 @@ export default {
 <style scoped lang="scss">
 @import '@/assets/index.scss';
 
-.header-app {
-    display: flex;
-    justify-content: space-between;
-}
-
-nav {
-    padding: 30px;
-
-    a {
-        font-weight: bold;
-        color: $color-tertiary;
-
-        &.router-link-exact-active {
-            color: $color-primary;
-        }
-    }
-}
 
 .base-image-input {
-    display: block;
-    width: 200px;
-    height: 200px;
-    cursor: pointer;
+    height: 100px;
     background-size: cover;
     background-position: center center;
+
+    img {
+        height: 100px;
+    }
 }
 
 .form-contener {
