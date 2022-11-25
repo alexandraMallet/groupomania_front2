@@ -38,6 +38,10 @@
       <input type="file" id="image" class="image-input" name="image" accept="image/png, image/jpeg"
         @change="handleFileUpload($event)" />
 
+      <div class="base-image-input">
+        <img :src="selectedImageUrl">
+      </div>
+
       <Button :buttonText="buttonTextSignup" />
     </form>
     <Button @click="redirectLogin" :buttonText="buttonBackLogin" />
@@ -64,6 +68,7 @@ export default {
       buttonTextRedirect: "S'inscrire",
       buttonTextSignup: "Envoyer",
       buttonBackLogin: "Retour",
+      selectedImageUrl: '',
       showSignup: false
     };
   },
@@ -78,12 +83,12 @@ export default {
         'email': this.email,
         'password': this.password
       })
-      .then(function (response) {
+        .then(function (response) {
           const user = response.data;
           const userLogged = {
-            userId : user.userId,
-            isAdmin : user.isAdmin,
-            token : user.token
+            userId: user.userId,
+            isAdmin: user.isAdmin,
+            token: user.token
           }
           console.log(userLogged);
           const userLoggedPseudo = user.pseudo;
@@ -118,17 +123,15 @@ export default {
         .then(function (response) {
           console.log(formData);
           const user = response.data;
-          const userJsonStringify = JSON.stringify(user);
-          console.log(userJsonStringify);
           const userLogged = {
-            userId : userJsonStringify.userId,
-            isAdmin : userJsonStringify.isAdmin,
-            token : userJsonStringify.token
+            userId: user.userId,
+            isAdmin: user.isAdmin,
+            token: user.token
           }
           console.log(userLogged);
-          const userLoggedPseudo = userJsonStringify.pseudo;
+          const userLoggedPseudo = user.pseudo;
           console.log(userLoggedPseudo);
-          localStorage.setItem('userLogged', userLogged);
+          localStorage.setItem('userLogged', JSON.stringify(userLogged));
           localStorage.setItem('userLoggedPseudo', userLoggedPseudo);
         })
         .then(() => { this.$router.push('/') })
@@ -138,7 +141,15 @@ export default {
     },
     handleFileUpload(event) {
       this.file = event.target.files[0];
-      console.log(this.file);
+      console.log(this.file)
+      this.imagePreview(this.file)
+    },
+    imagePreview(file) {
+      let reader = new FileReader();
+      reader.onload = event => {
+        this.selectedImageUrl = event.target.result
+      }
+      reader.readAsDataURL(file)
     }
   }
 };
@@ -179,43 +190,53 @@ export default {
 
 .signup-container {
 
-height: 300px;
-width: 100%;
+  height: 300px;
+  width: 100%;
 
-form {
-  margin-top: 50px;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  align-items: center;
+  form {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
 
-  input {
-    margin-top: 10px;
-    height: 30px;
-    width: 300px;
-    margin-bottom: 20px;
+    input {
+      margin-top: 10px;
+      height: 30px;
+      width: 300px;
+      margin-bottom: 20px;
 
+    }
+  }
+
+  .image-input {
+    display: none;
+  }
+
+  .style-button {
+    display: block;
+    height: fit-content;
+    width: fit-content;
+    padding: 10px 20px 10px 20px;
+    font-size: 12px;
+    background-color: $color-primary;
+    color: $color-tertiary;
+    border-radius: 50px;
+    border: none;
+  }
+
+  button {
+    margin-top: 30px;
   }
 }
 
-.image-input {
-  display: none;
-}
+.base-image-input {
+  height: 100px;
+  background-size: cover;
+  background-position: center center;
 
-.style-button {
-  display: block;
-  height: fit-content;
-  width: fit-content;
-  padding: 10px 20px 10px 20px;
-  font-size: 12px;
-  background-color: $color-primary;
-  color: $color-tertiary;
-  border-radius: 50px;
-  border: none;
-}
-
-button {
-  margin-top: 30px;
-}
+  img {
+    height: 100px;
+  }
 }
 </style>
