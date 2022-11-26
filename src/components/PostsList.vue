@@ -1,6 +1,7 @@
 <template>
     <div class="posts">
-        <PostCard v-for="post in antechrono" :key="post.id" :post="post" @update-like="updateLike" />
+        
+        <PostCard v-for="post in antechrono" :key="post.id" :post="post" class="post-card-vue" @update-like="updateLike" />
     </div>
 
 </template>
@@ -71,5 +72,11 @@ export default {
     height: fit-content;
     margin: 5px;
     border: 1px solid $color-tertiary;
+}
+
+.post-card-vue:hover {
+    transform: scale(1.01);
+    box-shadow: 0 3px 12px 0 $color-secondary;
+    cursor: pointer;
 }
 </style>
