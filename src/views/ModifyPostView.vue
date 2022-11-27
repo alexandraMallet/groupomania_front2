@@ -82,7 +82,7 @@ export default {
         modifyPost() {
 
             let formData = new FormData();
-            this.userLoggedPseudo = JSON.stringify(localStorage.userLoggedPseudo);
+            this.userLoggedPseudo = localStorage.userLoggedPseudo;
 
             formData.append('text', this.text);
             formData.append('modifiedBy', this.userLoggedPseudo);

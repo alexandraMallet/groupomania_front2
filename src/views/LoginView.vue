@@ -16,6 +16,7 @@
 
       <Button type="submit" :buttonText="buttonTextLogin" />
     </form>
+
     <div class="redirect-signup">
       <p>Pas encore de compte ?</p>
       <Button @click="redirectSignup" :buttonText="buttonTextRedirect" />
@@ -179,12 +180,23 @@ export default {
 
     .input-email {
       margin-bottom: 20px;
+      border-color: $color-secondary;
+    }
+
+    .input-password {
+      border-color: $color-secondary;
     }
 
     p {
       font-size: 12px;
       margin-bottom: 30px;
     }
+  }
+  .redirect-signup {
+    display: flex;
+    justify-content: right;
+    margin-top: 20px;
+    margin-right: 20px;
   }
 }
 

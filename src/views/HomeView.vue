@@ -59,7 +59,7 @@ export default {
               if(this.userId === this.userLogged.userId) {
                   this.authorizedUser = true;
               } })
-          .catch(error => console.log(error));
+          .catch(() => {this.$router.push('/connexion')});
   }
 }
 

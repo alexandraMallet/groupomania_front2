@@ -45,10 +45,10 @@ export default {
         submitPost() {
 
             const userLogged = JSON.parse(localStorage.userLogged);
-            const userPseudo = localStorage.userPseudo;
+            // const userPseudo = localStorage.userPseudo;
 
             let formData = new FormData();
-            formData.append('userPseudo', userPseudo);
+            // formData.append('userPseudo', userPseudo);
             formData.append('text', this.text);
             formData.append('image', this.file);
 
