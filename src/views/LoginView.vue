@@ -1,59 +1,84 @@
 <template>
 
-  <Header />
+  <div class="connexion-container">
+    <div class="connexion-container-small">
+      <mq-responsive target="sm-" tag="div">
+        <Header />
+      </mq-responsive>
 
-  <div v-if="!showSignup" class="login-contener">
-    <form class="login" @submit.prevent="login">
-      <label for="email">votre email :</label>
-      <input class="input-email" v-model="email" />
+      <div v-if="!showSignup" class="login-contener">
+        <form class="login" @submit.prevent="login">
+          <label for="email">votre email :</label>
+          <input class="input-email" v-model="email" />
 
-      <label for="password">votre mot de passe :</label>
-      <input class="input-password" v-model="password" />
+          <label for="password">votre mot de passe :</label>
+          <input class="input-password" v-model="password" />
 
-      <p>Identifiants oubliés ?
-        <br />Merci de prendre contact avec le service informatique.
-      </p>
+          <p>Identifiants oubliés ?
+            <br />Merci de prendre contact avec le service informatique.
+          </p>
 
-      <Button type="submit" :buttonText="buttonTextLogin" />
-    </form>
+          <Button type="submit" :buttonText="buttonTextLogin" />
+        </form>
 
-    <div class="redirect-signup">
-      <p>Pas encore de compte ?</p>
-      <Button @click="redirectSignup" :buttonText="buttonTextRedirect" />
-    </div>
-  </div>
+        <div class="redirect-signup">
+          <p>Pas encore de compte ?</p>
+          <Button @click="redirectSignup" :buttonText="buttonTextRedirect" />
+        </div>
 
-
-  <div v-if="showSignup" class="signup-container">
-    <form class="signup-form" @submit.prevent="signup">
-      <label for="email">email :</label>
-      <input class="input-email" id="email" v-model="email" />
-
-      <label for="password">Choisissez un mot de passe (au moins 8 caractères, sans espace) :</label>
-      <input class="input-password" id="password" v-model="password" />
-
-      <label for="pseudo">Choisissez un pseudo :</label>
-      <input class="pseudo" id="pseudo" v-model="pseudo" />
-
-      <label class="image style-button" for="image">Choisir une photo de profil</label>
-      <input type="file" id="image" class="image-input" name="image" accept="image/png, image/jpeg"
-        @change="handleFileUpload($event)" />
-
-      <div class="base-image-input">
-        <img :src="selectedImageUrl">
       </div>
 
-      <Button :buttonText="buttonTextSignup" />
-    </form>
-    <Button @click="redirectLogin" :buttonText="buttonBackLogin" />
+      <div v-if="showSignup" class="signup-container">
+
+        <div class="return">
+          <Button @click="redirectLogin" :buttonText="buttonBackLogin" />
+        </div>
+
+        <form class="signup-form" @submit.prevent="signup">
+          <label for="email">email :</label>
+          <input class="input-email" id="email" v-model="email" />
+
+          <label for="password">Choisissez un mot de passe (au moins 8 caractères, sans espace) :</label>
+          <input class="input-password" id="password" v-model="password" />
+
+          <label for="pseudo">Choisissez un pseudo :</label>
+          <input class="pseudo" id="pseudo" v-model="pseudo" />
+
+          <label class="image style-button" for="image">Choisir une photo de profil</label>
+          <input type="file" id="image" class="image-input" name="image" accept="image/png, image/jpeg"
+            @change="handleFileUpload($event)" />
+
+          <div class="base-image-input">
+            <img :src="selectedImageUrl">
+          </div>
+
+          <Button :buttonText="buttonTextSignup" />
+        </form>
+
+      </div>
+    </div>
+
+
+    <mq-responsive target="md+" tag="div">
+      <div class="connexion-large">
+        <img src="@/assets/logo.png" />
+      </div>
+    </mq-responsive>
 
   </div>
 
-
 </template>
-  
+
 <script>
 import axios from 'axios';
+
+import { computed } from "vue";
+import { useMq } from "vue3-mq";
+import { MqResponsive } from "vue3-mq";
+// const mq = useMq();
+
+// const showElement = computed(() => mq.current === "md");
+
 import Header from '@/components/Header.vue';
 import Button from '@/components/Button.vue';
 
@@ -61,7 +86,8 @@ export default {
   name: 'LoginView',
   components: {
     Button,
-    Header
+    Header,
+    MqResponsive
   },
   data() {
     return {
@@ -159,11 +185,27 @@ export default {
 <style scoped lang="scss">
 @import '@/assets/index.scss';
 
+.connexion-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.connexion-container-small {
+  width: 100%;
+}
 
 .login-contener {
 
   height: 300px;
   width: 100%;
+
+  @include md {
+    margin-top: 100px;
+  }
+
+  @include lg {
+    margin-top: 100px;
+  }
 
   form {
     margin-top: 50px;
@@ -192,6 +234,7 @@ export default {
       margin-bottom: 30px;
     }
   }
+
   .redirect-signup {
     display: flex;
     justify-content: right;
@@ -206,7 +249,7 @@ export default {
   width: 100%;
 
   form {
-    margin-top: 50px;
+    margin-top: 30px;
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -217,13 +260,36 @@ export default {
       height: 30px;
       width: 300px;
       margin-bottom: 20px;
+      border-color: $color-secondary;
+    }
 
+    .image-input {
+      display: none;
+    }
+
+    .base-image-input {
+      height: 100px;
+      margin-top: 20px;
+      background-size: cover;
+      background-position: center center;
+
+      img {
+        height: 100px;
+      }
+    }
+
+  }
+
+  .return {
+    margin-left: 20px;
+    margin-top: 30px;
+
+    button {
+      margin-bottom: 0;
     }
   }
 
-  .image-input {
-    display: none;
-  }
+
 
   .style-button {
     display: block;
@@ -242,13 +308,9 @@ export default {
   }
 }
 
-.base-image-input {
-  height: 100px;
-  background-size: cover;
-  background-position: center center;
 
-  img {
-    height: 100px;
-  }
+
+.connexion-large img {
+  height: 600px;
 }
 </style>

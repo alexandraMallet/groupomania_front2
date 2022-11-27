@@ -2,7 +2,7 @@
   <router-view />
 </template>
 
-<script>
+<!-- <script>
 import { MqResponsive } from "vue3-mq";
 export default {
     components: {
@@ -10,7 +10,7 @@ export default {
     }
 }
 
-</script>
+</script> -->
 
 
 
