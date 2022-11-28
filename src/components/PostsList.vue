@@ -1,7 +1,7 @@
 <template>
     <div class="posts">
-        
-        <PostCard v-for="post in antechrono" :key="post.id" :post="post" class="post-card-vue" @update-like="updateLike" />
+        <PostCard v-for="post in antechrono" :key="post.id" :post="post" class="post-card-vue"
+            @update-like="updateLike" />
     </div>
 
 </template>
@@ -30,8 +30,8 @@ export default {
     created() {
 
         const maDate = new Date()
-console.log(maDate);
-console.log(maDate.toLocaleDateString("fr"))
+        console.log(maDate);
+        console.log(maDate.toLocaleDateString("fr"))
         this.userLogged = JSON.parse(localStorage.userLogged);
 
         axios
@@ -72,15 +72,16 @@ console.log(maDate.toLocaleDateString("fr"))
 @import '@/assets/index.scss';
 
 .posts {
-    width: 95%;
+    width: 100%;
     height: fit-content;
-    margin: 5px;
-    background-color: lighten($color: $color-secondary, $amount: 5);
+    margin: 10px;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .post-card-vue {
-margin: 20px;  
-max-width: 400px;  
+    margin: 20px;
+    max-width: 400px;
 }
 
 .post-card-vue:hover {

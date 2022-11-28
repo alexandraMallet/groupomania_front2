@@ -109,6 +109,7 @@ export default {
 
 .post-card {
     height: fit-content;
+    min-height: 600px;
     width: 95%;
     margin: 20px;
     border: 3px solid lighten($color: $color-tertiary, $amount: 10);
@@ -117,7 +118,6 @@ export default {
     background-color: white;
 
     .post-link {
-        text-decoration: none;
         color: $color-tertiary;
     }
 
@@ -135,7 +135,7 @@ export default {
     .post-created-infos {
         display: flex;
         justify-content: space-between;
-        margin: 10px;
+        margin: 0px 10px;
         font-size: smaller;
         font-weight: 700;
         }

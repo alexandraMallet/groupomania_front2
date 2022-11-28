@@ -35,6 +35,11 @@ h3 {
   color: $color-tertiary;
 }
 
+a {
+        text-decoration: none;
+
+    }
+
 nav {
 
   a {

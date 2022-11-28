@@ -34,9 +34,9 @@ export default {
     padding-left: 20px;
     border: 3px solid $color-secondary;
     border-radius: 20px;
-    text-decoration: none;
     color: $color-tertiary;
     font-size: 12px;
+
 
     img {
         height: 50px;
@@ -50,7 +50,9 @@ export default {
 }
 
 router-link {
-    text-decoration: none;
     color: $color-tertiary;
 }
+
+
+
 </style>

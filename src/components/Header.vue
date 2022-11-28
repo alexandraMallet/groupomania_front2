@@ -69,7 +69,6 @@ export default {
         @include center;
 
         a {
-            text-decoration: none;
             padding: 5px;
         }
     }
