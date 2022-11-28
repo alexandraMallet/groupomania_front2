@@ -6,6 +6,7 @@ import OnePostView from '@/views/OnePostView.vue'
 import ModifyPostView from '@/views/ModifyPostView.vue'
 import OneUserView from '@/views/OneUserView.vue'
 import ModifyUserView from '@/views/ModifyUserView.vue'
+import UsersView from '@/views/UsersView.vue'
 
 const routes = [
   {
@@ -17,6 +18,11 @@ const routes = [
     path: '/connexion',
     name: 'LoginView',
     component: LoginView
+  },
+  {
+    path: '/utilisateurices',
+    name: 'UsersView',
+    component: UsersView
   },
   {
     path: '/publier',

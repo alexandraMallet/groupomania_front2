@@ -27,11 +27,13 @@ export default {
 
 .user-card {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     height: fit-content;
     width: 95%;
     margin: 5px;
-    border: 1px solid $color-secondary;
+    padding-left: 20px;
+    border: 3px solid $color-secondary;
+    border-radius: 20px;
     text-decoration: none;
     color: $color-tertiary;
     font-size: 12px;

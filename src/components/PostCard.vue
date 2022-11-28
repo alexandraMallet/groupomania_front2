@@ -3,15 +3,18 @@
 
         <router-link class="post-link" :to="{ name: 'OnePostView', params: { id: post._id } }">
             <div class="post-content">
-                <p>{{ post.text }}</p>
                 <img :src="post.imageUrl" />
-                <div class="post-infos">
-                    <p>{{ post.createdAt.split("T")[0] }}</p>
-                    <p>{{ post.user[0].pseudo }}</p>
-                    <p v-if="post.modifiedBy"> modifiée par {{ post.modifiedBy }}</p>
-                    <p v-if="post.modifiedAt">le {{ post.modifiedAt.split("T")[0] }}</p>
-
-                </div>
+                <p class="post-text">{{ post.text }}</p>
+               
+                    <div class="post-created-infos">
+                        <p>{{ post.createdAt }}</p>
+                        <p>{{ post.user[0].pseudo }}</p>
+                    </div>
+                    <div class="post-modified-infos">
+                        <p v-if="post.modifiedBy"> modifiée par {{ post.modifiedBy }}</p>
+                        <p v-if="post.modifiedAt">le {{ post.modifiedAt.split("T")[0] }}</p>
+                    </div>
+                
             </div>
         </router-link>
 
@@ -61,11 +64,11 @@ export default {
         }
 
     },
-    // computed: {
-    //     likeStatus() {
-    //         return this.changeLikeStatus();
-    //     }
-    // },
+    computed: {
+        // likeStatus() {
+        //     return this.changeLikeStatus();
+        // }
+    },
     methods: {
         addOrRemoveLike() {
             axios.post('http://localhost:3000/api/post/' + this.post._id + '/like', {}, {
@@ -108,8 +111,10 @@ export default {
     height: fit-content;
     width: 95%;
     margin: 20px;
-    border: 1px solid $color-primary;
+    border: 3px solid lighten($color: $color-tertiary, $amount: 10);
+    border-radius: 20px;
     color: $color-tertiary;
+    background-color: white;
 
     .post-link {
         text-decoration: none;
@@ -117,15 +122,33 @@ export default {
     }
 
     img {
-        height: 100px;
-        width: 100px;
+        width: 100%;
+        border-radius: 17px 17px 0px 0px;
+        border-bottom: 1px solid $color-tertiary;
+
     }
 
-    .post-infos {
+    .post-text {
+        margin: 20px;
+        justify-content: center;
+    }
+    .post-created-infos {
         display: flex;
         justify-content: space-between;
         margin: 10px;
-    }
+        font-size: smaller;
+        font-weight: 700;
+        }
+
+        .post-modified-infos {
+            display: flex;
+            justify-content: right;
+            font-size: smaller;
+             p {
+                margin-right: 10px;
+             }
+        }
+    
 
 }
 

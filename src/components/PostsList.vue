@@ -28,6 +28,10 @@ export default {
         }
     },
     created() {
+
+        const maDate = new Date()
+console.log(maDate);
+console.log(maDate.toLocaleDateString("fr"))
         this.userLogged = JSON.parse(localStorage.userLogged);
 
         axios
@@ -71,7 +75,12 @@ export default {
     width: 95%;
     height: fit-content;
     margin: 5px;
-    border: 1px solid $color-tertiary;
+    background-color: lighten($color: $color-secondary, $amount: 5);
+}
+
+.post-card-vue {
+margin: 20px;  
+max-width: 400px;  
 }
 
 .post-card-vue:hover {
