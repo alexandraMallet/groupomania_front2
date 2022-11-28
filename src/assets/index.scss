@@ -35,25 +35,25 @@ $color-tertiary: #4E5166;
 $breakpoints: (
     xs: 0,
     sm: 600,
-    md: 960,
+    md: 768,
     lg: 1264,
     xl: 1904,
 );
 
 @mixin sm {
-    @media screen and (max-width:959px) {
+    @media screen and (max-width:767px) {
         @content;
     }
 }
 
 @mixin md {
-    @media screen and (min-width:960px) and (max-width:1263px) {
+    @media screen and (min-width:768px) and (max-width:991px) {
         @content;
     }
 }
 
 @mixin lg {
-    @media screen and (min-width:1264px) {
+    @media screen and (min-width:992px) {
         @content;
     }
 }

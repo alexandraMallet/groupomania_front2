@@ -192,19 +192,32 @@ export default {
 
 .connexion-container-small {
   width: 100%;
-}
-
-.login-contener {
-
-  height: 300px;
-  width: 100%;
 
   @include md {
-    margin-top: 100px;
+    width: 70%;
   }
 
   @include lg {
-    margin-top: 100px;
+    width: 70%;
+  }
+}
+
+.login-contener {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 300px;
+  width: 100%;
+  margin-top: 100px;
+
+  @include md {
+    margin: 200px 50px;
+    width: 90%;
+  }
+
+  @include lg {
+    margin: 200px 50px;
+    width: 90%;
   }
 
   form {
@@ -310,7 +323,13 @@ export default {
 
 
 
-.connexion-large img {
-  height: 600px;
+.connexion-large {
+  width: 50%;
+
+  img {
+    width: 500px;
+    margin-right: 50px;
+    margin-top: 50px;
+  }
 }
 </style>

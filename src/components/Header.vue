@@ -1,20 +1,44 @@
 <template>
-    <div class="header-app">
-        <img alt="Logo" src="../assets/icon-left-font-monochrome-white-rogne.png">
+    <mq-responsive target="md+" tag="div">
 
-        <nav v-if="auth">
-            <router-link to="/">accueil</router-link> |
-            <router-link to="/publier">publier</router-link> |
-            <router-link to="/connexion">se déconnecter</router-link>
-        </nav>
-    </div>
+        <div class="header-app-large">
+            <img alt="Logo" src="../assets/icon-left-font-monochrome-white-rogne.png">
+
+            <nav v-if="auth">
+                <router-link to="/">accueil</router-link> |
+                <router-link to="/publier">publier</router-link> |
+                <router-link to="/connexion">se déconnecter</router-link>
+            </nav>
+        </div>
+    </mq-responsive>
+
+    <mq-responsive target="sm-" tag="div">
+        <div class="header-app-small">
+
+            <nav v-if="auth">
+                <router-link to="/">accueil</router-link>
+                <router-link to="/publier">publier</router-link>
+                <router-link to="/connexion">se déconnecter</router-link>
+            </nav>
+        </div>
+
+
+    </mq-responsive>
+
+
+
 </template>
 
 
 <script>
+import { MqResponsive } from "vue3-mq";
+
 
 export default {
     name: 'Header',
+    components: {
+        MqResponsive
+    },
     data() {
         return {
             auth: null
@@ -30,8 +54,42 @@ export default {
 <style scoped lang="scss">
 @import '@/assets/index.scss';
 
+.header-app-small {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    // background-color: $color-secondary;
+    height: fit-content;
+    @include center;
 
-.header-app {
+    nav {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        @include center;
+
+        a {
+            text-decoration: none;
+            padding: 5px;
+        }
+    }
+}
+
+.header-app-small::before {
+    content: "";
+      background-image: url('@/assets/icon-left-font-monochrome-white-rogne.png');
+      min-height: 100px;
+      background-color: $color-secondary;
+      background-size: cover;
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+      opacity: 0.5;
+}
+
+.header-app-large {
     display: flex;
     justify-content: space-between;
     background-color: $color-secondary;
