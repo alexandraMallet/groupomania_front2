@@ -29,7 +29,7 @@ export default {
     display: flex;
     justify-content: space-between;
     height: fit-content;
-    width: 95%;
+    min-width: 200px;
     margin: 5px;
     padding-left: 20px;
     border: 3px solid $color-secondary;
@@ -41,6 +41,7 @@ export default {
     img {
         height: 50px;
         width: 50px;
+        border-radius: 0px 17px 17px 0px;
     }
 }
 

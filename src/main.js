@@ -22,14 +22,16 @@ createApp(App)
     breakpoints: {
       xs: 0,
       sm: 600,
-      md: 960,
-      lg: 1264,
+      md: 768,
+      lg: 992,
       xl: 1904,
     }
   })
 .use(store)
 .use(router)
 .mount('#app')
+
+
 
 
 

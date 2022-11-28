@@ -71,14 +71,7 @@
 
 <script>
 import axios from 'axios';
-
-import { computed } from "vue";
-import { useMq } from "vue3-mq";
 import { MqResponsive } from "vue3-mq";
-// const mq = useMq();
-
-// const showElement = computed(() => mq.current === "md");
-
 import Header from '@/components/Header.vue';
 import Button from '@/components/Button.vue';
 
@@ -208,11 +201,10 @@ export default {
   justify-content: center;
   height: 300px;
   width: 100%;
-  margin-top: 100px;
+  margin-top: 200px;
 
   @include md {
     margin: 200px 50px;
-    width: 90%;
   }
 
   @include lg {
@@ -324,12 +316,10 @@ export default {
 
 
 .connexion-large {
-  width: 50%;
 
   img {
     width: 500px;
-    margin-right: 50px;
-    margin-top: 50px;
+    margin-right: 70px;
   }
 }
 </style>

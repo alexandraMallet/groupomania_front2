@@ -80,13 +80,7 @@ export default {
 }
 
 .my-account {
-    width: fit-content;
     margin: 30px;
-
-    :nth-child(2) {
-        margin-right: 20px;
-        margin-left: 10px;
-    }
 }
 
 .users-nav {

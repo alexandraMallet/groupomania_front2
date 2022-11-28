@@ -77,6 +77,7 @@ export default {
     margin: 10px;
     display: flex;
     flex-wrap: wrap;
+    @include center;
 }
 
 .post-card-vue {

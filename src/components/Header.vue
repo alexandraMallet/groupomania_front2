@@ -58,7 +58,6 @@ export default {
     position: relative;
     display: flex;
     flex-direction: column;
-    // background-color: $color-secondary;
     height: fit-content;
     @include center;
 

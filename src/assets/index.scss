@@ -3,19 +3,11 @@ $color-secondary: #FFD7D7;
 $color-tertiary: #4E5166;
 
 
-// pour importer une mixin : @include
-
-
 @mixin center {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
-@mixin bold {
-    font-weight: bold;
-}
-
 
 @mixin gradientIcon {
     background: linear-gradient($color-primary, $color-secondary);
@@ -24,21 +16,15 @@ $color-tertiary: #4E5166;
 }
 
 
-@mixin ellipse {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
 /*responsive*/
 
-$breakpoints: (
-    xs: 0,
-    sm: 600,
-    md: 768,
-    lg: 1264,
-    xl: 1904,
-);
+// $breakpoints: (
+//     xs: 0,
+//     sm: 600,
+//     md: 768,
+//     lg: 1264,
+//     xl: 1904,
+// );
 
 @mixin sm {
     @media screen and (max-width:767px) {
@@ -57,25 +43,3 @@ $breakpoints: (
         @content;
     }
 }
-
-
-
-// @mixin media($keys...) {
-//     @each $key in $keys {
-//         @media (min-width: map-get($breakpoints, $key)) {
-//             @content
-//         }
-//     }
-// }
-
-// // @mixin tab-only {
-// // @media screen and (min-width:768px) and (max-width: 991px) {
-// //     @content;
-// // }
-// // }
-
-// // @mixin desktop-only {
-// // @media screen and (min-width: 992px) {
-// //     @content;
-// // }
-// // }

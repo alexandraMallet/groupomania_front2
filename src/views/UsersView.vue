@@ -1,94 +1,81 @@
 <template>
 
-    <Header/>
-  
-    <div v-if="authorizedUser" class="my-account">
-        <UserCard v-if="$data.user" :key="user.id" :user="user"  aria-label="aller à mon compte"/>
-    </div>
-  
-    <div class="global-view">
-        <div v-if="userLogged.isAdmin" class="users-contener">
-            <UsersList />
+    <Header />
+
+    <div v-if="userLogged.isAdmin" class="users-contener">
+        
+       <UserCard v-for="user in users" :key="user.id" :user="user" />
         </div>
+
+    <div v-else>
+        <p>Contenu accessible seulement par le compte administrateur</p>
+        <Button :buttonText="buttonTextUnauthorized" @click="redirection" />
+
     </div>
+
+</template>
   
-  </template>
-  
-  <script>
-  
-  import axios from 'axios';
-  import UsersList from '@/components/UsersList.vue';
-  import PostsList from '@/components/PostsList.vue';
-  import UserCard from '@/components/UserCard.vue';
-  import Header from '@/components/Header.vue';
-  
-  export default {
+<script>
+
+import axios from 'axios';
+import UserCard from '@/components/UserCard.vue';
+import PostsList from '@/components/PostsList.vue';
+import Header from '@/components/Header.vue';
+import Button from '@/components/Button.vue';
+
+export default {
     name: 'HomeView',
     components: {
         PostsList,
-        UsersList,
         UserCard,
         Header,
+        Button
     },
     data() {
         return {
-            authorizedUser:false,
             user: {},
-            userLogged:{},
+            users: [],
+            userLogged: {},
             userId: '',
+            buttonTextUnauthorized: "revenir à l'accueil"
         }
     },
     created() {
-  
+
         this.userLogged = JSON.parse(localStorage.userLogged);
-  
-        axios.get('http://localhost:3000/api/auth/' + this.userLogged.userId, {
-            headers: {
-                'Authorization': `Bearer ${this.userLogged.token}`
-            }
-        })
-            .then(response => {
-                this.user = response.data;   
-                this.userId = response.data._id;            
+
+        axios
+            .get("http://localhost:3000/api/auth", {
+                headers: {
+                    'Authorization': `Bearer ${this.userLogged.token}`
+                }
             })
-            .then(() => {
-                if(this.userId === this.userLogged.userId) {
-                    this.authorizedUser = true;
-                } })
-            .catch(() => {this.$router.push('/connexion')});
+            .then(response => {
+                console.log(response.data);
+                this.users = response.data;
+                console.log(this.users);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    },
+    methods: {
+        redirection() {
+            return this.$router.push('/')
+        }
     }
-  }
+}
+
+
+</script>
   
-  
-  </script>
-  
-  <style scoped lang="scss">
-  @import '@/assets/index.scss';
-  .global-view {
+<style scoped lang="scss">
+@import '@/assets/index.scss';
+
+
+.users-contener {
+    margin: 30px;
     display: flex;
-  }
-  
-  .users-contener {
-    width: 25%;
-    margin-right: 30px;
-    border: 1px solid #4E5166;
-  }
-  
-  .posts-contener {
-    width: 65%;
-    margin-right: 30px;
-  }
-  
-  .my-account {
-   display: flex;
-   justify-content: right;
-   width: fit-content;
-   margin: 20px;
-  
-   :nth-child(2) {
-     margin-right: 20px;
-     margin-left: 10px;
-   }
-  }
-  
-  </style>
+    flex-wrap: wrap;
+}
+</style>
