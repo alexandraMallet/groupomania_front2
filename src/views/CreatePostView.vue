@@ -3,19 +3,22 @@
     <div class="form-contener">
         <form class="create-post-form" @submit.prevent="submitPost">
 
-            <label for="text">Que souhaitez-vous partager aujourd'hui ?</label>
-            <textarea id="text" v-model="text" placeholder="votre texte ici"></textarea>
-
-
-            <label class="image style-button" for="image">Choisir une image</label>
-            <input type="file" id="image" class="image-input" name="image" accept="image/png, image/jpeg"
-                @change="handleFileUpload($event)" />
-
-            <div class="base-image-input">
-                <img :src="selectedImageUrl">
+            <div class="text-form">
+                <label for="text">Que souhaitez-vous partager aujourd'hui ?</label>
+                <textarea id="text" v-model="text" placeholder="votre texte ici"></textarea>
             </div>
 
-            <Button :buttonText="buttonText" />
+            <div class="image-form">
+                <label class="image" for="image">Choisir une image</label>
+                <input type="file" id="image" class="image-input" name="image" accept="image/png, image/jpeg"
+                    @change="handleFileUpload($event)" />
+
+                <div class="preview-image">
+                    <img :src="selectedImageUrl">
+                </div>
+            </div>
+
+            <Button class="submit-post" :buttonText="buttonText" />
         </form>
 
     </div>
@@ -89,35 +92,82 @@ export default {
 @import '@/assets/index.scss';
 
 
-.base-image-input {
-    height: 100px;
-    background-size: cover;
-    background-position: center center;
 
-    img {
-        height: 100px;
-    }
-}
 
 .form-contener {
     height: fit-content;
-    width: 95%;
-    border: 1px solid $color-tertiary;
-}
+    width: 100%;
+    display: flex;
+    @include center;
 
-.image-input {
-    display: none;
-}
+    .create-post-form {
+        width: 100%;
+        padding: 20px;
 
-.style-button {
-    display: block;
-    height: fit-content;
-    width: fit-content;
-    padding: 10px 20px 10px 20px;
-    font-size: 12px;
-    background-color: $color-primary;
-    color: $color-tertiary;
-    border-radius: 50px;
-    border: none;
+        .text-form {
+            display: flex;
+            flex-direction: column;
+            padding-top: 30px;
+
+            label {
+                padding-bottom: 20px;
+                font-size: small;
+                font-weight: 700;
+            }
+
+            textarea {
+                min-height: 200px;
+                border: 2px solid $color-tertiary;
+                border-radius: 10px;
+            }
+        }
+
+        .image-form {
+            padding-top: 30px;
+            display: flex;
+            flex-wrap: wrap;
+
+            label {
+                display: block;
+                height: 30px;
+                width: fit-content;
+                min-width: 150px;
+                background-color: $color-secondary;
+                color: $color-tertiary;
+                border-radius: 50px;
+                border: 1px solid $color-primary;
+                @include center;
+                margin: 10px;
+                font-family: 'Lato';
+                font-weight: 700;
+                font-size: 12px;
+
+                &:hover {
+                    cursor: pointer;
+                    transform: scale(1.01);
+                    box-shadow: 0 3px 5px 0 $color-primary;
+                }
+            }
+
+            .image-input {
+                display: none;
+            }
+
+            .preview-image {
+                height: 100px;
+                background-size: cover;
+                margin-left: 30px;
+                padding-top: 30px;
+
+                img {
+                    height: 100px;
+                }
+            }
+        }
+
+        .submit-post {
+            margin: 30px;
+        }
+    }
 }
 </style>

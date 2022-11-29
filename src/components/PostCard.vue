@@ -109,7 +109,9 @@ export default {
 
 .post-card {
     height: fit-content;
-    min-height: 600px;
+    min-height: 200px;
+    max-height: 400px;
+    max-width: 150px;
     width: 95%;
     margin: 20px;
     border: 3px solid lighten($color: $color-tertiary, $amount: 10);
@@ -122,15 +124,17 @@ export default {
     }
 
     img {
+        object-fit: cover;
         width: 100%;
+        height: 150px;
         border-radius: 17px 17px 0px 0px;
         border-bottom: 1px solid $color-tertiary;
-
     }
 
     .post-text {
         margin: 20px;
         justify-content: center;
+        @include ellipse;
     }
     .post-created-infos {
         display: flex;
@@ -138,12 +142,14 @@ export default {
         margin: 0px 10px;
         font-size: smaller;
         font-weight: 700;
+        height: 20px;
         }
 
         .post-modified-infos {
             display: flex;
             justify-content: right;
             font-size: smaller;
+            height: 20px;
              p {
                 margin-right: 10px;
              }

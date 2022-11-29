@@ -9,10 +9,10 @@ $color-tertiary: #4E5166;
     align-items: center;
 }
 
-@mixin gradientIcon {
-    background: linear-gradient($color-primary, $color-secondary);
-    background-clip: text;
-    color: transparent;
+@mixin ellipse {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 

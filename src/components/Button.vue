@@ -23,6 +23,7 @@ export default {
 button {
   height: fit-content;
   width: fit-content;
+  min-width: 150px;
   background-color: $color-secondary;
   color: $color-tertiary;
   border-radius: 50px;

@@ -80,19 +80,23 @@ export default {
 }
 
 .my-account {
-    margin: 30px;
+    margin-right: 30px;
 }
 
 .users-nav {
     display: flex;
     justify-content: right;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    align-items: baseline;
 }
 .users-redirect {
     border: 3px solid $color-secondary;
     border-radius: 20px;
     font-size: 12px;
     width: fit-content;
-    margin: 40px 20px 0px 10px;
+    margin-right: 30px;
     padding-left: 10px;
     padding-right: 10px;
     height: 100%;

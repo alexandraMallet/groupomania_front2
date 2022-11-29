@@ -74,7 +74,6 @@ export default {
 .posts {
     width: 100%;
     height: fit-content;
-    margin: 10px;
     display: flex;
     flex-wrap: wrap;
     @include center;
@@ -82,7 +81,8 @@ export default {
 
 .post-card-vue {
     margin: 20px;
-    max-width: 400px;
+    max-width: 300px;
+    max-height: 300px;
 }
 
 .post-card-vue:hover {
