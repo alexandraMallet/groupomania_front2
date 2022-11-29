@@ -298,14 +298,23 @@ export default {
 
   .style-button {
     display: block;
-    height: fit-content;
-    width: fit-content;
-    padding: 10px 20px 10px 20px;
-    font-size: 12px;
-    background-color: $color-primary;
+    height: 30px;
+    width: 200px;
+    background-color: $color-secondary;
     color: $color-tertiary;
     border-radius: 50px;
-    border: none;
+    border: 1px solid $color-primary;
+    @include center;
+    margin: 10px;
+    font-family: 'Lato';
+    font-weight: 700;
+    font-size: 12px;
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.01);
+      box-shadow: 0 3px 5px 0 $color-primary;
+    }
   }
 
   button {
