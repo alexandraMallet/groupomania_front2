@@ -3,15 +3,20 @@
     <div class="form-contener">
         <form v-if="$data.post" class="create-post-form" @submit.prevent="modifyPost">
 
-            <label for="text">Votre texte : </label>
-            <textarea id="text" v-model="text"></textarea>
+            <div class="text-form">
+                <label for="text">Votre texte : </label>
+                <textarea id="text" v-model="text"></textarea>
+            </div>
 
-            <label class="image style-button" for="image">Modifier l'image</label>
-            <input type="file" id="image" class="image-input" name="image" accept="image/png, image/jpeg"
-                @change="handleFileUpload($event)" />
+            <div class="image-form">
+                <label class="image" for="image">Modifier l'image</label>
+                <input type="file" id="image" class="image-input" name="image" accept="image/png, image/jpeg"
+                    @change="handleFileUpload($event)" />
 
-            <div class="base-image-input">
-                <img :src="imageUrl">
+                <div class="preview-image">
+                    <img :src="imageUrl">
+                </div>
+
             </div>
 
             <Button v-if="rightToChange" :buttonText="buttonText" />
@@ -123,59 +128,80 @@ export default {
 <style scoped lang="scss">
 @import '@/assets/index.scss';
 
-.header-app {
-    display: flex;
-    justify-content: space-between;
-}
-
-nav {
-    padding: 30px;
-
-    a {
-        font-weight: bold;
-        color: $color-tertiary;
-
-        &.router-link-exact-active {
-            color: $color-primary;
-        }
-    }
-}
-
 .form-contener {
     height: fit-content;
-    width: 95%;
-    border: 1px solid $color-tertiary;
-}
+    width: 100%;
+    display: flex;
+    @include center;
 
-.image-input {
-    display: none;
-}
+    .create-post-form {
+        width: 100%;
+        padding: 20px;
 
-.style-button {
-    display: block;
-    height: fit-content;
-    width: fit-content;
-    padding: 10px 20px 10px 20px;
-    font-size: 12px;
-    background-color: $color-primary;
-    color: $color-tertiary;
-    border-radius: 50px;
-    border: none;
-}
+        .text-form {
+            display: flex;
+            flex-direction: column;
+            padding-top: 30px;
 
-.style-button:hover {
-    transform: scale(1.01);
-    box-shadow: 0 3px 5px 0 $color-primary;
-    cursor: pointer;
-}
+            label {
+                padding-bottom: 20px;
+                font-size: small;
+                font-weight: 700;
+            }
 
-.base-image-input {
-  height: 100px;
-  background-size: cover;
-  background-position: center center;
+            textarea {
+                min-height: 200px;
+                border: 2px solid $color-tertiary;
+                border-radius: 10px;
+            }
+        }
 
-  img {
-    height: 100px;
-  }
+        .image-form {
+            padding-top: 30px;
+            display: flex;
+            flex-wrap: wrap;
+
+            label {
+                display: block;
+                height: 30px;
+                width: fit-content;
+                min-width: 150px;
+                background-color: $color-secondary;
+                color: $color-tertiary;
+                border-radius: 50px;
+                border: 1px solid $color-primary;
+                @include center;
+                margin: 10px;
+                font-family: 'Lato';
+                font-weight: 700;
+                font-size: 12px;
+
+                &:hover {
+                    cursor: pointer;
+                    transform: scale(1.01);
+                    box-shadow: 0 3px 5px 0 $color-primary;
+                }
+            }
+
+            .image-input {
+                display: none;
+            }
+
+            .preview-image {
+                height: 100px;
+                background-size: cover;
+                margin-left: 30px;
+                padding-top: 30px;
+
+                img {
+                    height: 100px;
+                }
+            }
+        }
+
+        .submit-post {
+            margin: 30px;
+        }
+    }
 }
 </style>
