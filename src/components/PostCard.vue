@@ -78,16 +78,6 @@ export default {
                 .then(() => { this.$emit('update-like') })
                 .catch(() => console.log("erreur front"));
         },
-        // changeLikeStatus() {
-        //     const usersLiked = this.post.usersLiked
-        //     console.log(this.post.usersLiked);
-        //     console.log(usersLiked)
-        //     console.log(this.userLogged.userId)
-        //     if (usersLiked) {
-        //         this.likeStatus = usersLiked.find(u => u === this.userLogged.userId);
-        //         console.log(this.likeStatus)
-        //     }
-        // }
     }
 }
 </script>

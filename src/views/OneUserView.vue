@@ -1,18 +1,25 @@
 <template>
 
-    <Header/>
+    <Header />
 
     <div v-if="$data.user" class="user-card">
         <div v-if="authorized" class="one-profile">
-            <p>{{ user.pseudo }}</p>
-            <img :src="user.avatarUrl" />
-            <p>{{ user.email }}</p>
-            <div v-if="posts.length" class="user-posts">
-                <PostCard v-for="post in posts" :key="post.id" :post="post" />
+
+            <div class="user-infos">
+                <p>{{ user.pseudo }}</p>
+                <img :src="user.avatarUrl" />
             </div>
-            <div v-else>
-                <p>Aucune publication disponible</p>
+
+            <div v-if="$data.user.posts" class="user-posts">
+                <div v-if="posts.length" class="user-posts-list">
+                    <PostCard v-for="post in antechrono" :key="post.id" :post="post" class="post-card"
+                        @update-like="updateLike" />
+                </div>
+                <div v-else class="no-posts">
+                    <p>Il n'y a pas de publications de cette personne.</p>
+                </div>
             </div>
+
         </div>
         <div v-else>
             <p>Ce compte n'est pas le vôtre : informations non-accessibles</p>
@@ -55,6 +62,11 @@ export default {
             posts: []
         }
     },
+    computed: {
+        antechrono() {
+            return [...this.posts].reverse();
+        }
+    },
     created() {
         this.userLogged = JSON.parse(localStorage.userLogged);
         this.userId = this.$route.params.id;
@@ -83,7 +95,28 @@ export default {
 
     },
     methods: {
-
+        updateLike() {
+            axios.get('http://localhost:3000/api/auth/' + this.userId, {
+                headers: {
+                    'Authorization': `Bearer ${this.userLogged.token}`
+                }
+            })
+                .then(response => {
+                    console.log(response.data);
+                    this.user = response.data;
+                    this.posts = this.user.posts;
+                })
+                .then(() => {
+                    if (this.userId === this.userLogged.userId) {
+                        this.rightToModify = true;
+                    }
+                    if ((this.userId === this.userLogged.userId) || this.userLogged.isAdmin) {
+                        this.authorized = true;
+                        this.rightToDelete = true;
+                    }
+                })
+                .catch(error => console.log(error));
+        },
         linkToModify() {
             this.$router.push('/modifier-compte/' + this.userId);
         },
@@ -103,20 +136,6 @@ export default {
                 .catch(error => console.log(error));
 
         }
-
-
-        // addOrRemoveLike() {
-        //     const user = JSON.parse(localStorage.user);
-
-        //     axios.post('http://localhost:3000/api/post/:id/like', {
-        //         'like': 1,
-        //         headers: {
-        //             'Authorization': `Bearer ${user.token}`
-        //         }
-        //     })
-        //         .then(() => console.log("publication likée"))
-        //         .catch((error) => console.log(error));
-        // }
     }
 }
 </script>
@@ -125,42 +144,54 @@ export default {
 @import '@/assets/index.scss';
 
 .user-card {
-    height: fit-content;
-    width: 95%;
-    margin: 20px;
-    border: 1px solid $color-primary;
+    padding: 20px;
 
-    img {
-        height: 100px;
-        width: 100px;
-    }
-
-    .post-infos {
+    .user-infos {
         display: flex;
-        justify-content: space-between;
-        margin: 10px;
-    }
-}
-
-.like-dislike {
-    display: flex;
-
-    button {
-        position: relative;
-        height: 25px;
-        width: 25px;
-        border-radius: 50px;
-        box-shadow: none;
+        justify-content: space-around;
+        font-size: large;
+        font-weight: 700;
+        margin-top: 30px;
 
         img {
-            position: absolute;
-            left: 0px;
-            top: 0px;
-            height: 25px;
-            width: 25px;
+            width: 100px;
+            border: 2px solid $color-tertiary;
+            border-radius: 50px;
         }
     }
 
+    .user-posts {
+        min-width: 302px;
+        margin-top: 30px;
+        @include center;
 
+        .post-card {
+            min-width: 300px;
+        }
+
+        .user-posts-list {
+            @include md {
+                display: flex;
+                flex-wrap: wrap;
+                @include center;
+            }
+
+            @include lg {
+                display: flex;
+                flex-wrap: wrap;
+                @include center;
+            }
+
+        }
+
+        .no-posts {
+            border: 3px solid $color-secondary;
+            border-radius: 30px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+
+    }
 }
 </style>
