@@ -78,7 +78,9 @@ export default {
       background-image: url('@/assets/icon-left-font-monochrome-white-rogne.png');
       min-height: 100px;
       background-color: $color-secondary;
-      background-size: cover;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
       position: absolute;
       top: 0px;
       right: 0px;

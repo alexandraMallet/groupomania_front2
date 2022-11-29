@@ -29,9 +29,6 @@ export default {
     },
     created() {
 
-        const maDate = new Date()
-        console.log(maDate);
-        console.log(maDate.toLocaleDateString("fr"))
         this.userLogged = JSON.parse(localStorage.userLogged);
 
         axios

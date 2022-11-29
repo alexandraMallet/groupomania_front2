@@ -5,16 +5,16 @@
             <div class="post-content">
                 <img :src="post.imageUrl" />
                 <p class="post-text">{{ post.text }}</p>
-               
-                    <div class="post-created-infos">
-                        <p>{{ post.createdAt }}</p>
-                        <p>{{ post.user[0].pseudo }}</p>
-                    </div>
-                    <div class="post-modified-infos">
-                        <p v-if="post.modifiedBy"> modifiée par {{ post.modifiedBy }}</p>
-                        <p v-if="post.modifiedAt">le {{ post.modifiedAt.split("T")[0] }}</p>
-                    </div>
-                
+
+                <div class="post-created-infos">
+                    <p>{{ post.createdAt }}</p>
+                    <p>{{ post.user[0].pseudo }}</p>
+                </div>
+                <div class="post-modified-infos">
+                    <p v-if="post.modifiedBy"> modifiée par {{ post.modifiedBy }}</p>
+                    <p v-if="post.modifiedAt">le {{ post.modifiedAt.split("T")[0] }}</p>
+                </div>
+
             </div>
         </router-link>
 
@@ -55,19 +55,17 @@ export default {
     created() {
         this.userLogged = JSON.parse(localStorage.userLogged);
 
-        const usersLiked = this.post.usersLiked
-        console.log(usersLiked)
-        console.log(this.userLogged.userId)
-        if (usersLiked) {
-            this.likeStatus = usersLiked.find(u => u === this.userLogged.userId);
-            console.log(this.likeStatus)
-        }
-
     },
     computed: {
-        // likeStatus() {
-        //     return this.changeLikeStatus();
-        // }
+        likeStatus() {
+
+            const usersLiked = this.post.usersLiked
+            console.log(usersLiked)
+            console.log(this.userLogged.userId)
+            if (usersLiked) {
+                return usersLiked.find(u => u === this.userLogged.userId);
+            }
+        }
     },
     methods: {
         addOrRemoveLike() {
@@ -77,16 +75,6 @@ export default {
                     'Authorization': `Bearer ${this.userLogged.token}`
                 }
             })
-                .then(() => {
-                    const usersLiked = this.post.usersLiked
-                    console.log(this.post.usersLiked);
-                    console.log(usersLiked)
-                    console.log(this.userLogged.userId)
-                    if (usersLiked) {
-                        this.likeStatus = usersLiked.find(u => u === this.userLogged.userId);
-                        console.log(this.likeStatus)
-                    }
-                })
                 .then(() => { this.$emit('update-like') })
                 .catch(() => console.log("erreur front"));
         },
@@ -136,6 +124,7 @@ export default {
         justify-content: center;
         @include ellipse;
     }
+
     .post-created-infos {
         display: flex;
         justify-content: space-between;
@@ -143,18 +132,19 @@ export default {
         font-size: smaller;
         font-weight: 700;
         height: 20px;
-        }
+    }
 
-        .post-modified-infos {
-            display: flex;
-            justify-content: right;
-            font-size: smaller;
-            height: 20px;
-             p {
-                margin-right: 10px;
-             }
+    .post-modified-infos {
+        display: flex;
+        justify-content: right;
+        font-size: smaller;
+        height: 20px;
+
+        p {
+            margin-right: 10px;
         }
-    
+    }
+
 
 }
 

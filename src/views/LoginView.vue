@@ -12,7 +12,7 @@
           <input class="input-email" v-model="email" />
 
           <label for="password">votre mot de passe :</label>
-          <input class="input-password" v-model="password" />
+          <input type="password" class="input-password" v-model="password" />
 
           <p>Identifiants oubliés ?
             <br />Merci de prendre contact avec le service informatique.
@@ -39,7 +39,7 @@
           <input class="input-email" id="email" v-model="email" />
 
           <label for="password">Choisissez un mot de passe (au moins 8 caractères, sans espace) :</label>
-          <input class="input-password" id="password" v-model="password" />
+          <input type="password" class="input-password" id="password" v-model="password" />
 
           <label for="pseudo">Choisissez un pseudo :</label>
           <input class="pseudo" id="pseudo" v-model="pseudo" />

@@ -4,9 +4,9 @@
 
     <div v-if="$data.post" class="post-card">
 
-
-        <p>{{ post.text }}</p>
         <img :src="post.imageUrl" />
+
+        <p class="post-text">{{ post.text }}</p>
         <div v-if="$data.post" class="post-infos">
             <p>{{ post.createdAt.split("T")[0] }}</p>
             <p>{{ post.user[0].pseudo }}</p>
@@ -143,23 +143,49 @@ export default {
 
 .post-card {
     height: fit-content;
-    width: 95%;
     margin: 20px;
-    border: 1px solid $color-primary;
+    border: 3px solid lighten($color: $color-tertiary, $amount: 10);
+    border-radius: 20px;
     color: $color-tertiary;
+    background-color: white;
+
 
     img {
-        height: 100px;
-        width: 100px;
+        object-fit: cover;
+        width: 100%;
+        height: 150px;
+        border-radius: 17px 17px 0px 0px;
+        border-bottom: 1px solid $color-tertiary;
     }
 
-    .post-infos {
+    .post-text {
+        margin: 20px;
+        justify-content: center;
+    }
+
+    .post-created-infos {
         display: flex;
         justify-content: space-between;
-        margin: 10px;
+        margin: 0px 10px;
+        font-size: smaller;
+        font-weight: 700;
+        height: 20px;
     }
 
+    .post-modified-infos {
+        display: flex;
+        justify-content: right;
+        font-size: smaller;
+        height: 20px;
+
+        p {
+            margin-right: 10px;
+        }
+    }
+
+
 }
+
 .like-info {
     display: flex;
     margin-left: 20px;
@@ -168,6 +194,9 @@ export default {
         margin-left: 5px;
         margin-right: 10px;
     }
+
+
+
     .no-like {
         height: 20px;
         color: $color-secondary;
