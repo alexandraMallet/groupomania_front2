@@ -17,7 +17,7 @@
             <input type="file" id="image" class="image-input" name="image" accept="image/png, image/jpeg"
                 @change="handleFileUpload($event)" />
 
-            <div class="base-image-input">
+            <div class="preview-image">
                 <img :src="avatarUrl">
             </div>
 
@@ -149,63 +149,72 @@ export default {
 <style scoped lang="scss">
 @import '@/assets/index.scss';
 
-.header-app {
+form {
+    margin-top: 50px;
     display: flex;
-    justify-content: space-between;
-}
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
 
-nav {
-    padding: 30px;
-
-    a {
-        font-weight: bold;
-        color: $color-tertiary;
-
-        &.router-link-exact-active {
-            color: $color-primary;
-        }
+    input {
+      margin-top: 10px;
+      height: 30px;
+      width: 300px;
+      margin-bottom: 20px;
+      border-color: $color-secondary;
     }
-}
 
-.form-contener {
-    height: fit-content;
-    width: 95%;
-    border: 1px solid $color-tertiary;
-}
+    .image-input {
+      display: none;
+    }
 
-.image-input {
-    display: none;
-}
+    .preview-image {
+      height: 100px;
+      margin-top: 20px;
+      background-size: cover;
+      background-position: center center;
 
-.style-button {
+      img {
+        height: 100px;
+      }
+    }
+
+  }
+
+  .return {
+    margin-left: 20px;
+    margin-top: 30px;
+
+    button {
+      margin-bottom: 0;
+    }
+  }
+
+
+
+  .style-button {
     display: block;
-    height: fit-content;
-    width: fit-content;
-    padding: 10px 20px 10px 20px;
-    font-size: 12px;
-    background-color: $color-primary;
+    height: 30px;
+    width: 200px;
+    background-color: $color-secondary;
     color: $color-tertiary;
     border-radius: 50px;
-    border: none;
-}
+    border: 1px solid $color-primary;
+    @include center;
+    margin: 10px;
+    font-family: 'Lato';
+    font-weight: 700;
+    font-size: 12px;
 
-.style-button:hover {
-    transform: scale(1.01);
-    box-shadow: 0 3px 5px 0 $color-primary;
-    cursor: pointer;
-}
-
-img {
-    height: 100px;
-}
-
-.base-image-input {
-  height: 100px;
-  background-size: cover;
-  background-position: center center;
-
-  img {
-    height: 100px;
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.01);
+      box-shadow: 0 3px 5px 0 $color-primary;
+    }
   }
-}
+
+  button {
+    margin-top: 30px;
+  }
+
 </style>

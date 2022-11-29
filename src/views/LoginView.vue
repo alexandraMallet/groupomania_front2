@@ -48,7 +48,7 @@
           <input type="file" id="image" class="image-input" name="image" accept="image/png, image/jpeg"
             @change="handleFileUpload($event)" />
 
-          <div class="base-image-input">
+          <div class="preview-image">
             <img :src="selectedImageUrl">
           </div>
 
@@ -272,7 +272,7 @@ export default {
       display: none;
     }
 
-    .base-image-input {
+    .preview-image {
       height: 100px;
       margin-top: 20px;
       background-size: cover;
