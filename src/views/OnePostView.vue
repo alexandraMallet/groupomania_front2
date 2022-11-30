@@ -139,7 +139,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '@/assets/index.scss';
+@import '@/styles/index.scss';
 
 .post-card {
     height: fit-content;

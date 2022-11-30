@@ -38,8 +38,9 @@
           <label for="email">email :</label>
           <input class="input-email" id="email" v-model="email" />
 
-          <label for="password">Choisissez un mot de passe (au moins 8 caractères, sans espace) :</label>
-          <input type="password" class="input-password" id="password" v-model="password" />
+          <label for="password">Choisissez un mot de passe :</label>
+          <input type="password" class="input-password" id="password" v-model="password"
+            placeholder="au moins 8 caractères, sans espace" />
 
           <label for="pseudo">Choisissez un pseudo :</label>
           <input class="pseudo" id="pseudo" v-model="pseudo" />
@@ -176,39 +177,30 @@ export default {
 </script>
   
 <style scoped lang="scss">
-@import '@/assets/index.scss';
+@import '@/styles/index.scss';
 
 .connexion-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .connexion-container-small {
   width: 100%;
-
-  @include md {
-    width: 70%;
-  }
-
-  @include lg {
-    width: 70%;
-  }
 }
 
 .login-contener {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 300px;
   width: 100%;
   margin-top: 200px;
 
   @include md {
-    margin: 200px 50px;
+    margin-top: 200px;
   }
 
   @include lg {
-    margin: 200px 50px;
+    margin-top: 200px;
     width: 90%;
   }
 
@@ -222,16 +214,12 @@ export default {
     input {
       margin-top: 10px;
       height: 30px;
-      width: 300px;
+      width: 250px;
+      border-color: $color-secondary;
     }
 
     .input-email {
       margin-bottom: 20px;
-      border-color: $color-secondary;
-    }
-
-    .input-password {
-      border-color: $color-secondary;
     }
 
     p {
@@ -245,16 +233,32 @@ export default {
     justify-content: right;
     margin-top: 20px;
     margin-right: 20px;
+
+    p {
+      font-size: small;
+    }
   }
 }
 
 .signup-container {
 
-  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   width: 100%;
+  margin-top: 100px;
+
+  @include md {
+    margin-top: 100px;
+  }
+
+  @include lg {
+    margin-top: 100px;
+    width: 90%;
+  }
 
   form {
-    margin-top: 30px;
+    margin: 50px;
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -262,9 +266,9 @@ export default {
 
     input {
       margin-top: 10px;
-      height: 30px;
-      width: 300px;
       margin-bottom: 20px;
+      height: 30px;
+      width: 250px;
       border-color: $color-secondary;
     }
 
@@ -323,12 +327,16 @@ export default {
 }
 
 
-
 .connexion-large {
 
+  width: 100%;
+  background-color: $color-secondary;
+  @include center;
+
   img {
-    width: 500px;
-    margin-right: 70px;
+    max-width: 100%;
+    max-height: 100%;
   }
+  
 }
 </style>

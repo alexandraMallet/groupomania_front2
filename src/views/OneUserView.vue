@@ -141,7 +141,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '@/assets/index.scss';
+@import '@/styles/index.scss';
 
 .user-card {
     padding: 20px;
@@ -189,6 +189,7 @@ export default {
             border-radius: 30px;
             padding-left: 10px;
             padding-right: 10px;
+            text-align: center;
         }
 
 
