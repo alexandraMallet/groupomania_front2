@@ -18,16 +18,17 @@
                 @change="handleFileUpload($event)" />
 
             <div class="preview-image">
-                <img :src="avatarUrl">
+                <img :src="avatarUrl"/>
             </div>
 
             <Button v-if="rightToModify" :buttonText="buttonTextSave" />
         </form>
     </div>
 
-    <div v-else>
-        <p>Ce compte n'est pas le vôtre
-            <br />Vous ne pouvez pas le modifier
+    <div v-else class="unauthorized">
+        <img :src="avatarUrl"/>
+        <p>Ce compte n'est pas le vôtre,
+            <br />vous ne pouvez pas le modifier.
         </p>
         <Button :buttonText="buttonTextUnauthorized" @click="redirection" />
 
@@ -215,6 +216,19 @@ form {
 
   button {
     margin-top: 30px;
+  }
+
+  .unauthorized {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    img {
+        height: 100px;
+        border-radius: 50px;
+        border: 2px solid $color-tertiary;
+      }
   }
 
 </style>

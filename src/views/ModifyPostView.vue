@@ -1,6 +1,8 @@
 <template>
     <Header />
-    <div class="form-contener">
+
+
+    <div v-if="rightToChange" class="form-contener">
         <form v-if="$data.post" class="create-post-form" @submit.prevent="modifyPost">
 
             <div class="text-form">
@@ -22,7 +24,13 @@
             <Button v-if="rightToChange" :buttonText="buttonText" />
         </form>
 
-        <Button v-if="!rightToChange" :buttonText="buttonTextUnauthorized" @click="redirection" />
+    </div>
+
+    <div v-if="!rightToChange" class="unauthorized">
+
+        <img :src="imageUrl">
+        <p>Cette publication n'est pas la vôtre, vous ne pouvez pas la modifier.</p>
+        <Button :buttonText="buttonTextUnauthorized" @click="redirection" />
     </div>
 
 
@@ -44,7 +52,7 @@ export default {
     data() {
         return {
             buttonText: 'enregistrer les modifications',
-            buttonTextUnauthorized: 'vous ne pouvez pas modifier cette publication',
+            buttonTextUnauthorized: "revenir à l'accueil",
             post: '',
             text: '',
             userLoggedPseudo: '',
@@ -203,5 +211,12 @@ export default {
             margin: 30px;
         }
     }
+}
+
+.unauthorized {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 </style>

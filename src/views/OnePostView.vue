@@ -4,15 +4,19 @@
 
     <div v-if="$data.post" class="post-card">
 
-        <img :src="post.imageUrl" />
+        <div class="img-container">
+            <img :src="post.imageUrl" />
+        </div>
 
         <p class="post-text">{{ post.text }}</p>
-        <div v-if="$data.post" class="post-infos">
-            <p>{{ post.createdAt.split("T")[0] }}</p>
+
+        <div class="post-created-infos">
+            <p>{{ post.createdAt }}</p>
             <p>{{ post.user[0].pseudo }}</p>
+        </div>
+        <div class="post-modified-infos">
             <p v-if="post.modifiedBy"> modifiée par {{ post.modifiedBy }}</p>
             <p v-if="post.modifiedAt">le {{ post.modifiedAt.split("T")[0] }}</p>
-
         </div>
 
         <div class="like-info">
@@ -143,24 +147,30 @@ export default {
 
 .post-card {
     height: fit-content;
-    margin: 20px;
+    margin: 50px 20px 30px 20px;
     border: 3px solid lighten($color: $color-tertiary, $amount: 10);
     border-radius: 20px;
     color: $color-tertiary;
     background-color: white;
 
+    .img-container {
+        @include center;
 
-    img {
-        object-fit: cover;
-        width: 100%;
-        height: 150px;
-        border-radius: 17px 17px 0px 0px;
-        border-bottom: 1px solid $color-tertiary;
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            margin: 30px;
+        }
+
     }
+
+
+
 
     .post-text {
         margin: 20px;
-        justify-content: center;
+        text-align: justify;
+        line-height: 1.5em;
     }
 
     .post-created-infos {
