@@ -9,10 +9,10 @@
       <div v-if="!showSignup" class="login-contener">
         <form class="login" @submit.prevent="login">
           <label for="email">votre email :</label>
-          <input class="input-email" v-model="email" />
+          <input class="input-email" v-model="email" required/>
 
           <label for="password">votre mot de passe :</label>
-          <input type="password" class="input-password" v-model="password" />
+          <input type="password" class="input-password" v-model="password" required/>
 
           <p>Identifiants oubliés ?
             <br />Merci de prendre contact avec le service informatique.
@@ -36,18 +36,18 @@
 
         <form class="signup-form" @submit.prevent="signup">
           <label for="email">email :</label>
-          <input class="input-email" id="email" v-model="email" />
+          <input class="input-email" id="email" v-model="email" required/>
 
           <label for="password">Choisissez un mot de passe :</label>
           <input type="password" class="input-password" id="password" v-model="password"
-            placeholder="au moins 8 caractères, sans espace" />
+            placeholder="au moins 8 caractères, sans espace" required/>
 
           <label for="pseudo">Choisissez un pseudo :</label>
-          <input class="pseudo" id="pseudo" v-model="pseudo" />
+          <input class="pseudo" id="pseudo" v-model="pseudo" required/>
 
           <div class="image-form">
             <input type="file" id="image" class="image-input" name="image" accept="image/png, image/jpeg"
-              @change="handleFileUpload($event)" />
+              @change="handleFileUpload($event)" required/>
             <label class="label-image" for="image">Choisir une photo de profil</label>
           </div>
 
