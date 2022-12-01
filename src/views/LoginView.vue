@@ -318,6 +318,7 @@ export default {
         margin-top: 0px;
         margin-bottom: 0px;
         width: 150px;
+        opacity: 0;
 
         &:focus {
           outline: none;
