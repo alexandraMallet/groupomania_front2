@@ -120,10 +120,10 @@ export default {
     }
 
     .post-text {
+        height: 20px;
         margin: 20px;
         justify-content: center;
         @include ellipse;
-        flex-grow: 1;
     }
 
     .post-created-infos {

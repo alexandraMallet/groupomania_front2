@@ -5,7 +5,7 @@
 
             <div class="text-form">
                 <label for="text">Que souhaitez-vous partager aujourd'hui ?</label>
-                <textarea id="text" v-model="text" placeholder="votre texte ici" required></textarea>
+                <textarea id="text" v-model="text" placeholder="votre texte ici"></textarea>
             </div>
 
             <div class="image-form">
