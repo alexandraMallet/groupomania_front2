@@ -3,7 +3,8 @@
 
         <router-link class="post-link" :to="{ name: 'OnePostView', params: { id: post._id } }">
             <div class="post-content">
-                <img :src="post.imageUrl" />
+                <img v-if="post.imageUrl" class="post-image" :src="post.imageUrl" />
+                <img v-if="!post.imageUrl" class="post-logo" src="@/assets/logo-only.png"/>
                 <p class="post-text">{{ post.text }}</p>
 
                 <div class="post-created-infos">
@@ -101,18 +102,28 @@ export default {
         color: $color-tertiary;
     }
 
-    img {
+   
+
+    .post-image {
         object-fit: cover;
         width: 100%;
         height: 150px;
         border-radius: 17px 17px 0px 0px;
-        border-bottom: 1px solid $color-tertiary;
+    }
+
+    .post-logo {
+        object-fit: cover;
+        width: 100%;
+        height: 150px;
+        border-radius: 17px 17px 0px 0px;
+        border-bottom: none;
     }
 
     .post-text {
         margin: 20px;
         justify-content: center;
         @include ellipse;
+        flex-grow: 1;
     }
 
     .post-created-infos {
