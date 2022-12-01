@@ -45,9 +45,12 @@
           <label for="pseudo">Choisissez un pseudo :</label>
           <input class="pseudo" id="pseudo" v-model="pseudo" />
 
-          <label class="image style-button" for="image">Choisir une photo de profil</label>
-          <input type="file" id="image" class="image-input" name="image" accept="image/png, image/jpeg"
-            @change="handleFileUpload($event)" />
+          <div class="image-form">
+            <input type="file" id="image" class="image-input" name="image" accept="image/png, image/jpeg"
+              @change="handleFileUpload($event)" />
+            <label class="label-image" for="image">Choisir une photo de profil</label>
+          </div>
+
 
           <div class="preview-image">
             <img :src="selectedImageUrl">
@@ -257,6 +260,15 @@ export default {
     width: 90%;
   }
 
+  .return {
+    margin-left: 20px;
+    margin-top: 30px;
+
+    button {
+      margin-bottom: 0;
+    }
+  }
+
   form {
     margin: 50px;
     display: flex;
@@ -272,8 +284,51 @@ export default {
       border-color: $color-secondary;
     }
 
-    .image-input {
-      display: none;
+    .image-form {
+      position: relative;
+      margin-top: 10px;
+
+      label {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 150px;
+        height: 30px;
+        background-color: $color-secondary;
+        color: $color-tertiary;
+        border-radius: 50px;
+        border: 1px solid $color-primary;
+        @include center;
+        font-family: 'Lato';
+        font-weight: 700;
+        font-size: 12px;
+
+        &:hover {
+          cursor: pointer;
+          transform: scale(1.01);
+          box-shadow: 0 3px 5px 0 $color-primary;
+        }
+      }
+
+      input {
+        display: inline-block;
+        font-size: 5px;
+        border: none;
+        margin-left: 5px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        width: 150px;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+    .image-input:focus+label,
+    .image-input:focus-visible+label,
+    .image-input:focus-within+label {
+      transform: scale(1.01);
+      box-shadow: 0 3px 5px 0 $color-primary;
     }
 
     .preview-image {
@@ -289,43 +344,12 @@ export default {
 
   }
 
-  .return {
-    margin-left: 20px;
-    margin-top: 30px;
-
-    button {
-      margin-bottom: 0;
-    }
-  }
-
-
-
-  .style-button {
-    display: block;
-    height: 30px;
-    width: 200px;
-    background-color: $color-secondary;
-    color: $color-tertiary;
-    border-radius: 50px;
-    border: 1px solid $color-primary;
-    @include center;
-    margin: 10px;
-    font-family: 'Lato';
-    font-weight: 700;
-    font-size: 12px;
-
-    &:hover {
-      cursor: pointer;
-      transform: scale(1.01);
-      box-shadow: 0 3px 5px 0 $color-primary;
-    }
-  }
-
   button {
     margin-top: 30px;
   }
-}
 
+
+}
 
 .connexion-large {
 
@@ -337,6 +361,6 @@ export default {
     max-width: 100%;
     max-height: 100%;
   }
-  
+
 }
 </style>

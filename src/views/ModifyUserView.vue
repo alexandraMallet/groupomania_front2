@@ -182,17 +182,6 @@ form {
 
   }
 
-  .return {
-    margin-left: 20px;
-    margin-top: 30px;
-
-    button {
-      margin-bottom: 0;
-    }
-  }
-
-
-
   .style-button {
     display: block;
     height: 30px;
