@@ -11,9 +11,9 @@
             </div>
 
             <div class="image-form">
-                <label class="image" for="image">Modifier l'image</label>
                 <input type="file" id="image" class="image-input" name="image" accept="image/png, image/jpeg"
                     @change="handleFileUpload($event)" />
+                <label class="image" for="image">Modifier l'image</label>
 
                 <div class="preview-image">
                     <img :src="imageUrl">
@@ -165,21 +165,20 @@ export default {
         }
 
         .image-form {
-            padding-top: 30px;
-            display: flex;
-            flex-wrap: wrap;
+            position: relative;
+            margin-top: 10px;
 
             label {
-                display: block;
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                width: 150px;
                 height: 30px;
-                width: fit-content;
-                min-width: 150px;
                 background-color: $color-secondary;
                 color: $color-tertiary;
                 border-radius: 50px;
                 border: 1px solid $color-primary;
                 @include center;
-                margin: 10px;
                 font-family: 'Lato';
                 font-weight: 700;
                 font-size: 12px;
@@ -191,8 +190,26 @@ export default {
                 }
             }
 
-            .image-input {
-                display: none;
+            input {
+                display: inline-block;
+                font-size: 5px;
+                border: none;
+                margin-left: 5px;
+                margin-top: 0px;
+                margin-bottom: 0px;
+                width: 150px;
+                opacity: 0;
+
+                &:focus {
+                    outline: none;
+                }
+            }
+
+            .image-input:focus+label,
+            .image-input:focus-visible+label,
+            .image-input:focus-within+label {
+                transform: scale(1.01);
+                box-shadow: 0 3px 5px 0 $color-primary;
             }
 
             .preview-image {
