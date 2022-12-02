@@ -1,8 +1,12 @@
 <template>
     <Header />
 
+    <div v-if="rightToChange" class="title">
+        <h1>modifier cette publication :</h1>
+    </div>
 
     <div v-if="rightToChange" class="form-contener">
+
         <form v-if="$data.post" class="create-post-form" @submit.prevent="modifyPost">
 
             <div class="text-form">
@@ -29,11 +33,11 @@
     <div v-if="!rightToChange" class="unauthorized">
 
         <img :src="imageUrl">
-        <p>Cette publication n'est pas la vôtre, vous ne pouvez pas la modifier.</p>
+        <h2>Cette publication n'est pas la vôtre, vous ne pouvez pas la modifier.</h2>
         <Button :buttonText="buttonTextUnauthorized" @click="redirection" />
     </div>
 
-    <Footer class="footer"/>
+    <Footer class="footer" />
 
 </template>
 
@@ -138,6 +142,17 @@ export default {
 <style scoped lang="scss">
 @import '@/styles/index.scss';
 
+.title {
+    @include center;
+
+    h1 {
+        margin-top: 30px;
+        margin-bottom: 0px;
+        text-align: center;
+
+    }
+}
+
 .form-contener {
     height: fit-content;
     width: 100%;
@@ -236,6 +251,9 @@ export default {
     padding: 30px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    @include center;
+    text-align: center;
+    min-height: 500px;
+    line-height: 1.5;
 }
 </style>

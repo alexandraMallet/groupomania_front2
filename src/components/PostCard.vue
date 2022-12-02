@@ -3,8 +3,8 @@
 
         <router-link class="post-link" :to="{ name: 'OnePostView', params: { id: post._id } }">
             <div class="post-content">
-                <img v-if="post.imageUrl" class="post-image" :src="post.imageUrl" />
-                <img v-if="!post.imageUrl" class="post-logo" src="@/assets/logo-only.png"/>
+                <img v-if="post.imageUrl" class="post-image" :src="post.imageUrl" :alt="altText" />
+                <img v-if="!post.imageUrl" class="post-logo" src="@/assets/logo-only.png" alt="logo de l'entreprise"/>
                 <p class="post-text">{{ post.text }}</p>
 
                 <div class="post-created-infos">
@@ -37,7 +37,6 @@
 <script>
 
 import axios from 'axios'
-// import { computed } from 'vue'
 
 export default {
     name: 'PostCard',
@@ -66,6 +65,9 @@ export default {
             if (usersLiked) {
                 return usersLiked.find(u => u === this.userLogged.userId);
             }
+        },
+        altText() {
+            return `image de ${this.post.user[0].pseudo}`
         }
     },
     methods: {

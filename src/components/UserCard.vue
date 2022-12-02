@@ -3,7 +3,7 @@
 
         <div class="user-card">
             <p>{{ user.pseudo }}</p>
-            <img :src="user.avatarUrl" />
+            <img :src="user.avatarUrl" :alt="altText"/>
         </div>
 
     </router-link>
@@ -17,6 +17,11 @@ export default {
         user: {
             type: Object,
             required: true
+        }
+    },
+    computed : {
+        altText () {
+            return `photo de profil de ${this.user.pseudo}`
         }
     }
 }

@@ -28,7 +28,7 @@ h1 {
 }
 
 h2 {
-  color: $color-secondary;
+  color: $color-tertiary;
 }
 
 h3 {
@@ -47,7 +47,7 @@ nav {
     color: $color-tertiary;
 
     &.router-link-exact-active {
-      color: $color-primary;
+      color: darken($color: $color-primary, $amount: 10)
     }
 
     &:hover {

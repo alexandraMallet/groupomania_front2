@@ -66,6 +66,7 @@ export default {
         display: flex;
         flex-direction: column;
         @include center;
+        margin-top: 30px;
 
         a {
             padding: 5px;
@@ -76,7 +77,7 @@ export default {
 .header-app-small::before {
     content: "";
       background-image: url('@/assets/icon-left-font-monochrome-white-rogne.png');
-      min-height: 100px;
+      min-height: 150px;
       background-color: $color-secondary;
       background-size: contain;
       background-repeat: no-repeat;

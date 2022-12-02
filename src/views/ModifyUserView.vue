@@ -1,29 +1,34 @@
 <template>
     <Header />
     <div v-if="rightToModify" class="form-contener">
+
+        <div class="title">
+            <h1>modifier votre profil :</h1>
+        </div>
+
         <form v-if="$data.user" class="create-post-form" @submit.prevent="modifyUser">
 
             <label for="email">email :</label>
-            <input class="input-email" id="email" v-model="email" required/>
+            <input class="input-email" id="email" v-model="email" required />
 
             <label for="password">nouveau mot de passe, le cas échéant :</label>
             <input class="input-password" id="password" v-model="password" />
 
             <label for="userPseudo">Pseudo :</label>
-            <input class="user-pseudo" id="userPseudo" v-model="userPseudo" required/>
+            <input class="user-pseudo" id="userPseudo" v-model="userPseudo" required />
 
 
             <div class="image-form">
                 <input type="file" id="image" class="image-input" name="image" accept="image/png, image/jpeg"
-                    @change="handleFileUpload($event)" required/>
+                    @change="handleFileUpload($event)" required />
                 <label class="image" for="image">Modifier votre photo de profil</label>
 
                 <div class="preview-image">
-                    <img :src="avatarUrl">
+                    <img :src="avatarUrl" alt="photo de profil">
                 </div>
             </div>
 
-    
+
 
             <Button v-if="rightToModify" :buttonText="buttonTextSave" />
         </form>
@@ -38,7 +43,7 @@
 
     </div>
 
-    <Footer class="footer"/>
+    <Footer class="footer" />
 </template>
 
 <script>
@@ -158,6 +163,25 @@ export default {
 <style scoped lang="scss">
 @import '@/styles/index.scss';
 
+.title {
+    @include center;
+
+    h1 {
+        margin-top: 100px;
+        margin-bottom: 0px;
+        text-align: center;
+
+        @include md {
+            margin-top: 50px;
+        }
+
+        @include lg {
+            margin-top: 50px;
+        }
+
+    }
+}
+
 form {
     margin-top: 50px;
     display: flex;
@@ -274,5 +298,4 @@ button {
         border: 2px solid $color-tertiary;
     }
 }
-
 </style>

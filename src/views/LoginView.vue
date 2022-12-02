@@ -1,18 +1,23 @@
 <template>
 
+
   <div class="connexion-container">
     <div class="connexion-container-small">
       <mq-responsive target="sm-" tag="div">
         <Header />
       </mq-responsive>
 
+      <div class="title">
+        <h1>Bienvenue sur votre réseau social d'entreprise</h1>
+      </div>
+
       <div v-if="!showSignup" class="login-contener">
         <form class="login" @submit.prevent="login">
           <label for="email">votre email :</label>
-          <input id="email" class="input-email" v-model="email" required/>
+          <input id="email" class="input-email" v-model="email" required />
 
           <label for="password">votre mot de passe :</label>
-          <input type="password" id="password" class="input-password" v-model="password" required/>
+          <input type="password" id="password" class="input-password" v-model="password" required />
 
           <p>Identifiants oubliés ?
             <br />Merci de prendre contact avec le service informatique.
@@ -36,18 +41,18 @@
 
         <form class="signup-form" @submit.prevent="signup">
           <label for="email">email :</label>
-          <input class="input-email" id="email" v-model="email" required/>
+          <input class="input-email" id="email" v-model="email" required />
 
           <label for="password">Choisissez un mot de passe :</label>
           <input type="password" class="input-password" id="password" v-model="password"
-            placeholder="au moins 8 caractères, sans espace" required/>
+            placeholder="au moins 8 caractères, sans espace" required />
 
           <label for="pseudo">Choisissez un pseudo :</label>
-          <input class="pseudo" id="pseudo" v-model="pseudo" required/>
+          <input class="pseudo" id="pseudo" v-model="pseudo" required />
 
           <div class="image-form">
             <input type="file" id="image" class="image-input" name="image" accept="image/png, image/jpeg"
-              @change="handleFileUpload($event)" required/>
+              @change="handleFileUpload($event)" required />
             <label class="label-image" for="image">Choisir une photo de profil</label>
           </div>
 
@@ -65,7 +70,7 @@
 
     <mq-responsive target="md+" tag="div">
       <div class="connexion-large">
-        <img src="@/assets/logo.png" alt="logo de l'entreprise"/>
+        <img src="@/assets/logo.png" alt="logo de l'entreprise" />
       </div>
     </mq-responsive>
 
@@ -103,6 +108,18 @@ export default {
   },
   methods: {
     login() {
+
+      const validEmail = /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/;
+      const validPassword = /^[^\s]{8,}$/;
+
+      
+  if (!this.email.match(validEmail)) {
+    return alert("Veuillez renseigner un email valide")
+  }
+  if (!this.password.match(validPassword)) {
+    return alert("Votre mot de passe comporte au moins 6 caractères, sans espaces")
+  }
+ 
       axios.post('http://localhost:3000/api/auth/login', {
         'email': this.email,
         'password': this.password
@@ -140,6 +157,16 @@ export default {
       formData.append('image', this.file);
       console.log(formData);
 
+      const validEmail = /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/;
+      const validPassword = /^[^\s]{8,}$/;
+
+      
+  if (!this.email.match(validEmail)) {
+    return alert("Veuillez renseigner un email valide")
+  }
+  if (!this.password.match(validPassword)) {
+    return alert("Veuillez choisir un mot de passe d'au moins 6 caractères, sans espaces")
+  }
 
       axios.post('http://localhost:3000/api/auth/signup',
         formData
@@ -182,6 +209,19 @@ export default {
 <style scoped lang="scss">
 @import '@/styles/index.scss';
 
+.title {
+  margin-top: 200px;
+  margin-bottom: 50px;
+  @include center;
+
+  h1 {
+    margin-top: 30px;
+    margin-bottom: 0px;
+    text-align: center;
+
+  }
+}
+
 .connexion-container {
   display: flex;
   justify-content: space-between;
@@ -196,19 +236,18 @@ export default {
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  margin-top: 200px;
+  margin-top: 30px;
 
   @include md {
-    margin-top: 200px;
+    margin-top: 30px;
   }
 
   @include lg {
-    margin-top: 200px;
+    margin-top: 30px;
     width: 90%;
   }
 
   form {
-    margin-top: 50px;
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -249,14 +288,14 @@ export default {
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  margin-top: 100px;
+  margin-top: 30px;
 
   @include md {
-    margin-top: 100px;
+    margin-top: 30px;
   }
 
   @include lg {
-    margin-top: 100px;
+    margin-top: 30px;
     width: 90%;
   }
 
@@ -266,6 +305,8 @@ export default {
 
     button {
       margin-bottom: 0;
+      padding-left: 0;
+      padding-right: 0;
     }
   }
 
@@ -325,6 +366,7 @@ export default {
         }
       }
     }
+
     .image-input:focus+label,
     .image-input:focus-visible+label,
     .image-input:focus-within+label {

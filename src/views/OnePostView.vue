@@ -1,11 +1,14 @@
 <template>
     <Header />
 
+    <div class="title">
+        <h1>publication de {{ post.user[0].pseudo }}, du {{ post.createdAt }}</h1>
+    </div>
 
     <div v-if="$data.post" class="post-card">
 
         <div class="img-container">
-            <img :src="post.imageUrl" />
+            <img :src="post.imageUrl" :alt="altText" />
         </div>
 
         <p class="post-text">{{ post.text }}</p>
@@ -37,7 +40,7 @@
         <Button type="submit" :buttonText="buttonTextSupprimer" @click="deletePost" />
     </div>
 
-    <Footer class="footer"/>
+    <Footer class="footer" />
 
 </template>
 
@@ -64,6 +67,11 @@ export default {
             rightToChange: false,
             postId: '',
             likeStatus: false
+        }
+    },
+    computed: {
+        altText() {
+            return `image de ${this.post.user[0].pseudo}`
         }
     },
     created() {
@@ -149,6 +157,25 @@ export default {
 <style scoped lang="scss">
 @import '@/styles/index.scss';
 
+.title {
+    margin-left: 50px;
+
+    h1 {
+        margin-top: 100px;
+        margin-bottom: 0px;
+        font-size: large;
+
+        @include md {
+            margin-top: 50px;
+        }
+
+        @include lg {
+            margin-top: 50px;
+        }
+
+    }
+}
+
 .post-card {
     height: fit-content;
     margin: 50px 20px 30px 20px;
@@ -231,5 +258,4 @@ export default {
         cursor: pointer;
     }
 }
-
 </style>

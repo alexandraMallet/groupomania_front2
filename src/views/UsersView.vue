@@ -2,6 +2,10 @@
 
     <Header />
 
+    <div class="title">
+        <h1>les membre du réseau social de Groupomania</h1>
+    </div>
+
     <div v-if="userLogged.isAdmin" class="users-contener">
 
         <UserCard v-for="user in users" :key="user.id" :user="user" />
@@ -76,8 +80,31 @@ export default {
 <style scoped lang="scss">
 @import '@/styles/index.scss';
 
+.title {
+    @include center;
+    margin-top: 50px;
+    margin-left: 20px;
+    margin-right: 20px;
 
-.users-contener, .unauthorized {
+    h1 {
+        margin-top: 30px;
+        margin-bottom: 0px;
+        text-align: center;
+
+    }
+
+    @include md {
+        margin-top: 50px;
+    }
+
+    @include lg {
+        margin-top: 50px;
+    }
+}
+
+
+.users-contener,
+.unauthorized {
     margin: 30px;
     @include center;
     flex-wrap: wrap;

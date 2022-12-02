@@ -2,12 +2,16 @@
 
     <Header />
 
+    <div class="title">
+        <h1>profil de :</h1>
+    </div>
+
     <div v-if="$data.user" class="user-card">
         <div v-if="authorized" class="one-profile">
 
             <div class="user-infos">
-                <p>{{ user.pseudo }}</p>
-                <img :src="user.avatarUrl" />
+                <h2>{{ user.pseudo }}</h2>
+                <img :src="user.avatarUrl" :alt="altText"/>
             </div>
 
             <div v-if="$data.user.posts" class="user-posts">
@@ -69,6 +73,9 @@ export default {
     computed: {
         antechrono() {
             return [...this.posts].reverse();
+        },
+        altText() {
+            return `photo de profil de ${this.user.pseudo}`
         }
     },
     created() {
@@ -147,14 +154,31 @@ export default {
 <style scoped lang="scss">
 @import '@/styles/index.scss';
 
+.title {
+    margin-left: 50px;
+
+    h1 {
+        margin-top: 100px;
+        margin-bottom: 0px;
+        font-size: large;
+
+        @include md {
+            margin-top: 50px;
+        }
+
+        @include lg {
+            margin-top: 50px;
+        }
+
+    }
+}
+
 .user-card {
     padding: 20px;
 
     .user-infos {
         display: flex;
         justify-content: space-around;
-        font-size: large;
-        font-weight: 700;
         margin-top: 30px;
 
         img {

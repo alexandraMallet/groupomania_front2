@@ -15,6 +15,10 @@
         </div>
     </div>
 
+    <div class="title">
+        <h1>dernières publications en ligne :</h1>
+    </div>
+
     <div class="posts-contener">
         <PostsList />
     </div>
@@ -75,7 +79,16 @@ export default {
 <style scoped lang="scss">
 @import '@/styles/index.scss';
 
+.title {
+    @include center;
 
+    h1 {
+        margin-top: 0px;
+        margin-bottom: 30px;
+        text-align: center;
+
+    }
+}
 
 .posts-contener {
     width: 100%;
@@ -92,8 +105,16 @@ export default {
     justify-content: right;
     flex-wrap: wrap;
     margin-bottom: 30px;
-    margin-top: 30px;
+    margin-top: 70px;
     align-items: baseline;
+
+    @include md {
+        margin-top: 30px;
+    }
+
+    @include lg {
+        margin-top: 30px;
+    }
 }
 .users-redirect {
     border: 3px solid $color-secondary;
