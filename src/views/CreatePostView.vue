@@ -22,6 +22,7 @@
         </form>
 
     </div>
+
 </template>
 
 <script>
@@ -34,7 +35,7 @@ export default {
     name: 'CreatePostView',
     components: {
         Button,
-        Header
+        Header,
     },
     data() {
         return {

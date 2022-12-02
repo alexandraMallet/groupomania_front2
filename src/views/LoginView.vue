@@ -9,10 +9,10 @@
       <div v-if="!showSignup" class="login-contener">
         <form class="login" @submit.prevent="login">
           <label for="email">votre email :</label>
-          <input class="input-email" v-model="email" required/>
+          <input id="email" class="input-email" v-model="email" required/>
 
           <label for="password">votre mot de passe :</label>
-          <input type="password" class="input-password" v-model="password" required/>
+          <input type="password" id="password" class="input-password" v-model="password" required/>
 
           <p>Identifiants oubliés ?
             <br />Merci de prendre contact avec le service informatique.
@@ -65,7 +65,7 @@
 
     <mq-responsive target="md+" tag="div">
       <div class="connexion-large">
-        <img src="@/assets/logo.png" />
+        <img src="@/assets/logo.png" alt="logo de l'entreprise"/>
       </div>
     </mq-responsive>
 
