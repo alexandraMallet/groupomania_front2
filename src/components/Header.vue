@@ -2,7 +2,7 @@
     <mq-responsive target="md+" tag="div">
 
         <div class="header-app-large">
-            <img alt="Logo" src="../assets/icon-left-font-monochrome-white-rogne.png">
+            <img alt="Logo de l'entreprise" src="../assets/icon-left-font-monochrome-white-rogne.png">
 
             <nav v-if="auth">
                 <router-link to="/">accueil</router-link> |

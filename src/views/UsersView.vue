@@ -3,15 +3,17 @@
     <Header />
 
     <div v-if="userLogged.isAdmin" class="users-contener">
-        
-       <UserCard v-for="user in users" :key="user.id" :user="user" />
-        </div>
 
-    <div v-else>
+        <UserCard v-for="user in users" :key="user.id" :user="user" />
+    </div>
+
+    <div v-else class="unauthorized">
         <p>Contenu accessible seulement par le compte administrateur</p>
         <Button :buttonText="buttonTextUnauthorized" @click="redirection" />
 
     </div>
+
+    <Footer class="footer" />
 
 </template>
   
@@ -21,6 +23,7 @@ import axios from 'axios';
 import UserCard from '@/components/UserCard.vue';
 import PostsList from '@/components/PostsList.vue';
 import Header from '@/components/Header.vue';
+import Footer from '@/components/Footer.vue';
 import Button from '@/components/Button.vue';
 
 export default {
@@ -29,6 +32,7 @@ export default {
         PostsList,
         UserCard,
         Header,
+        Footer,
         Button
     },
     data() {
@@ -73,9 +77,15 @@ export default {
 @import '@/styles/index.scss';
 
 
-.users-contener {
+.users-contener, .unauthorized {
     margin: 30px;
-    display: flex;
+    @include center;
     flex-wrap: wrap;
+    min-height: 500px;
+}
+
+.unauthorized {
+    flex-direction: column;
+    text-align: center;
 }
 </style>

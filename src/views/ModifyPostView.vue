@@ -33,7 +33,7 @@
         <Button :buttonText="buttonTextUnauthorized" @click="redirection" />
     </div>
 
-
+    <Footer class="footer"/>
 
 </template>
 
@@ -41,13 +41,15 @@
 
 import axios from 'axios';
 import Header from '@/components/Header.vue';
+import Footer from '@/components/Footer.vue';
 import Button from '@/components/Button.vue';
 
 export default {
     name: 'ModifyPostView',
     components: {
         Button,
-        Header
+        Header,
+        Footer
     },
     data() {
         return {

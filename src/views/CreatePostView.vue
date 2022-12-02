@@ -1,11 +1,15 @@
 <template>
     <Header />
+    <div class="title">
+        <h1>Que souhaitez-vous partager aujourd'hui ?</h1>
+    </div>
+
     <div class="form-contener">
         <form class="create-post-form" @submit.prevent="submitPost">
 
             <div class="text-form">
-                <label for="text">Que souhaitez-vous partager aujourd'hui ?</label>
-                <textarea id="text" v-model="text" placeholder="votre texte ici"></textarea>
+                <label for="text">votre texte :</label>
+                <textarea id="text" v-model="text"></textarea>
             </div>
 
             <div class="image-form">
@@ -14,7 +18,7 @@
                 <label class="image" for="image">Choisir une image</label>
 
                 <div class="preview-image">
-                    <img :src="selectedImageUrl">
+                    <img :src="selectedImageUrl" />
                 </div>
             </div>
 
@@ -23,6 +27,7 @@
 
     </div>
 
+    <Footer class="footer" />
 </template>
 
 <script>
@@ -30,12 +35,14 @@
 import axios from 'axios';
 import Header from '@/components/Header.vue';
 import Button from '@/components/Button.vue';
+import Footer from '@/components/Footer.vue';
 
 export default {
     name: 'CreatePostView',
     components: {
         Button,
         Header,
+        Footer
     },
     data() {
         return {
@@ -92,7 +99,16 @@ export default {
 <style scoped lang="scss">
 @import '@/styles/index.scss';
 
+.title {
+    @include center;
 
+    h1 {
+        margin-top: 30px;
+        margin-bottom: 0px;
+        text-align: center;
+
+    }
+}
 
 
 .form-contener {
@@ -108,7 +124,7 @@ export default {
         .text-form {
             display: flex;
             flex-direction: column;
-            padding-top: 30px;
+            margin-bottom: 20px;
 
             label {
                 padding-bottom: 20px;

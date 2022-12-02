@@ -49,7 +49,15 @@ nav {
     &.router-link-exact-active {
       color: $color-primary;
     }
+
+    &:hover {
+      transform: scale(1.05);
+    }
   }
+}
+
+.footer {
+  margin-top: 50px;
 }
 
 </style>

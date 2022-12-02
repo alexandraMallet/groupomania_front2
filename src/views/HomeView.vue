@@ -19,6 +19,7 @@
         <PostsList />
     </div>
 
+    <Footer class="footer"/>
 
 </template>
 
@@ -28,6 +29,7 @@ import axios from 'axios';
 import PostsList from '@/components/PostsList.vue';
 import UserCard from '@/components/UserCard.vue';
 import Header from '@/components/Header.vue';
+import Footer from '@/components/Footer.vue';
 
 export default {
     name: 'HomeView',
@@ -35,6 +37,7 @@ export default {
         PostsList,
         UserCard,
         Header,
+        Footer
     },
     data() {
         return {
@@ -77,6 +80,7 @@ export default {
 .posts-contener {
     width: 100%;
     background-color: lighten($color: $color-secondary, $amount: 5);
+    padding-bottom: 30px;
 }
 
 .my-account {

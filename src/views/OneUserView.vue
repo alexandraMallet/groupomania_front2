@@ -32,6 +32,8 @@
     <Button v-if="rightToModify" :buttonText="buttonTextModifier" @click="linkToModify" />
     <Button v-if="rightToDelete" :buttonText="buttonTextSupprimer" @click="deleteUser" />
 
+    <Footer class="footer"/>
+
 </template>
 
 <script>
@@ -39,6 +41,7 @@
 import axios from 'axios'
 import Button from '@/components/Button.vue';
 import Header from '@/components/Header.vue';
+import Footer from '@/components/Footer.vue';
 import PostCard from '@/components/PostCard.vue';
 
 export default {
@@ -47,6 +50,7 @@ export default {
         Button,
         PostCard,
         Header,
+        Footer
     },
     data() {
         return {

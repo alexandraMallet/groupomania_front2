@@ -37,19 +37,23 @@
         <Button type="submit" :buttonText="buttonTextSupprimer" @click="deletePost" />
     </div>
 
+    <Footer class="footer"/>
+
 </template>
 
 <script>
 
 import axios from 'axios'
 import Header from '@/components/Header.vue';
+import Footer from '@/components/Footer.vue';
 import Button from '@/components/Button.vue';
 
 export default {
     name: 'OnePostView',
     components: {
         Button,
-        Header
+        Header,
+        Footer
     },
     data() {
         return {
@@ -226,8 +230,6 @@ export default {
         transform: scale(1.09);
         cursor: pointer;
     }
-
-
-
 }
+
 </style>

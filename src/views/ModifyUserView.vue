@@ -37,6 +37,8 @@
         <Button :buttonText="buttonTextUnauthorized" @click="redirection" />
 
     </div>
+
+    <Footer class="footer"/>
 </template>
 
 <script>
@@ -44,6 +46,7 @@
 import axios from 'axios';
 import Button from '@/components/Button.vue';
 import Header from '@/components/Header.vue';
+import Footer from '@/components/Footer.vue';
 import UserCard from '@/components/UserCard.vue';
 
 export default {
@@ -51,6 +54,7 @@ export default {
     components: {
         Button,
         Header,
+        Footer,
         UserCard
     },
     data() {
@@ -270,4 +274,5 @@ button {
         border: 2px solid $color-tertiary;
     }
 }
+
 </style>
